@@ -330,9 +330,11 @@ function ResidentialLanding() {
               <div className="absolute top-10 left-10">
                 <Wifi size={72} className="text-primary-foreground" strokeWidth={1.5} />
               </div>
-              <div className="absolute bottom-10 right-10 text-primary-foreground text-right">
-                <div className="text-7xl font-extrabold leading-none">1<span className="text-3xl">Giga</span></div>
-                <div className="mt-2 text-primary-foreground/80 text-sm">Wi-Fi 6 + Mesh incluído</div>
+              <div className="absolute inset-0 flex flex-col justify-end items-end p-10">
+                <div className="text-primary-foreground text-right">
+                  <div className="text-7xl font-extrabold leading-none">1<span className="text-3xl">Giga</span></div>
+                  <div className="mt-2 text-primary-foreground/80 text-sm">Wi-Fi 6 + Mesh incluído</div>
+                </div>
               </div>
             </div>
             <div className="absolute -bottom-6 -left-6 bg-card p-4 rounded-2xl border border-border shadow-[var(--shadow-card)] flex items-center gap-3">
