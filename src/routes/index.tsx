@@ -327,14 +327,12 @@ function ResidentialLanding() {
               style={{ background: "var(--gradient-primary)" }}>
               <div className="absolute inset-0 opacity-20"
                 style={{ backgroundImage: "radial-gradient(circle at 70% 30%, white, transparent 50%)" }} />
-              <div className="relative h-full flex flex-col justify-end items-end">
-                <div className="text-primary-foreground text-right">
-                  <div className="text-7xl font-extrabold">1<span className="text-3xl">Giga</span></div>
-                  <div className="mt-2 text-primary-foreground/80">Wi-Fi 6 + Mesh incluído</div>
-                </div>
-              </div>
               <div className="absolute top-10 left-10">
                 <Wifi size={72} className="text-primary-foreground" strokeWidth={1.5} />
+              </div>
+              <div className="absolute bottom-10 left-10 text-primary-foreground">
+                <div className="text-7xl font-extrabold leading-none">1<span className="text-3xl">Giga</span></div>
+                <div className="mt-2 text-primary-foreground/80 text-sm">Wi-Fi 6 + Mesh incluído</div>
               </div>
             </div>
             <div className="absolute -bottom-6 -left-6 bg-card p-4 rounded-2xl border border-border shadow-[var(--shadow-card)] flex items-center gap-3">
