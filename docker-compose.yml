@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  vbz:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    volumes:
+      - ./traefik-vbz.yml:/etc/traefik/conf.d/vbz.yml:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vbz.rule=Host(`vbz.com.br`,`www.vbz.com.br`)"
+      - "traefik.http.routers.vbz.entrypoints=websecure"
+      - "traefik.http.routers.vbz.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.vbz.service=vbz"
+      - "traefik.http.services.vbz.loadbalancer.server.port=3000"
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
+    name: coolify

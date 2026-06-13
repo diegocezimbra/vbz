@@ -1,0 +1,18 @@
+http:
+  routers:
+    vbz-https:
+      rule: Host(`vbz.com.br`, `www.vbz.com.br`)
+      entryPoints: websecure
+      service: vbz-service
+      tls:
+        certResolver: letsencrypt
+    vbz-http:
+      rule: Host(`vbz.com.br`, `www.vbz.com.br`)
+      entryPoints: http
+      service: vbz-service
+
+  services:
+    vbz-service:
+      loadBalancer:
+        servers:
+          - url: http://vbz-vbz-1:3000
