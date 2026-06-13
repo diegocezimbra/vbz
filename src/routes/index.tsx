@@ -268,7 +268,7 @@ function BusinessLanding() {
               Conversa com nosso time em menos de 2 horas.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <a href="#" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-primary text-primary-foreground font-semibold hover:shadow-[var(--shadow-glow)] transition">
+              <a href="https://wa.me/5535998423386" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-primary text-primary-foreground font-semibold hover:shadow-[var(--shadow-glow)] transition">
                 <MessageCircle size={18} /> WhatsApp
               </a>
               <a href="tel:08002823258" className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/10 border border-white/20 text-background font-semibold hover:bg-white/15 transition">
@@ -488,7 +488,7 @@ function Footer() {
   const cols = [
     { t: "Produtos", l: ["VBZ Fibra pra empresa", "Internet com Streaming", "Internet Gamer", "Home Office", "Wi-Fi 6"] },
     { t: "Ajuda", l: ["Segunda via", "Suporte técnico", "Mudar plano", "Cancelamento", "Central de ajuda"] },
-    { t: "Atendimento", l: ["WhatsApp 21 3605 1000", "0800 001 1000", "Casa: 0800 031 0453", "Empresas: 0800 282 3258"] },
+    { t: "Atendimento", l: ["WhatsApp 35 9 9842 3386", "0800 001 1000", "Casa: 0800 031 0453", "Empresas: 0800 282 3258"] },
     { t: "Institucional", l: ["Sobre a VBZ", "Trabalhe conosco", "Imprensa", "Termos e contratos", "Privacidade"] },
   ];
   return (
@@ -505,7 +505,12 @@ function Footer() {
             <div key={c.t}>
               <div className="font-bold mb-4">{c.t}</div>
               <ul className="space-y-2.5 text-sm text-background/60">
-                {c.l.map((i) => <li key={i}><a href="#" className="hover:text-background transition">{i}</a></li>)}
+                {c.l.map((i) => {
+                  let href = "#";
+                  if (i.includes("WhatsApp")) href = "https://wa.me/5535998423386";
+                  else if (i.includes("0800")) href = `tel:${i.replace(/\D/g, "")}`;
+                  return <li key={i}><a href={href} target={href.startsWith("https") ? "_blank" : undefined} rel={href.startsWith("https") ? "noopener noreferrer" : undefined} className="hover:text-background transition">{i}</a></li>;
+                })}
               </ul>
             </div>
           ))}
