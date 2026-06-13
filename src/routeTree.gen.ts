@@ -9,8 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermoConsentimentoRouteImport } from './routes/termo-consentimento'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TermoConsentimentoRoute = TermoConsentimentoRouteImport.update({
+  id: '/termo-consentimento',
+  path: '/termo-consentimento',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +25,39 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/termo-consentimento': typeof TermoConsentimentoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/termo-consentimento': typeof TermoConsentimentoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/termo-consentimento': typeof TermoConsentimentoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/termo-consentimento'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/termo-consentimento'
+  id: '__root__' | '/' | '/termo-consentimento'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  TermoConsentimentoRoute: typeof TermoConsentimentoRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/termo-consentimento': {
+      id: '/termo-consentimento'
+      path: '/termo-consentimento'
+      fullPath: '/termo-consentimento'
+      preLoaderRoute: typeof TermoConsentimentoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +70,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  TermoConsentimentoRoute: TermoConsentimentoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

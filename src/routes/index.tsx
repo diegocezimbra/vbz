@@ -489,7 +489,7 @@ function Footer() {
     { t: "Produtos", l: ["VBZ Fibra pra empresa", "Internet com Streaming", "Internet Gamer", "Home Office", "Wi-Fi 6"] },
     { t: "Ajuda", l: ["Segunda via", "Suporte técnico", "Mudar plano", "Cancelamento", "Central de ajuda"] },
     { t: "Atendimento", l: ["WhatsApp 35 9 9842 3386", "0800 001 1000", "Casa: 0800 031 0453", "Empresas: 0800 282 3258"] },
-    { t: "Institucional", l: ["Sobre a VBZ", "Trabalhe conosco", "Imprensa", "Termos e contratos", "Privacidade"] },
+    { t: "Legal", l: ["Termo de Consentimento", "Política de Privacidade", "Termos e contratos", "Trabalhe conosco"] },
   ];
   return (
     <footer className="bg-foreground text-background pt-20 pb-10 px-6">
@@ -509,6 +509,7 @@ function Footer() {
                   let href = "#";
                   if (i.includes("WhatsApp")) href = "https://wa.me/5535998423386";
                   else if (i.includes("0800")) href = `tel:${i.replace(/\D/g, "")}`;
+                  else if (i.includes("Termo")) href = "/termo-consentimento";
                   return <li key={i}><a href={href} target={href.startsWith("https") ? "_blank" : undefined} rel={href.startsWith("https") ? "noopener noreferrer" : undefined} className="hover:text-background transition">{i}</a></li>;
                 })}
               </ul>
