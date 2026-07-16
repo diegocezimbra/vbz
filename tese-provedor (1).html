@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tese · Provedor de Internet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=JetBrains+Mono:wght@400;500;700&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #f4f0e6;
+  --paper-2: #ebe5d4;
+  --ink: #14110d;
+  --ink-soft: #4a4339;
+  --rule: #1a1611;
+  --accent: #b8390e;
+  --accent-2: #1f4e7a;
+  --tag-green: #2c5530;
+  --tag-amber: #92580e;
+  --tag-red: #9c1c1c;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter Tight', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.55;
+  font-size: 16px;
+  background-image:
+    linear-gradient(rgba(20,17,13,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20,17,13,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.frame {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 56px 48px 120px;
+}
+
+/* ====== HEADER / HERO ====== */
+header {
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding: 24px 0 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.doc-id { color: var(--ink-soft); }
+.doc-id strong { color: var(--ink); }
+
+.hero {
+  padding: 80px 0 48px;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+.hero::before {
+  content: 'DOC.01';
+  position: absolute;
+  top: 32px;
+  right: 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  letter-spacing: 0.1em;
+}
+
+.eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+  display: inline-block;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--accent);
+}
+
+h1 {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: clamp(48px, 8vw, 96px);
+  line-height: 0.96;
+  letter-spacing: -0.03em;
+  font-variation-settings: 'opsz' 144, 'SOFT' 30, 'WONK' 1;
+  margin-bottom: 32px;
+}
+h1 em {
+  font-style: italic;
+  color: var(--accent);
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+}
+
+.lede {
+  font-family: 'Fraunces', serif;
+  font-weight: 300;
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.55;
+  max-width: 720px;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* ====== SECTION ====== */
+.section {
+  padding: 72px 0 24px;
+  border-bottom: 1px solid var(--rule);
+}
+.section-head {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 32px;
+  margin-bottom: 48px;
+  align-items: start;
+}
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  padding-top: 8px;
+}
+.section-num::before {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 1px;
+  background: var(--ink);
+  margin-bottom: 12px;
+}
+h2 {
+  font-family: 'Fraunces', serif;
+  font-weight: 400;
+  font-size: clamp(32px, 4.5vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-variation-settings: 'opsz' 144, 'SOFT' 30;
+}
+h2 em {
+  font-style: italic;
+  color: var(--accent);
+}
+.section-intro {
+  grid-column: 2;
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 640px;
+  color: var(--ink-soft);
+  margin-top: 18px;
+}
+
+/* ====== CARDS ====== */
+.card-grid {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 32px;
+}
+.card {
+  border-top: 1px solid var(--rule);
+  padding: 28px 0;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 48px;
+  grid-column: 2;
+}
+.card:last-child { border-bottom: 1px solid var(--rule); }
+
+.card-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+  font-variation-settings: 'opsz' 36, 'SOFT' 30;
+}
+.card-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1px solid var(--ink);
+  background: var(--paper-2);
+  color: var(--ink);
+  margin-bottom: 14px;
+  margin-right: 6px;
+}
+.card-tag.green { border-color: var(--tag-green); color: var(--tag-green); background: rgba(44,85,48,0.06); }
+.card-tag.amber { border-color: var(--tag-amber); color: var(--tag-amber); background: rgba(146,88,14,0.06); }
+.card-tag.red   { border-color: var(--tag-red); color: var(--tag-red); background: rgba(156,28,28,0.06); }
+
+.card-body { font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
+.card-body p + p { margin-top: 12px; }
+.card-body strong { color: var(--ink); }
+
+.card-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--ink);
+  border-left: 1px solid var(--rule);
+  padding: 4px 0 4px 24px;
+}
+.card-meta dt {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+  font-size: 10px;
+  margin-top: 12px;
+}
+.card-meta dt:first-child { margin-top: 0; }
+.card-meta dd { font-weight: 500; padding-bottom: 2px; }
+.card-meta .price { font-size: 14px; color: var(--accent); font-weight: 700; }
+
+/* ====== ROADMAP ====== */
+.roadmap {
+  margin-top: 24px;
+  border: 1px solid var(--rule);
+  background: var(--paper-2);
+  padding: 32px;
+  grid-column: 2;
+}
+.roadmap h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  color: var(--ink-soft);
+}
+.roadmap-row {
+  display: grid;
+  grid-template-columns: 130px 1fr 60px;
+  gap: 16px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(20,17,13,0.15);
+  align-items: baseline;
+  font-size: 14px;
+}
+.roadmap-row:first-of-type { border-top: 0; }
+.roadmap-row .when {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.roadmap-row .when.green { color: var(--tag-green); }
+.roadmap-row .when.amber { color: var(--tag-amber); }
+.roadmap-row .when.red   { color: var(--tag-red); }
+.roadmap-row .what { font-weight: 500; }
+.roadmap-row .why { font-size: 13px; color: var(--ink-soft); margin-top: 2px; }
+.roadmap-row .why::before { content: '— '; }
+
+/* ====== INSIGHTS ====== */
+.insights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  grid-column: 2;
+}
+.insight {
+  border-top: 2px solid var(--accent);
+  padding-top: 18px;
+}
+.insight-num {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--accent);
+  margin-bottom: 12px;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;
+}
+.insight h4 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.insight p { font-size: 14px; line-height: 1.6; color: var(--ink-soft); }
+
+/* ====== FREE TOOLS ====== */
+.tools-list {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border-left: 1px solid var(--rule);
+  border-top: 1px solid var(--rule);
+}
+.tool {
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 28px;
+  position: relative;
+}
+.tool-num {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  letter-spacing: 0.1em;
+}
+.tool h4 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+  padding-right: 60px;
+  font-variation-settings: 'opsz' 36, 'SOFT' 30;
+}
+.tool p { font-size: 14px; line-height: 1.55; color: var(--ink-soft); margin-bottom: 14px; }
+.tool .lead-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border-top: 1px dashed var(--rule);
+  padding-top: 12px;
+  display: block;
+}
+
+/* ====== FOOTER ====== */
+footer {
+  margin-top: 80px;
+  padding-top: 32px;
+  border-top: 2px solid var(--ink);
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+footer strong { color: var(--ink); }
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 900px) {
+  .frame { padding: 32px 20px 80px; }
+  .section-head { grid-template-columns: 1fr; gap: 16px; }
+  .section-intro { grid-column: 1; }
+  .card-grid { grid-template-columns: 1fr; }
+  .card { grid-template-columns: 1fr; gap: 20px; grid-column: 1; }
+  .roadmap, .insights, .tools-list { grid-column: 1; }
+  .insights { grid-template-columns: 1fr; }
+  .tools-list { grid-template-columns: 1fr; }
+  .roadmap-row { grid-template-columns: 110px 1fr; }
+  .roadmap-row .why { grid-column: 2; }
+}
+
+/* nice underline on links */
+.foot-line {
+  display: inline-block;
+  width: 40px;
+  height: 1px;
+  background: var(--ink);
+  vertical-align: middle;
+  margin: 0 8px;
+}
+</style>
+</head>
+<body>
+
+<div class="frame">
+
+  <header>
+    <div class="doc-id"><strong>DIEGO / HOLDING ISP</strong> &nbsp;·&nbsp; TESE DE PRODUTO</div>
+    <div class="doc-id">DOC 01 / 03 &nbsp;·&nbsp; PROVEDOR</div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="eyebrow">Tese 01 — Provedor de internet</span>
+    <h1>O provedor não vende<br>internet. Vende <em>uma fatura</em>.</h1>
+    <p class="lede">A tese inteira gira em torno disso: o cliente entra pela conexão, mas a margem real está em tudo que vai junto na mesma fatura. Quanto mais produtos saem na mesma cobrança, menor o churn — e maior o ARPU. Este documento mapeia o que vender, em que ordem, e quais ferramentas gratuitas usar para puxar gente pra essa máquina.</p>
+  </section>
+
+  <!-- SEÇÃO 1: SUAS 3 IDEIAS REFINADAS -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-num">01<br>—</div>
+      <div>
+        <h2>As três ideias originais, <em>refinadas</em></h2>
+        <p class="section-intro">Backup, câmeras e o app do instalador. As três têm fundamento, mas cada uma tem um modelo de negócio mais inteligente que o óbvio.</p>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div></div>
+
+      <div class="card">
+        <div>
+          <span class="card-tag">Conectividade · 2ª linha</span>
+          <h3 class="card-title">Aparelho + segundo provedor (FWA / 4G / 5G)</h3>
+          <div class="card-body">
+            <p>Posicionamento certo não é "troque seu provedor" — é <strong>"nunca mais fique sem internet"</strong>. Apólice contra queda da operadora principal. Como você roda em cima da infra do sócio, margem absurda.</p>
+            <p>Variações que ampliam o mercado: <strong>failover automático</strong> (roteador troca sozinho), <strong>Home Office Premium</strong> (backup + IP fixo + suporte prioritário + mesh + VPN) e <strong>Plano Gamer</strong> (link com QoS priorizado, baixa latência).</p>
+          </div>
+        </div>
+        <dl class="card-meta">
+          <dt>Ticket base</dt>
+          <dd class="price">R$ 50–90 / mês</dd>
+          <dt>Ticket premium</dt>
+          <dd class="price">R$ 200–300 / mês</dd>
+          <dt>Margem</dt>
+          <dd>Alta (infra do sócio)</dd>
+          <dt>Churn esperado</dt>
+          <dd>Baixo — apólice trava</dd>
+        </dl>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="card-tag">Segurança · Recorrente</span>
+          <h3 class="card-title">Câmeras de monitoramento</h3>
+          <div class="card-body">
+            <p>O erro comum é vender só o equipamento. <strong>O ouro está no recorrente.</strong> Câmera vai em comodato/aluguel, gravação em nuvem é assinatura pura (margem de software), monitoramento ativo 24/7 revende central existente.</p>
+            <p>Combo "Casa Segura" = 4 câmeras + gravação + sensor de porta + sirene. Ticket alto, churn baixíssimo — segurança é dos produtos que mais travam o cliente.</p>
+          </div>
+        </div>
+        <dl class="card-meta">
+          <dt>Câmera comodato</dt>
+          <dd class="price">R$ 25–45 / mês</dd>
+          <dt>Gravação cloud</dt>
+          <dd class="price">R$ 15–30 / mês</dd>
+          <dt>Combo Casa Segura</dt>
+          <dd class="price">R$ 150–250 / mês</dd>
+          <dt>ARPU adicional típico</dt>
+          <dd>R$ 80–180 / cliente</dd>
+        </dl>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="card-tag">Operação · Multiplicador</span>
+          <h3 class="card-title">App do instalador como motor de cross-sell</h3>
+          <div class="card-body">
+            <p>Não é feature — é <strong>vantagem competitiva estrutural</strong>. O instalador é o único momento em que você tem alguém dentro da casa do cliente. Cada visita deveria gerar score de oportunidade por endereço.</p>
+            <p>Coletar: tamanho da casa, dispositivos visíveis, sinais de criança/idoso/pet, portão eletrônico, fechadura antiga, home office, comércio anexo, marca do provedor antigo, sinal Wi-Fi por cômodo, foto do quadro elétrico (energia solar). Tudo isso alimenta o Sellpipe, que dispara campanha por WhatsApp, e o Bureau qualifica o risco antes da oferta.</p>
+            <p><strong>Plus operacional:</strong> dá comissão de upsell pro instalador na hora. Conversão é 5–10× maior que outbound depois.</p>
+          </div>
+        </div>
+        <dl class="card-meta">
+          <dt>Receita direta</dt>
+          <dd>R$ 0 (é multiplicador)</dd>
+          <dt>Conversão upsell</dt>
+          <dd class="price">5–10× outbound</dd>
+          <dt>Integra com</dt>
+          <dd>Sellpipe + Bureau</dd>
+          <dt>Status</dt>
+          <dd>Build interno (SoftwareCo)</dd>
+        </dl>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SEÇÃO 2: CATEGORIAS QUE NÃO ESTAVAM NO RADAR -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-num">02<br>—</div>
+      <div>
+        <h2>Categorias <em>que ainda não</em> estavam no radar</h2>
+        <p class="section-intro">As oito frentes onde provedor regional consegue ARPU adicional real, com parceiros e modelo de receita já validados no mercado brasileiro.</p>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div></div>
+
+      <div class="card">
+        <div>
+          <span class="card-tag">A · Entretenimento</span>
+          <h3 class="card-title">Streaming e bundles de mídia</h3>
+          <div class="card-body">
+            <p>Cross-sell mais óbvio do varejo. <strong>TV por internet white-label</strong> (Zapping, Watch Brasil, MyFamily TV) revendido com sua marca. <strong>Bundle de streamings</strong> (Netflix + Globoplay + Prime + Max) com desconto agregado vira diferencial de retenção. <strong>Cloud gaming</strong> (GeForce Now, Boosteroid) é vertical novo com pouquíssima concorrência regional.</p>
+          </div>
+        </div>
+        <dl class="card-meta">
+          <dt>Ticket TV white-label</dt>
+          <dd class="price">R$ 25–50 / mês</dd>
+          <dt>Margem</dt>
+          <dd>30–50%</dd>
+          <dt>Cloud gaming</dt>
+          <dd class="price">R$ 39–79 / mês</dd>
+        </dl>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="card-tag">B · Telefonia móvel</span>
+          <h3 class="card-title">MVNO com sua marca</h3>
+          <div class="card-body">
+            <p>O salto de ARPU mais brutal disponível hoje. Plataformas como <strong>TIP Brasil, Surf, Veek, América Net</strong> dão licença, infraestrutura e SIM cards com sua marca. Multiplicador familiar transforma 1 cliente em 3–4 linhas. Combo Pai-Mãe-Filho-Filha com Wi-Fi em casa derruba churn pra 1–2% ao ano.</p>
+          </div>
+        </div>
+        <dl class="card-meta">
+          <dt>Ticket por linha</dt>
+          <dd class="price">R$ 30–80 / mês</dd>
+          <dt>Linhas por família</dt>
+          <dd>3–4×</dd>
+          <dt>Churn esperado</dt>
+          <dd>1–2% ao ano</dd>
+        </dl>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="card-tag">C · Software puro</span>
+          <h3 class="card-title">Cibersegurança e proteção digital</h3>
+          <div class="card-body">
+            <p>Tudo software, custo marginal zero. <strong>Antivírus + VPN + gerenciador de senhas</strong> via revenda Bitdefender/ESET/Norton. <strong>Controle parental</strong> (Qustodio, Kaspersky Safe Kids) pra família com filhos. <strong>Backup em nuvem residencial</strong> (50GB–1TB) e <strong>proteção contra phishing</strong> direcionada a idosos.</p>
+          </div>
+        </div>
+        <dl class="card-meta">
+          <dt>Antivírus + VPN</dt>
+          <dd class="price">R$ 15–30 / mês</dd>
+          <dt>Controle parental</dt>
+          <dd class="price">R$ 20–40 / mês</dd>
+          <dt>Backup cloud</dt>
+          <dd class="price">R$ 20–50 / mês</dd>
+        </dl>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="card-tag">D · Smart home</span>
+          <h3 class="card-title">Catálogo de casa conectada</h3>
+          <div class="card-body">
+            <p>Mais que câmeras. <strong>Multilaser/Liv, Positivo, Geonav, Intelbras</strong> têm linha completa com markup confortável pra revenda. Fechaduras smart, sensores (movimento, abertura, vazamento, fumaça), iluminação inteligente, tomadas inteligentes com medição, robôs aspiradores.</p>
+            <p>Empacotar por persona: <strong>"Casa Segura", "Casa Conectada", "Pet Cam"</strong>. Equipamento parcelado na fatura + assinatura recorrente de gestão remota.</p>
+          </div>
+        </div>
+        <dl class="card-meta">
+          <dt>Fechadura smart</dt>
+          <dd class="price">R$ 800–2.000 + R$ 20/mês</dd>
+          <dt>Combos por persona</dt>
+          <dd>Ticket único + recorrente</dd>
+        </dl>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="card-tag">E · B2B local</span>
+          <h3 class="card-title">PME do bairro vizinho ao residencial</h3>
+          <div class="card-body">
+            <p>Onde está a margem real. Cliente PME paga <strong>4–5× mais</strong> que residencial e tem churn 4–5× menor. Vende pro lojinha/salão/consultório/escritório que mora no mesmo bairro do cliente residencial.</p>
+            <p><strong>Link dedicado, Wi-Fi com captive portal pra LGPD, PABX em nuvem, vídeo monitoramento empresarial com IA, Backup-as-a-Service, Microsoft 365 reseller, LGPD compliance</strong> (alavancando o Bureau), <strong>roteador 4G/5G de backup</strong>.</p>
+          </div>
+        </div>
+        <dl class="card-meta">
+          <dt>Link dedicado</dt>
+          <dd class="price">R$ 300–1.500 / mês</dd>
+          <dt>PABX nuvem</dt>
+          <dd class="price">R$ 30–80 / ramal</dd>
+          <dt>LGPD compliance</dt>
+          <dd class="price">R$ 200–800 / mês</dd>
+        </dl>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="card-tag">F · Bureau alavanca</span>
+          <h3 class="card-title">Serviços financeiros qualificados</h3>
+          <div class="card-body">
+            <p>Aqui entra o que ninguém mais tem: <strong>Bureau de crédito com módulo ISP</strong>. Permite vender financeiros precificando risco em tempo real.</p>
+            <p><strong>Cartão co-branded</strong> com Cora/Conta Simples/banco médio, <strong>consórcio</strong> via Embracon/Porto/Magalu, <strong>seguro residencial</strong>, <strong>seguro de equipamento</strong>, <strong>crédito pessoal/financiamento de equipamento</strong> (fechadura, painel solar, mesh) parcelado na própria fatura, capturando o spread.</p>
+          </div>
+        </div>
+        <dl class="card-meta">
+          <dt>Seguro residencial</dt>
+          <dd class="price">R$ 15–40 / mês · 15–25% comissão</dd>
+          <dt>Spread crédito</dt>
+          <dd class="price">R$ 30–80 / mês</dd>
+          <dt>Detalhe</dt>
+          <dd>Ver Doc 03 — Bureau</dd>
+        </dl>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="card-tag">G · Energia</span>
+          <h3 class="card-title">Solar e mercado livre de energia</h3>
+          <div class="card-body">
+            <p>Você é o único canal recorrente que já fala com o cliente todo mês. <strong>Painel solar</strong> com financiamento parcelado na sua fatura via parceria de instalação. <strong>Mercado livre de energia</strong> via Auren/Engie/Nova Energia. <strong>Medidor inteligente de consumo</strong> com app que mostra gasto em tempo real.</p>
+          </div>
+        </div>
+        <dl class="card-meta">
+          <dt>Comissão painel solar</dt>
+          <dd class="price">R$ 1.500–5.000 / venda</dd>
+          <dt>Mercado livre energia</dt>
+          <dd>Comissão recorrente</dd>
+        </dl>
+      </div>
+
+      <div class="card">
+        <div>
+          <span class="card-tag">H · Cuidado / saúde</span>
+          <h3 class="card-title">Plano Sênior e telemedicina</h3>
+          <div class="card-body">
+            <p>Mercado virgem com retenção altíssima. <strong>Botão de emergência conectado</strong> (fall detection + central). <strong>Plano Sênior</strong> com internet simplificada, tablet pré-configurado, suporte humano por telefone e telemedicina inclusa. <strong>Telemedicina pay-per-use</strong> via Conexa, Amparo Saúde, Pop Saúde.</p>
+          </div>
+        </div>
+        <dl class="card-meta">
+          <dt>Botão emergência</dt>
+          <dd class="price">R$ 80–150 / mês</dd>
+          <dt>Plano Sênior completo</dt>
+          <dd class="price">R$ 150–250 / mês</dd>
+        </dl>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SEÇÃO 3: ROADMAP -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-num">03<br>—</div>
+      <div>
+        <h2>Roadmap <em>de execução</em> em 12+ meses</h2>
+        <p class="section-intro">Priorização por margem, escalabilidade, sinergia com o stack atual e quanto trava o cliente.</p>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div></div>
+      <div class="roadmap">
+        <h3>Fases de implantação</h3>
+
+        <div class="roadmap-row">
+          <span class="when green">Mês 1–3 · Quick</span>
+          <div>
+            <div class="what">Mesh em comodato + Wi-Fi 6/7</div>
+            <div class="why">Operacionalmente trivial, ARPU +R$ 30–60, reduz suporte</div>
+          </div>
+          <span></span>
+        </div>
+        <div class="roadmap-row">
+          <span class="when green">Mês 1–3 · Quick</span>
+          <div>
+            <div class="what">Backup 4G/5G (ideia 1)</div>
+            <div class="why">Infra do sócio já existe, margem absurda</div>
+          </div>
+          <span></span>
+        </div>
+        <div class="roadmap-row">
+          <span class="when green">Mês 1–3 · Quick</span>
+          <div>
+            <div class="what">App do instalador (ideia 3)</div>
+            <div class="why">Multiplicador de tudo o resto — prioridade absoluta</div>
+          </div>
+          <span></span>
+        </div>
+
+        <div class="roadmap-row">
+          <span class="when amber">Mês 3–6 · Médio</span>
+          <div>
+            <div class="what">Câmeras + gravação cloud</div>
+            <div class="why">Ticket alto, exige logística e estoque</div>
+          </div>
+          <span></span>
+        </div>
+        <div class="roadmap-row">
+          <span class="when amber">Mês 3–6 · Médio</span>
+          <div>
+            <div class="what">Streaming white-label</div>
+            <div class="why">Diferencial de aquisição, integração simples</div>
+          </div>
+          <span></span>
+        </div>
+        <div class="roadmap-row">
+          <span class="when amber">Mês 3–6 · Médio</span>
+          <div>
+            <div class="what">Antivírus + VPN bundle</div>
+            <div class="why">Software puro, custo marginal zero</div>
+          </div>
+          <span></span>
+        </div>
+        <div class="roadmap-row">
+          <span class="when amber">Mês 3–6 · Médio</span>
+          <div>
+            <div class="what">B2B vizinho de residencial</div>
+            <div class="why">Maior LTV, exige vendedor consultivo</div>
+          </div>
+          <span></span>
+        </div>
+
+        <div class="roadmap-row">
+          <span class="when amber">Mês 6–12 · Longo</span>
+          <div>
+            <div class="what">MVNO white-label</div>
+            <div class="why">Setup demorado, mas trava cliente para sempre</div>
+          </div>
+          <span></span>
+        </div>
+        <div class="roadmap-row">
+          <span class="when amber">Mês 6–12 · Longo</span>
+          <div>
+            <div class="what">Smart home (catálogo + instalação)</div>
+            <div class="why">Quando o app do instalador estiver maduro</div>
+          </div>
+          <span></span>
+        </div>
+        <div class="roadmap-row">
+          <span class="when amber">Mês 6–12 · Longo</span>
+          <div>
+            <div class="what">Seguros + crédito (com Bureau)</div>
+            <div class="why">Quando tiver volume pra negociar comissão</div>
+          </div>
+          <span></span>
+        </div>
+
+        <div class="roadmap-row">
+          <span class="when red">Mês 12+ · Plataforma</span>
+          <div>
+            <div class="what">Energia solar + mercado livre</div>
+            <div class="why">Operação complexa, capital de giro alto</div>
+          </div>
+          <span></span>
+        </div>
+        <div class="roadmap-row">
+          <span class="when red">Mês 12+ · Plataforma</span>
+          <div>
+            <div class="what">Plano Sênior + telemedicina</div>
+            <div class="why">Vertical novo, exige posicionamento próprio</div>
+          </div>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 4: FREE TOOLS -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-num">04<br>—</div>
+      <div>
+        <h2>Ferramentas grátis <em>que captam</em> lead pro provedor</h2>
+        <p class="section-intro">Cada ferramenta resolve uma dor real, captura intenção de compra e tem custo marginal próximo de zero. Replica o playbook de PLG do HubSpot/Ubersuggest aplicado ao vertical ISP — virgem no Brasil.</p>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div></div>
+
+      <div class="tools-list">
+
+        <div class="tool">
+          <span class="tool-num">01</span>
+          <h4>Teste de velocidade com sua marca</h4>
+          <p>A âncora. Mostra velocidade real × contratada, latência, jitter, perda de pacote — em linguagem que o cliente entende ("seu Zoom vai travar"). <strong>Comparativo com vizinhos do mesmo CEP.</strong> CTA contextual quando velocidade tá abaixo de 70% do contratado.</p>
+          <span class="lead-meta">Captura: CEP, provedor atual, plano, dor objetiva</span>
+        </div>
+
+        <div class="tool">
+          <span class="tool-num">02</span>
+          <h4>Cobertura por endereço</h4>
+          <p>Pessoa digita CEP e número, vê se cobre + plano disponível. Quem cobre vira lead quente imediato. Quem você não cobre, vira <strong>lista de expansão</strong> que justifica priorização técnica de onde puxar fibra.</p>
+          <span class="lead-meta">Captura: endereço completo + intenção declarada</span>
+        </div>
+
+        <div class="tool">
+          <span class="tool-num">03</span>
+          <h4>Calculadora "Quanto Mb eu preciso?"</h4>
+          <p>4–5 perguntas: quantas pessoas usam, quantas TVs, joga online, faz home office, tem câmera. Devolve recomendação. Ao final: "Plano X atende perfeitamente". Qualifica plano e abre cross-sell de mesh, câmera e backup.</p>
+          <span class="lead-meta">Captura: tamanho da família + perfil de uso</span>
+        </div>
+
+        <div class="tool">
+          <span class="tool-num">04</span>
+          <h4>"Está no seu direito" — auditor de fatura</h4>
+          <p>Cliente sobe foto da fatura do provedor atual. IA extrai velocidade, preço, taxas. Compara com média da região. <strong>"Você paga R$ 41 a mais que o justo."</strong> Lead super quente — pessoa já tá com raiva do provedor atual.</p>
+          <span class="lead-meta">Captura: provedor + plano + insatisfação calibrada</span>
+        </div>
+
+        <div class="tool">
+          <span class="tool-num">05</span>
+          <h4>Heatmap caseiro de Wi-Fi</h4>
+          <p>App leve (PWA) onde a pessoa anda pela casa medindo sinal por cômodo. Gera mapa de calor: <strong>"Você tem zona morta na cozinha e no quarto."</strong> CTA específico pra mesh + plano premium.</p>
+          <span class="lead-meta">Captura: planta da casa + dor de cobertura</span>
+        </div>
+
+        <div class="tool">
+          <span class="tool-num">06</span>
+          <h4>Painel de status regional dos provedores</h4>
+          <p>Monitor em tempo real de Anatel, Reclame Aqui, Down Detector e suas próprias métricas: <strong>"Vivo está com 47% mais reclamações hoje em Pouso Alegre."</strong> Cliente abre o site sempre que sua internet trava. Pico de queda da concorrência = anúncio disparado automaticamente.</p>
+          <span class="lead-meta">Captura: tráfego viral + janela de oportunidade</span>
+        </div>
+
+        <div class="tool">
+          <span class="tool-num">07</span>
+          <h4>Diagnóstico digital da casa (quiz)</h4>
+          <p>8–12 perguntas: tem câmera? Tem fechadura digital? Faz home office? Tem filho que joga? Score "Casa Conectada: 4/10". Recomenda 3 produtos que faltam. <strong>Em 60s a pessoa entrega o mapa completo de oportunidade dela.</strong></p>
+          <span class="lead-meta">Captura: mapa completo de cross-sell</span>
+        </div>
+
+        <div class="tool">
+          <span class="tool-num">08</span>
+          <h4>Comparador honesto de planos</h4>
+          <p>Pessoa coloca o que paga hoje, o que tem hoje, o que precisa. Devolve comparativo entre você + 3–4 concorrentes da região. <strong>Você ganha quando seu plano é melhor.</strong> Quando não é, pelo menos captura o lead. Posicionamento ousado, exige confiança da marca.</p>
+          <span class="lead-meta">Captura: posição competitiva + lead pra retargeting</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 5: INSIGHTS -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-num">05<br>—</div>
+      <div>
+        <h2>Três <em>insights</em> que mudam tudo</h2>
+        <p class="section-intro">Coisas que poucos provedores enxergam — e que mudam a economia do negócio inteiro.</p>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div></div>
+      <div class="insights">
+
+        <div class="insight">
+          <div class="insight-num">01</div>
+          <h4>O instalador é seu vendedor mais eficaz</h4>
+          <p>E ninguém o trata como tal. Vai além do app de upsell — dá comissão na hora pro técnico. Cliente compra mesh ali porque o técnico explicou olhando o ambiente. Conversão é 5–10× maior que outbound depois.</p>
+        </div>
+
+        <div class="insight">
+          <div class="insight-num">02</div>
+          <h4>Arquitetura modular, billing-first</h4>
+          <p>Tudo cobrado na fatura única. Cliente que tem 4 produtos cobrados juntos tem churn 70–80% menor que cliente com 1. O segredo não é vender mais coisas — é fazer todas saírem na mesma fatura. Aqui a SoftwareCo é vantagem competitiva real.</p>
+        </div>
+
+        <div class="insight">
+          <div class="insight-num">03</div>
+          <h4>Bureau + provedor é combinação rara</h4>
+          <p>Você consegue oferecer financiamento de equipamento parcelado na fatura, com risco precificado em tempo real. Nenhum provedor regional faz isso bem hoje. Vira upsell de R$ 1.000–5.000 ticket único + recorrente da parcela. Spread sozinho pode somar R$ 30–80/mês por cliente.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 6: BUREAU DE CRÉDITO -->
+  <section class="section">
+    <div class="section-head">
+      <div class="section-num">06<br>—</div>
+      <div>
+        <h2>Bureau de Crédito <em>como motor</em> do ecossistema</h2>
+        <p class="section-intro">O ativo mais subestimado de todos. Não é só receita transacional de consulta — é a infraestrutura que torna possível tudo que envolve dinheiro nos outros braços. A jogada é parar de tratá-lo como API B2B passiva e transformá-lo em plataforma com porta de entrada gratuita pra pessoa física e PME.</p>
+      </div>
+    </div>
+
+    <!-- Premissa -->
+    <div class="card-grid">
+      <div></div>
+      <div style="grid-column: 2; max-width: 760px; padding: 8px 0 24px;">
+        <p style="font-family: 'Fraunces', serif; font-size: 22px; line-height: 1.5; font-weight: 300; font-style: italic; color: var(--ink); border-left: 3px solid var(--accent); padding-left: 24px;">
+          A regra é a mesma do Sellpipe: cada free tool tem que entregar valor real mesmo se a pessoa não comprar nada. Se o "Score Grátis" for um simulacro frustrante, ninguém volta. Se for melhor que o do Serasa, vira referência regional.
+        </p>
+      </div>
+    </div>
+
+    <!-- Free Tools do Bureau -->
+    <div class="card-grid" style="margin-top: 32px;">
+      <div></div>
+
+      <div class="tools-list">
+
+        <div class="tool">
+          <span class="tool-num">01</span>
+          <h4>Score na Fatura</h4>
+          <p>Cliente do provedor abre o app, vê o próprio score atualizado, recebe alertas quando cai, vê histórico dos últimos 12 meses. Custo: zero pra você (já tem o Bureau). Frequência de uso: alta.</p>
+          <p><strong>Por que funciona:</strong> todo mundo quer saber o próprio score, ninguém quer pagar Serasa Premium. Justifica abertura recorrente do app — e cada abertura vira oportunidade de mostrar os outros produtos.</p>
+          <span class="lead-meta">Captura: comportamento financeiro + momento de necessidade de crédito</span>
+        </div>
+
+        <div class="tool">
+          <span class="tool-num">02</span>
+          <h4>Antifraude Pessoal</h4>
+          <p>Cliente paga R$ 19,90/mês e recebe alerta em tempo real sempre que o CPF for consultado em qualquer instituição. <strong>"Sua identidade está sendo usada agora em loja X, foi você?"</strong></p>
+          <p>Serasa Premium cobra R$ 30/mês pelo equivalente. Você cobra menos, oferece pelo app que o cliente já abre. Margem ~80%, custo marginal só é a infra de notificação.</p>
+          <span class="lead-meta">Receita: R$ 19,90/mês · margem ~80%</span>
+        </div>
+
+        <div class="tool">
+          <span class="tool-num">03</span>
+          <h4>Limpa Nome — diagnóstico grátis</h4>
+          <p>Pessoa entra com CPF (consentimento LGPD), você mostra todas as pendências, valor original, atualizado, qual instituição cobrou. Diagnóstico é gratuito.</p>
+          <p>Monetização em duas frentes: <strong>comissão na negociação efetiva</strong> (parceria com escritórios de cobrança) e <strong>oferta de crédito pra quitar</strong> (você captura spread).</p>
+          <span class="lead-meta">Captura: lead super quente — pessoa com pendência declarada</span>
+        </div>
+
+        <div class="tool">
+          <span class="tool-num">04</span>
+          <h4>Simulador honesto de crédito</h4>
+          <p>Diferente dos simuladores enganosos dos bancos. Pessoa coloca quanto quer, prazo, e você mostra taxa real, CET, parcela, total pago. Compara com 4-5 alternativas.</p>
+          <p>Quem fechar pelo seu canal recebe taxa melhor — você precifica pelo Bureau, então pode oferecer condição mais agressiva pra perfis bons. <strong>Honestidade é diferencial competitivo brutal nesse vertical.</strong></p>
+          <span class="lead-meta">Conversão: correspondente bancário + crédito direto</span>
+        </div>
+
+        <div class="tool">
+          <span class="tool-num">05</span>
+          <h4>"Posso financiar quanto?"</h4>
+          <p>Pessoa quer comprar moto, carro, eletrodoméstico. Coloca renda + CPF. Você consulta Bureau e devolve faixa de crédito aprovável + parceiros disponíveis. Tipo <strong>"pré-aprovação universal"</strong>.</p>
+          <p>Todo mundo quer comprar coisa parcelada e não sabe qual o teto. Você dá a resposta antes de a pessoa ir na loja.</p>
+          <span class="lead-meta">Conversão: parceria com concessionárias e magazines da cidade</span>
+        </div>
+
+        <div class="tool">
+          <span class="tool-num">06</span>
+          <h4>Verificador de inquilino — B2B</h4>
+          <p>Lojista, locador, condomínio entra com CPF/CNPJ de candidato. Bureau devolve risco básico de graça (3 consultas/mês). Acima disso, vira assinatura R$ 99-299/mês.</p>
+          <p>Imobiliária pequena hoje paga Serasa CredCheck a R$ 25/consulta sem orçamento. Padaria que quer fiar não tem acesso a bureau nenhum. <strong>Esse é o gancho freemium pro Bureau virar produto B2B no varejo regional.</strong></p>
+          <span class="lead-meta">Receita: R$ 99-299/mês PME + upsell ecossistema</span>
+        </div>
+
+        <div class="tool">
+          <span class="tool-num">07</span>
+          <h4>Rastreador de dados vazados</h4>
+          <p>Estilo "Have I Been Pwned" brasileiro. Pessoa coloca email ou CPF, você mostra se apareceu em vazamentos conhecidos. CTA: "Sua identidade tá exposta — proteja com nosso pacote de cibersegurança financeira."</p>
+          <p><strong>Viral.</strong> Funciona pra todo mundo. Atrai tráfego enorme com baixo CAC.</p>
+          <span class="lead-meta">Conversão: Antifraude Pessoal + seguro de identidade</span>
+        </div>
+
+        <div class="tool">
+          <span class="tool-num">08</span>
+          <h4>Garantidor de aluguel</h4>
+          <p>Parceria com imobiliárias da cidade. Cliente vai alugar imóvel, pede sua "carta-fiança" via app, Bureau precifica risco em 1 minuto. Cobra <strong>1-2% do valor do aluguel/mês</strong>.</p>
+          <p>Mercado de fiança hoje é dominado por seguradoras que demoram dias e pedem renda alta. Você decide na hora, custa menos, fica com relacionamento contínuo.</p>
+          <span class="lead-meta">Receita: 1-2% do aluguel + cliente novo no ecossistema</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Como amarrar tudo -->
+    <div class="card-grid" style="margin-top: 64px;">
+      <div></div>
+      <div style="grid-column: 2;">
+        <h3 style="font-family: 'Fraunces', serif; font-weight: 400; font-size: 32px; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 32px; font-variation-settings: 'opsz' 144, 'SOFT' 30;">Como amarrar tudo: <em style="color: var(--accent); font-style: italic;">app de saúde financeira</em> com sua marca</h3>
+        <p style="font-size: 16px; line-height: 1.6; color: var(--ink-soft); max-width: 720px; margin-bottom: 32px;">A jogada não é construir oito produtos isolados. É posicionar o conjunto como um app de saúde financeira completo. Funciona como Serasa, Acordo Certo, Será.AI — mas com três diferenciais que ninguém mais tem.</p>
+
+        <div class="insights">
+
+          <div class="insight">
+            <div class="insight-num">01</div>
+            <h4>Integração nativa com a fatura</h4>
+            <p>Cliente paga internet e gerencia vida financeira no mesmo app. Score, alertas, simulação de crédito, fiança — tudo no mesmo lugar onde ele já paga conta. Serasa nunca vai ter isso.</p>
+          </div>
+
+          <div class="insight">
+            <div class="insight-num">02</div>
+            <h4>Preço imbatível porque o CAC é zero</h4>
+            <p>Você já fala com esse cliente todo mês via fatura. Cobrar Antifraude a R$ 19,90 onde Serasa cobra R$ 30 é matemática trivial pra você, e brutal pra eles.</p>
+          </div>
+
+          <div class="insight">
+            <div class="insight-num">03</div>
+            <h4>Feedback loop com o provedor</h4>
+            <p>Score alto = perfil pra plano premium, smart home parcelado, energia solar via fatura. Score baixo = plano básico + crédito pra quitar pendências. Cada faixa tem oferta calibrada — só funciona com Bureau dentro de casa.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Priorização do Bureau -->
+    <div class="card-grid" style="margin-top: 56px;">
+      <div></div>
+      <div class="roadmap">
+        <h3>Priorização — Bureau / Free Tools</h3>
+
+        <div class="roadmap-row">
+          <span class="when green">Mês 1–3 · Build</span>
+          <div>
+            <div class="what">Score na Fatura</div>
+            <div class="why">Gratuito · vira motor de engajamento do app</div>
+          </div>
+          <span></span>
+        </div>
+        <div class="roadmap-row">
+          <span class="when green">Mês 1–3 · Build</span>
+          <div>
+            <div class="what">Antifraude Pessoal</div>
+            <div class="why">Primeira receita recorrente · prova o modelo</div>
+          </div>
+          <span></span>
+        </div>
+        <div class="roadmap-row">
+          <span class="when green">Mês 1–3 · Build</span>
+          <div>
+            <div class="what">Verificador de inquilino freemium</div>
+            <div class="why">Primeira porta B2B · gera caixa rápido com PME</div>
+          </div>
+          <span></span>
+        </div>
+
+        <div class="roadmap-row">
+          <span class="when amber">Mês 3–6 · Expansão</span>
+          <div>
+            <div class="what">Limpa Nome</div>
+            <div class="why">Entra quando tiver parceria de cobrança fechada</div>
+          </div>
+          <span></span>
+        </div>
+        <div class="roadmap-row">
+          <span class="when amber">Mês 3–6 · Expansão</span>
+          <div>
+            <div class="what">Simulador honesto + capacidade de crédito</div>
+            <div class="why">Entra quando o motor de crédito interno estiver maduro</div>
+          </div>
+          <span></span>
+        </div>
+        <div class="roadmap-row">
+          <span class="when amber">Mês 3–6 · Expansão</span>
+          <div>
+            <div class="what">Rastreador de vazamento</div>
+            <div class="why">Atrai tráfego viral · alimenta funil dos outros produtos</div>
+          </div>
+          <span></span>
+        </div>
+
+        <div class="roadmap-row">
+          <span class="when red">Mês 6–12 · Escala</span>
+          <div>
+            <div class="what">Garantidor de aluguel</div>
+            <div class="why">Operação consultiva mais robusta + parceria com imobiliárias</div>
+          </div>
+          <span></span>
+        </div>
+        <div class="roadmap-row">
+          <span class="when red">Mês 6–12 · Escala</span>
+          <div>
+            <div class="what">Bureau-as-a-Service B2B premium</div>
+            <div class="why">Quando a base de PMEs do verificador estiver crescendo organicamente</div>
+          </div>
+          <span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Insight final do Bureau -->
+    <div class="card-grid" style="margin-top: 64px;">
+      <div></div>
+      <div style="grid-column: 2; background: var(--ink); color: var(--paper); padding: 56px 56px; position: relative;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 32px;">Insight final · Bureau</div>
+        <p style="font-family: 'Fraunces', serif; font-weight: 400; font-size: clamp(28px, 3vw, 36px); line-height: 1.2; letter-spacing: -0.015em; margin-bottom: 32px; font-variation-settings: 'opsz' 144, 'SOFT' 30;">
+          O Bureau é o <em style="color: var(--accent); font-style: italic; font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;">multiplicador de margem</em> de tudo o resto. Não é só mais um produto.
+        </p>
+        <div style="font-family: 'Inter Tight', sans-serif; font-size: 16px; line-height: 1.65; color: rgba(244,240,230,0.78); max-width: 760px;">
+          <p style="margin-bottom: 16px;">Quando você vende mesh em comodato, é o Bureau que decide se libera o equipamento sem caução. Quando vende câmera com instalação, é o Bureau que aprova o parcelamento na fatura. Quando vende seguro residencial, é o Bureau que precifica o prêmio. Quando o Sellpipe vende SaaS pra PME, é o Bureau que diz se aquela PME tem risco aceitável pra dar 30 dias de prazo no boleto.</p>
+          <p style="margin-bottom: 16px;">Cada R$ 1 que você investe em maturidade do Bureau retorna em margem dos outros produtos. Não dá pra medir só o Bureau isoladamente — o ROI real está espalhado pela operação inteira.</p>
+          <p style="color: var(--paper);">É por isso que as free tools dele <strong style="color: var(--accent);">não são marketing — são infraestrutura de aquisição</strong> pro ecossistema todo. O cliente que entra pelo Score Grátis hoje, daqui a 18 meses tá pagando internet + Antifraude + crédito parcelado + seguro residencial + smart home na sua fatura. <strong style="color: var(--paper);">ARPU de R$ 80 vira R$ 350.</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span><strong>Tese unificada</strong><span class="foot-line"></span>Provedor + Bureau</span>
+    <span>Companion: Sellpipe (Doc 02)</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
