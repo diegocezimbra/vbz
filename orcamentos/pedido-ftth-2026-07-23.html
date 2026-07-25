@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pedido FTTH — 23/07/2026</title>
+<script>if (window.self !== window.top) document.documentElement.setAttribute("data-embed","");</script>
+<style>
+/* ===== Material Design 3 — baseline tokens ===== */
+:root {
+  --md-primary:#6750A4; --md-on-primary:#FFFFFF;
+  --md-primary-container:#EADDFF; --md-on-primary-container:#21005D;
+  --md-secondary-container:#E8DEF8; --md-on-secondary-container:#1D192B;
+  --md-surface:#FEF7FF; --md-surface-container:#F3EDF7; --md-surface-container-high:#ECE6F0;
+  --md-on-surface:#1D1B20; --md-on-surface-variant:#49454F;
+  --md-outline:#79747E; --md-outline-variant:#CAC4D0;
+  --md-warn-container:#FFEFC3; --md-on-warn-container:#5C4A00;
+  --md-wa:#128C7E; --md-on-wa:#FFFFFF;
+  --md-elev-1:0 1px 2px rgba(0,0,0,.3),0 1px 3px 1px rgba(0,0,0,.15);
+  --md-elev-2:0 1px 2px rgba(0,0,0,.3),0 2px 6px 2px rgba(0,0,0,.15);
+  --md-state-hover:rgba(103,80,164,.08);
+}
+@media (prefers-color-scheme: dark) { :root {
+  --md-primary:#D0BCFF; --md-on-primary:#381E72;
+  --md-primary-container:#4F378B; --md-on-primary-container:#EADDFF;
+  --md-secondary-container:#4A4458; --md-on-secondary-container:#E8DEF8;
+  --md-surface:#141218; --md-surface-container:#211F26; --md-surface-container-high:#2B2930;
+  --md-on-surface:#E6E0E9; --md-on-surface-variant:#CAC4D0;
+  --md-outline:#938F99; --md-outline-variant:#49454F;
+  --md-warn-container:#453B00; --md-on-warn-container:#F1E48A;
+  --md-wa:#25C05F; --md-on-wa:#00391B;
+  --md-state-hover:rgba(208,188,255,.08);
+} }
+:root[data-embed] {
+  --md-primary:#D0BCFF; --md-on-primary:#381E72;
+  --md-primary-container:#4F378B; --md-on-primary-container:#EADDFF;
+  --md-secondary-container:#4A4458; --md-on-secondary-container:#E8DEF8;
+  --md-surface:#141416; --md-surface-container:#211F26; --md-surface-container-high:#2B2930;
+  --md-on-surface:#E6E0E9; --md-on-surface-variant:#CAC4D0;
+  --md-outline:#938F99; --md-outline-variant:#49454F;
+  --md-warn-container:#453B00; --md-on-warn-container:#F1E48A;
+  --md-wa:#25C05F; --md-on-wa:#00391B;
+  --md-state-hover:rgba(208,188,255,.08);
+}
+:root[data-embed] .appbar { display:none; }
+:root[data-embed] body { padding-top:8px; }
+* { box-sizing:border-box; }
+html { color-scheme: light dark; }
+body {
+  margin:0; padding:0 0 120px;
+  background:var(--md-surface); color:var(--md-on-surface);
+  font:400 16px/1.5 Roboto,"Segoe UI",system-ui,sans-serif;
+}
+/* ---- top app bar ---- */
+.appbar { position:sticky; top:0; z-index:5; background:var(--md-surface); padding:20px 16px 12px; }
+.appbar .in { max-width:840px; margin:0 auto; }
+.appbar h1 { margin:0; font-size:24px; font-weight:500; letter-spacing:0; }
+.appbar .date { color:var(--md-on-surface-variant); font-size:14px; }
+.appbar .sup { margin:4px 0 0; color:var(--md-on-surface-variant); font-size:14px; max-width:64ch; }
+main { max-width:840px; margin:0 auto; padding:8px 16px; display:flex; flex-direction:column; gap:16px; }
+
+/* ---- cards ---- */
+.card {
+  background:var(--md-surface-container); border-radius:16px; padding:20px;
+  box-shadow:var(--md-elev-1);
+}
+.card > h2 {
+  margin:0; font-size:16px; font-weight:500; letter-spacing:.01em;
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+}
+.section-label {
+  margin:12px 4px -6px; font-size:14px; font-weight:500; letter-spacing:.03em;
+  color:var(--md-primary);
+}
+
+/* ---- quantity: outlined field ---- */
+.qty { margin-left:auto; display:flex; align-items:center; gap:8px; font-size:12px; color:var(--md-on-surface-variant); }
+.qty input {
+  width:76px; padding:8px 12px; font:inherit; font-size:15px; text-align:right;
+  color:var(--md-on-surface); background:transparent;
+  border:1px solid var(--md-outline); border-radius:8px;
+}
+.qty input:focus { outline:2px solid var(--md-primary); outline-offset:-1px; border-color:transparent; }
+
+/* ---- option list (M3 list + radio) ---- */
+.ops { margin:12px -8px 0; display:flex; flex-direction:column; }
+label.op {
+  display:grid; grid-template-columns:40px 1fr auto; align-items:center; gap:0 8px;
+  min-height:56px; padding:8px 12px; border-radius:12px; cursor:pointer;
+  transition:background .15s;
+}
+label.op:hover { background:var(--md-state-hover); }
+label.op.on { background:var(--md-secondary-container); color:var(--md-on-secondary-container); }
+label.op + label.op { margin-top:2px; }
+label.op input[type=radio] {
+  appearance:none; width:20px; height:20px; margin:0 auto; border-radius:50%;
+  border:2px solid var(--md-on-surface-variant); display:grid; place-content:center;
+  transition:border-color .15s;
+}
+label.op input[type=radio]::before {
+  content:""; width:10px; height:10px; border-radius:50%; transform:scale(0);
+  background:var(--md-primary); transition:transform .15s;
+}
+label.op input[type=radio]:checked { border-color:var(--md-primary); }
+label.op input[type=radio]:checked::before { transform:scale(1); }
+.fmain { font-size:15px; font-weight:500; }
+.fmain small { font-weight:400; color:var(--md-on-surface-variant); font-size:13px; }
+.fsub { grid-column:2; font-size:12.5px; color:var(--md-on-surface-variant); margin-top:2px; }
+label.op.on .fsub, label.op.on .fmain small { color:var(--md-on-secondary-container); opacity:.8; }
+.preco { text-align:right; font-size:15px; font-weight:500; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.preco small { display:block; font-weight:400; font-size:12px; color:var(--md-on-surface-variant); }
+label.op.on .preco small { color:var(--md-on-secondary-container); opacity:.8; }
+label.op.skip { color:var(--md-on-surface-variant); font-style:italic; min-height:44px; }
+
+/* ---- segmented button (rota) ---- */
+.seg { display:flex; margin-top:14px; border:1px solid var(--md-outline); border-radius:999px; overflow:hidden; }
+.seg label {
+  flex:1; display:flex; align-items:center; justify-content:center; gap:8px;
+  min-height:44px; padding:6px 14px; cursor:pointer; font-size:14px; font-weight:500;
+  color:var(--md-on-surface); text-align:center; transition:background .15s;
+}
+.seg label:hover { background:var(--md-state-hover); }
+.seg label + label { border-left:1px solid var(--md-outline); }
+.seg input { position:absolute; opacity:0; pointer-events:none; }
+.seg label.on { background:var(--md-secondary-container); color:var(--md-on-secondary-container); }
+.seg .tick { display:none; font-weight:700; }
+.seg label.on .tick { display:inline; }
+.seg small { display:block; font-weight:400; font-size:11.5px; color:inherit; opacity:.75; }
+
+/* ---- banner de aviso ---- */
+.banner {
+  margin-top:12px; padding:12px 16px; border-radius:12px;
+  background:var(--md-warn-container); color:var(--md-on-warn-container); font-size:13.5px;
+}
+
+/* ---- resumo ---- */
+.forn { border-top:1px solid var(--md-outline-variant); padding:14px 0; }
+.forn:first-of-type { border-top:none; padding-top:4px; }
+.forn .head { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+.forn .nome { font-weight:500; font-size:15px; }
+.forn .cond { font-size:12.5px; color:var(--md-on-surface-variant); }
+.forn ul { margin:8px 0 0; padding-left:20px; font-size:13.5px; color:var(--md-on-surface-variant); }
+.forn .sub-num { font-weight:500; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.btn-wa {
+  display:inline-flex; align-items:center; gap:8px; min-height:40px; padding:0 20px;
+  background:var(--md-wa); color:var(--md-on-wa); font-size:14px; font-weight:500;
+  border-radius:999px; text-decoration:none; box-shadow:var(--md-elev-1); transition:box-shadow .15s;
+}
+.btn-wa:hover { box-shadow:var(--md-elev-2); }
+.vazio { color:var(--md-on-surface-variant); font-style:italic; font-size:14px; margin:8px 0 0; }
+
+/* ---- bottom bar ---- */
+.bottombar {
+  position:fixed; left:0; right:0; bottom:0; z-index:6;
+  background:var(--md-surface-container-high); box-shadow:0 -1px 3px rgba(0,0,0,.2);
+  padding:14px 16px calc(14px + env(safe-area-inset-bottom));
+}
+.bottombar .in { max-width:840px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+.bottombar .lbl { font-size:12px; letter-spacing:.04em; color:var(--md-on-surface-variant); }
+.bottombar .valor { font-size:30px; font-weight:500; letter-spacing:-.01em; font-variant-numeric:tabular-nums; }
+.bottombar .nsel {
+  font-size:13px; color:var(--md-on-secondary-container); background:var(--md-secondary-container);
+  padding:6px 14px; border-radius:999px;
+}
+:focus-visible { outline:2px solid var(--md-primary); outline-offset:2px; }
+@media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
+</style>
+</head>
+<body>
+<div class="appbar"><div class="in">
+  <h1>Pedido FTTH <span class="date">· 23/07/2026</span></h1>
+  <p class="sup">Marca de quem tu vais comprar cada item. O total soma sozinho, tudo fica salvo neste navegador e o resumo monta a mensagem de WhatsApp por fornecedor.</p>
+</div></div>
+<main>
+  <div id="itens" style="display:flex;flex-direction:column;gap:16px"></div>
+  <div class="section-label">Resumo por fornecedor</div>
+  <section class="card">
+    <div id="resumo"><p class="vazio">Nada selecionado ainda.</p></div>
+  </section>
+</main>
+<div class="bottombar"><div class="in">
+  <div><div class="lbl">TOTAL DO PEDIDO</div><div class="valor" id="total">R$ 0,00</div></div>
+  <div class="nsel" id="nsel">0 itens</div>
+</div></div>
+<script>
+const DATA = [{"item": "Drop óptico 1FO 1km", "qtd": 6, "ops": [{"f": "Noop", "m": "Transcend mini flat", "u": 549.0, "obs": "marca Transcend da lista · frete grátis"}, {"f": "Simples Connect", "m": "WEC", "u": 539.99, "obs": ""}, {"f": "Vizzoni", "m": "NXC SC", "u": 559.0, "obs": ""}]}, {"item": "Conector de campo SC/APC (verde)", "qtd": 50, "ops": [{"f": "Ativelink", "m": "rosca T", "u": 1.79, "obs": "metade do preço — confirmar qualidade"}, {"f": "Simples Connect", "m": "T-Click", "u": 3.49, "obs": ""}, {"f": "Lucas Santos", "m": "fast tipo clique", "u": 4.15, "obs": ""}, {"f": "Vizzoni", "m": "T rosca Dawn D4", "u": 4.49, "obs": ""}, {"f": "Noop", "m": "T-rosca reutilizável", "u": 4.9, "obs": "reutilizável"}]}, {"item": "Conector de campo SC/UPC (azul)", "qtd": 50, "ops": [{"f": "Simples Connect", "m": "T-Click", "u": 3.49, "obs": ""}, {"f": "Lucas Santos", "m": "fast tipo clique", "u": 4.15, "obs": ""}, {"f": "Vizzoni", "m": "T rosca Dawn D4", "u": 4.49, "obs": ""}, {"f": "Noop", "m": "T-rosca reutilizável", "u": 4.9, "obs": ""}]}, {"item": "Esticador cunha FE preto", "qtd": 30, "ops": [{"f": "Ativelink", "m": "—", "u": 0.59, "obs": ""}, {"f": "Simples Connect", "m": "Betel gancho curto", "u": 0.6, "obs": ""}, {"f": "Noop", "m": "—", "u": 0.65, "obs": ""}, {"f": "Betel (Santanione)", "m": "Betel fábrica", "u": 1.2, "obs": "em cores: R$ 1,30"}]}, {"item": "ONT ZTE 6201b", "qtd": 20, "ops": [{"f": "Ativelink", "m": "ZTE AX3000", "u": 259.0, "obs": "confirmar se é o modelo 6201b"}]}, {"item": "ONU Fiberhome bridge", "qtd": 20, "ops": [], "nota": "Nenhum fornecedor cotou o modelo Fiberhome — VSOL, TP-Link e GLN descartados. Pedir cotação do modelo exato."}, {"item": "Roteador TP-Link EX141", "qtd": 20, "ops": [{"f": "Lucas Santos", "m": "TP-Link EX141", "u": 159.9, "obs": ""}, {"f": "Simples Connect", "m": "TP-Link EX141", "u": 169.99, "obs": ""}]}];
+const FORN = {"Ativelink": {"contato": "Camila", "tel": "553599005643", "cond": "frete e pagamento a confirmar"}, "Lucas Santos": {"contato": "Lucas Santos", "tel": "5512992010957", "cond": "boleto 5× (28–140 ddl) · CIF"}, "Simples Connect": {"contato": "Leandra", "tel": "553597261259", "cond": "à vista · frete R$ 248,34"}, "Vizzoni": {"contato": "Lucas Vizzoni", "tel": "5531997846832", "cond": "frete grátis"}, "Betel (Santanione)": {"contato": "Camila Santanione", "tel": "5535998110387", "cond": "a confirmar"}, "Noop": {"contato": "Fernando Barreto", "tel": "553591311756", "cond": "à vista · frete grátis"}};
+const money = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+
+const KEY = 'pedido-ftth-2026-07-23';
+const KEY_R = KEY + '-route';
+const state = DATA.map(d => ({sel:null, qtd:d.qtd}));
+try {
+  const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+  if (Array.isArray(saved)) saved.forEach((s,i) => {
+    if (state[i] && s) {
+      if (Number.isInteger(s.sel) && s.sel >= 0 && s.sel < DATA[i].ops.length) state[i].sel = s.sel;
+      if (typeof s.qtd === 'number' && s.qtd >= 0) state[i].qtd = s.qtd;
+    }
+  });
+} catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+
+const IDX_ONT = DATA.findIndex(d => d.item.startsWith('ONT'));
+const IDX_ONU = DATA.findIndex(d => d.item.startsWith('ONU'));
+const IDX_ROT = DATA.findIndex(d => d.item.startsWith('Roteador'));
+let route = localStorage.getItem(KEY_R) === 'duo' ? 'duo' : 'ont';
+const itemOff = i => (i === IDX_ONT && route !== 'ont') || ((i === IDX_ONU || i === IDX_ROT) && route !== 'duo');
+
+const itensEl = document.getElementById('itens');
+const cards = [];
+DATA.forEach((d,i) => {
+  if (i === IDX_ONT) {
+    const rc = document.createElement('section');
+    rc.className = 'card';
+    rc.innerHTML = `
+      <h2>Ponta do cliente — escolhe uma rota</h2>
+      <div class="seg" id="seg">
+        <label data-route="ont"><input type="radio" name="route" value="ont">
+          <span><span class="tick">✓</span> 20× ONT integrado<small>ZTE 6201b · 1 aparelho</small></span></label>
+        <label data-route="duo"><input type="radio" name="route" value="duo">
+          <span><span class="tick">✓</span> 20× ONU + 20× Roteador<small>Fiberhome + EX141 · 2 aparelhos</small></span></label>
+      </div>`;
+    itensEl.appendChild(rc);
+  }
+  const sec = document.createElement('section');
+  sec.className = 'card item';
+  let ops = d.ops.map((o,j) => `
+    <label class="op" data-i="${i}" data-j="${j}">
+      <input type="radio" name="it${i}" value="${j}">
+      <span class="fmain">${o.f} <small>· ${o.m}</small></span>
+      <span class="preco">${money(o.u)}<small class="linha-total"></small></span>
+      ${o.obs ? `<span class="fsub">${o.obs}</span>` : ''}
+    </label>`).join('');
+  sec.innerHTML = `
+    <h2>${d.item}
+      <span class="qty">qtd <input type="number" min="0" step="1" value="${d.qtd}" data-i="${i}" aria-label="Quantidade de ${d.item}"></span>
+    </h2>
+    ${d.nota ? `<div class="banner">⚠ ${d.nota}</div>` : ''}
+    <div class="ops">
+      ${ops}
+      <label class="op skip" data-i="${i}" data-j="-1">
+        <input type="radio" name="it${i}" value="-1" checked>
+        <span>não levar este item</span><span></span>
+      </label>
+    </div>`;
+  itensEl.appendChild(sec);
+  cards[i] = sec;
+});
+
+state.forEach((s,i) => {
+  const v = (s.sel === null) ? -1 : s.sel;
+  const r = document.querySelector(`input[name="it${i}"][value="${v}"]`);
+  if (r) r.checked = true;
+  const q = document.querySelector(`input[type=number][data-i="${i}"]`);
+  if (q) q.value = s.qtd;
+});
+
+function applyRoute() {
+  document.querySelector(`input[name="route"][value="${route}"]`).checked = true;
+  document.querySelectorAll('#seg label').forEach(l => l.classList.toggle('on', l.dataset.route === route));
+  cards.forEach((c,i) => { if (c) c.style.display = itemOff(i) ? 'none' : ''; });
+}
+
+function render() {
+  let total = 0, count = 0;
+  const porForn = {};
+  state.forEach((s,i) => {
+    if (itemOff(i)) return;
+    document.querySelectorAll(`[data-i="${i}"].op`).forEach(l => {
+      const j = +l.dataset.j;
+      l.classList.toggle('on', j === s.sel);
+      const lt = l.querySelector('.linha-total');
+      if (lt) lt.textContent = (j === s.sel) ? '× '+s.qtd+' = '+money(DATA[i].ops[j].u * s.qtd) : '';
+    });
+    if (s.sel !== null && s.sel >= 0 && s.qtd > 0) {
+      const o = DATA[i].ops[s.sel];
+      const sub = o.u * s.qtd;
+      total += sub; count++;
+      (porForn[o.f] = porForn[o.f] || []).push({item:DATA[i].item, m:o.m, qtd:s.qtd, u:o.u, sub});
+    }
+  });
+  document.getElementById('total').textContent = money(total);
+  document.getElementById('nsel').textContent = count + (count===1?' item':' itens');
+
+  const R = document.getElementById('resumo');
+  const forns = Object.keys(porForn);
+  if (!forns.length) { R.innerHTML = '<p class="vazio">Nada selecionado ainda.</p>'; return; }
+  R.innerHTML = forns.map(f => {
+    const linhas = porForn[f];
+    const sub = linhas.reduce((a,l)=>a+l.sub,0);
+    const info = FORN[f];
+    let msg = `Olá${info?', '+info.contato:''}! Quero fechar o pedido:%0A`;
+    linhas.forEach(l => { msg += `- ${l.qtd}x ${l.item} (${l.m}) — ${money(l.u)} un = ${money(l.sub)}%0A`; });
+    msg += `Total: ${money(sub)}.%0APode confirmar disponibilidade, frete e prazo de entrega?`;
+    const wa = info ? `<a class="btn-wa" target="_blank" rel="noopener" href="https://wa.me/${info.tel}?text=${msg.replace(/ /g,'%20')}">💬 Enviar pedido</a>` : '';
+    return `<div class="forn">
+      <div class="head">
+        <div><div class="nome">${f}</div><div class="cond">${info?info.cond:''}</div></div>
+        <div style="display:flex;align-items:center;gap:16px"><span class="sub-num">${money(sub)}</span>${wa}</div>
+      </div>
+      <ul>${linhas.map(l=>`<li>${l.qtd}× ${l.item} — ${money(l.sub)}</li>`).join('')}</ul>
+    </div>`;
+  }).join('');
+}
+
+document.getElementById('seg').addEventListener('change', e => {
+  if (e.target.name === 'route') {
+    route = e.target.value;
+    try { localStorage.setItem(KEY_R, route); } catch(err) {}
+    applyRoute(); render();
+  }
+});
+itensEl.addEventListener('change', e => {
+  if (e.target.matches('input[type=radio]') && e.target.name.startsWith('it')) {
+    const i = +e.target.closest('.op').dataset.i;
+    const v = +e.target.value;
+    state[i].sel = v < 0 ? null : v;
+    save(); render();
+  }
+});
+itensEl.addEventListener('input', e => {
+  if (e.target.matches('input[type=number]')) {
+    const i = +e.target.dataset.i;
+    state[i].qtd = Math.max(0, +e.target.value || 0);
+    save(); render();
+  }
+});
+applyRoute();
+render();
+</script>
+</body>
+</html>
