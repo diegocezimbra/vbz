@@ -7,6 +7,17 @@ services:
       dockerfile: Dockerfile
     environment:
       - NODE_ENV=production
+      # Espelho do lead no CRM (Qualificou, tenant VBZ). O VALOR vem do ambiente do
+      # host / painel de deploy — nunca escrito aqui, que este arquivo é versionado.
+      # Sem as duas, o envio fica desligado e a app só loga um aviso no boot.
+      - QUALIFICOU_INBOUND_URL=${QUALIFICOU_INBOUND_URL:-https://api.qualificou.com.br/api/v1/inbound/leads}
+      - QUALIFICOU_INBOUND_KEY=${QUALIFICOU_INBOUND_KEY:-}
+      # Cidades atendidas ("Pouso Alegre-MG,Itajubá-MG"). VAZIO = nenhum endereço é
+      # declarado disponível; a página promete conferência, não cobertura.
+      - VBZ_COVERAGE_CITIES=${VBZ_COVERAGE_CITIES:-}
+      # Análise de crédito. Vazio = proposta segue para análise manual.
+      - RADAR_API_URL=${RADAR_API_URL:-}
+      - RADAR_API_KEY=${RADAR_API_KEY:-}
     restart: unless-stopped
     volumes:
       - ./traefik-vbz.yml:/etc/traefik/conf.d/vbz.yml:ro
