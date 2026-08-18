@@ -1,0 +1,36 @@
+/* Fluxo de contratação — herda os tokens de .lp (landing.css). */
+.lp-wiz { background: #fff; border: 1px solid var(--b); border-radius: 20px; padding: var(--s6); box-shadow: var(--shadow-card) }
+.lp-wiz__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s3) }
+.lp-wiz__head h3 { font-size: 20px; font-weight: 800 }
+.lp-wiz__count { font-family: var(--mono); font-size: 11.5px; color: var(--t3); white-space: nowrap }
+.lp-wiz__bar { height: 6px; border-radius: 999px; background: var(--bg3); overflow: hidden; margin-bottom: var(--s5) }
+.lp-wiz__fill { height: 100%; background: var(--primary); transition: width .35s ease }
+.lp-wiz__hint { font-size: 13px; color: var(--t3); margin-bottom: var(--s5) }
+.lp-wiz__nav { display: flex; gap: var(--s3); margin-top: var(--s5) }
+.lp-wiz__nav .lp-btn { flex: 1 }
+.lp-wiz__msg { padding: var(--s4); border-radius: 12px; font-size: 13.5px; line-height: 1.55; margin-bottom: var(--s4) }
+.lp-wiz__msg--ok { background: var(--bg3); color: var(--t) }
+.lp-wiz__msg--warn { background: oklch(0.96 0.05 85); color: oklch(0.38 0.08 70) }
+.lp-wiz__msg--bad { background: oklch(0.96 0.04 25); color: oklch(0.42 0.15 25) }
+.lp-wiz__row { display: grid; grid-template-columns: 1fr; gap: var(--s3) }
+.lp-wiz__pick { display: grid; gap: var(--s3) }
+.lp-wiz__opt { display: flex; align-items: center; justify-content: space-between; gap: var(--s4);
+  padding: var(--s4); border-radius: 14px; border: 1.5px solid var(--b); background: var(--bg);
+  cursor: pointer; text-align: left; font-family: inherit; width: 100% }
+.lp-wiz__opt[aria-pressed="true"] { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px oklch(0.68 0.19 145 / .14) }
+.lp-wiz__opt b { display: block; font-size: 15px; font-weight: 800 }
+.lp-wiz__opt span { display: block; font-size: 12.5px; color: var(--t3) }
+.lp-wiz__opt em { font-style: normal; font-size: 17px; font-weight: 900; color: var(--primary); white-space: nowrap }
+.lp-wiz__promises { display: grid; gap: var(--s2); margin: var(--s4) 0; padding: 0; list-style: none }
+.lp-wiz__promises li { display: flex; gap: var(--s2); align-items: flex-start; font-size: 13px; color: var(--t2) }
+.lp-wiz__promises b { color: var(--t) }
+.lp-wiz__promises li::before { content: "✓"; color: var(--primary); font-weight: 900; flex: none }
+.lp-wiz__doc { max-height: 220px; overflow-y: auto; border: 1px solid var(--b); border-radius: 12px;
+  padding: var(--s4); background: var(--bg); font-size: 12.5px; line-height: 1.6; color: var(--t2) }
+.lp-wiz__doc li { margin-bottom: var(--s2) }
+.lp-wiz__check { display: flex; gap: var(--s3); align-items: flex-start; font-size: 13px; margin: var(--s4) 0; cursor: pointer }
+.lp-wiz__check input { width: 20px; height: 20px; flex: none; accent-color: var(--primary); margin-top: 1px }
+.lp-wiz__done { text-align: center; padding: var(--s4) 0 }
+.lp-wiz__done h3 { font-size: 22px; margin-bottom: var(--s2) }
+.lp-wiz__done p { font-size: 14px; color: var(--t2); margin-bottom: var(--s5) }
+@media (min-width: 560px) { .lp-wiz__row--2 { grid-template-columns: 1fr 1fr } }
