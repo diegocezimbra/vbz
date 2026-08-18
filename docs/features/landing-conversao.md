@@ -92,7 +92,12 @@ acesso depois da instalação.
 
 **Nada é cobrado no onboarding** — ver seção 8.
 
-## 8. Billing — recomendação (pendente de decisão)
+## 8. Billing — FORA DE ESCOPO (Diego, 18/08/2026)
+
+Cartão removido do onboarding: sem gateway, ficam PIX e boleto. O registro abaixo
+fica para quando o assunto voltar.
+
+### Recomendação de quando voltar
 
 Capturar o **meio de pagamento**, não o dinheiro. Cobrar antes da instalação briga com o que
 a própria página promete (sem multa, cancela quando quiser), e viabilidade só é 100% confirmada
