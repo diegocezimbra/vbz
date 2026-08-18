@@ -1,0 +1,60 @@
+/* Onboarding — split-screen: coleta à esquerda, painel de venda à direita.
+   Herda os tokens de .lp (landing.css), então a marca é a mesma da landing. */
+.onb { min-height: 100dvh; background: var(--bg); display: grid; grid-template-columns: 1fr }
+.onb__main { display: flex; flex-direction: column; padding: var(--s5) clamp(20px, 4.5vw, 72px) var(--s10) }
+.onb__top { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); padding-block: var(--s3) var(--s6) }
+.onb__top img { height: 32px; width: auto }
+.onb__back { display: inline-flex; align-items: center; gap: 6px; background: none; border: none; cursor: pointer;
+  font-family: inherit; font-size: 13.5px; font-weight: 600; color: var(--t3); padding: var(--s2) }
+.onb__back:hover { color: var(--t) }
+.onb__bar { height: 5px; border-radius: 999px; background: var(--bg3); overflow: hidden; margin-bottom: var(--s6) }
+.onb__fill { height: 100%; background: var(--primary); transition: width .4s ease }
+.onb__body { flex: 1; max-width: 62ch }
+.onb__kicker { display: inline-flex; align-items: center; gap: var(--s2); padding: 5px var(--s4); border-radius: 999px;
+  background: var(--bg3); color: var(--t2); font-size: 11.5px; font-weight: 800; letter-spacing: .4px; margin-bottom: var(--s4) }
+.onb h1 { font-size: clamp(28px, 4.4vw, 46px); font-weight: 800; letter-spacing: -1.6px; line-height: 1.1; margin-bottom: var(--s4) }
+.onb h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 800; letter-spacing: -1px; margin-bottom: var(--s3) }
+.onb__lead { font-size: 16.5px; color: var(--t2); line-height: 1.65; margin-bottom: var(--s6) }
+.onb__nav { display: flex; gap: var(--s3); margin-top: var(--s8); flex-wrap: wrap }
+.onb__nav .lp-btn { min-width: 190px }
+.onb__micro { font-size: 12.5px; color: var(--t3); margin-top: var(--s4) }
+.onb__pilares { display: grid; gap: var(--s4); margin-bottom: var(--s4) }
+.onb__pilar { display: flex; gap: var(--s4); align-items: flex-start; padding: var(--s5); border: 1px solid var(--b);
+  border-radius: var(--r); background: #fff }
+.onb__pilar b { display: block; font-size: 15.5px; font-weight: 800; margin-bottom: 2px }
+.onb__pilar span { font-size: 13.5px; color: var(--t2); line-height: 1.55 }
+.onb__pilar .onb__ico { flex: none; width: 40px; height: 40px; border-radius: 12px; background: var(--bg3);
+  color: var(--primary); display: grid; place-items: center }
+.onb__aside { display: none; background: linear-gradient(160deg, var(--ground), var(--ground2)); color: var(--on-ground);
+  padding: var(--s12) var(--s8); position: relative; overflow: hidden }
+.onb__aside::before { content: ""; position: absolute; inset: 0; opacity: .5; pointer-events: none;
+  background: radial-gradient(circle at 80% 6%, oklch(0.78 0.18 140 / .3), transparent 46%) }
+.onb__aside > * { position: relative }
+.onb__aside h3 { color: var(--on-ground); font-size: 22px; font-weight: 800; letter-spacing: -.8px; margin-bottom: var(--s5) }
+.onb__aside ul { list-style: none; padding: 0; margin: 0 0 var(--s8); display: grid; gap: var(--s3) }
+.onb__aside li { display: flex; gap: var(--s3); font-size: 14px; color: oklch(1 0 0 / .82); line-height: 1.5 }
+.onb__aside li::before { content: "✓"; color: var(--primary-glow); font-weight: 900; flex: none }
+.onb__resumo { border: 1px solid oklch(1 0 0 / .18); border-radius: var(--r); padding: var(--s5); background: oklch(1 0 0 / .07) }
+.onb__resumo h4 { color: var(--on-ground); font-size: 12px; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: var(--s3) }
+.onb__resumo dl { display: grid; gap: var(--s2); margin: 0 }
+.onb__linha { display: flex; justify-content: space-between; gap: var(--s4); font-size: 13px }
+.onb__linha dt { color: oklch(1 0 0 / .6) }
+.onb__linha dd { margin: 0; font-weight: 700; color: var(--on-ground); text-align: right }
+.onb__opts { display: grid; gap: var(--s3) }
+.onb__opt { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); width: 100%;
+  padding: var(--s5); border-radius: 14px; border: 1.5px solid var(--b); background: #fff; cursor: pointer;
+  text-align: left; font-family: inherit }
+.onb__opt[aria-pressed="true"] { border-color: var(--primary); box-shadow: 0 0 0 3px oklch(0.68 0.19 145 / .14) }
+.onb__opt b { display: block; font-size: 15.5px; font-weight: 800 }
+.onb__opt span { display: block; font-size: 12.5px; color: var(--t3); margin-top: 2px }
+.onb__opt em { font-style: normal; font-size: 19px; font-weight: 900; color: var(--primary); white-space: nowrap }
+.onb__chips { display: flex; flex-wrap: wrap; gap: var(--s2) }
+.onb__chip { padding: var(--s3) var(--s5); border-radius: 999px; border: 1.5px solid var(--b); background: #fff;
+  font-family: inherit; font-size: 14px; font-weight: 700; cursor: pointer; min-height: 44px }
+.onb__chip[aria-pressed="true"] { border-color: var(--primary); background: var(--primary); color: #fff }
+.onb__grid2 { display: grid; grid-template-columns: 1fr; gap: var(--s3) }
+@media (min-width: 560px) { .onb__grid2 { grid-template-columns: 1fr 1fr } }
+@media (min-width: 1000px) {
+  .onb { grid-template-columns: 1.15fr .85fr }
+  .onb__aside { display: block }
+}

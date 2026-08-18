@@ -73,3 +73,31 @@ idempotente por `(source, externalId)`; **a API key define o tenant**.
 - Depoimentos reais (nome, foto, cidade).
 - URL da área do cliente ("Entrar") e das páginas de ajuda (2ª via etc.).
 - Confirmar que o 0800 987 9009 está registrado no WhatsApp Business.
+
+## 7. Onboarding `/lp/onboarding` (2026-08-18)
+
+Rota própria, split-screen (coleta à esquerda, painel de venda + resumo da contratação à
+direita), no espírito do onboarding do Posttou: **vende antes de pedir dado**.
+
+`hook → como → garantias → oferta` (venda, sem barra de progresso; a oferta é onde o plano
+é escolhido) `→ cep → conta → titular → credito → contrato → pagamento → instalacao → wifi → pronto`.
+
+A pessoa sai com: plano escolhido, conta aberta, contrato assinado, forma de pagamento e
+vencimento definidos, instalação agendada com turno e responsável, e o Wi-Fi (nome + senha)
+já configurado pro técnico levar pronto.
+
+**Sem senha no formulário.** Não existe serviço de identidade plugado; guardar senha (ou pior,
+mandar pro CRM) seria criar vazamento com data marcada. O acesso vai por link de primeiro
+acesso depois da instalação.
+
+**Nada é cobrado no onboarding** — ver seção 8.
+
+## 8. Billing — recomendação (pendente de decisão)
+
+Capturar o **meio de pagamento**, não o dinheiro. Cobrar antes da instalação briga com o que
+a própria página promete (sem multa, cancela quando quiser), e viabilidade só é 100% confirmada
+na visita técnica: se o técnico não instalar, vira estorno — caro, lento e gerador de reclamação.
+O padrão do setor é cobrar após instalar, pro-rata.
+
+Quando houver gateway: **cartão nunca é digitado neste site** (tokenização por iframe/SDK do
+gateway), sob pena de puxar todo o escopo PCI-DSS pra dentro da VBZ.

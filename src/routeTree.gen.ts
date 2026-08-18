@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermoConsentimentoRouteImport } from './routes/termo-consentimento'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LpOnboardingRouteImport } from './routes/lp/onboarding'
 
 const TermoConsentimentoRoute = TermoConsentimentoRouteImport.update({
   id: '/termo-consentimento',
@@ -22,31 +23,40 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LpOnboardingRoute = LpOnboardingRouteImport.update({
+  id: '/lp/onboarding',
+  path: '/lp/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/termo-consentimento': typeof TermoConsentimentoRoute
+  '/lp/onboarding': typeof LpOnboardingRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/termo-consentimento': typeof TermoConsentimentoRoute
+  '/lp/onboarding': typeof LpOnboardingRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/termo-consentimento': typeof TermoConsentimentoRoute
+  '/lp/onboarding': typeof LpOnboardingRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/termo-consentimento'
+  fullPaths: '/' | '/termo-consentimento' | '/lp/onboarding'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/termo-consentimento'
-  id: '__root__' | '/' | '/termo-consentimento'
+  to: '/' | '/termo-consentimento' | '/lp/onboarding'
+  id: '__root__' | '/' | '/termo-consentimento' | '/lp/onboarding'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   TermoConsentimentoRoute: typeof TermoConsentimentoRoute
+  LpOnboardingRoute: typeof LpOnboardingRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lp/onboarding': {
+      id: '/lp/onboarding'
+      path: '/lp/onboarding'
+      fullPath: '/lp/onboarding'
+      preLoaderRoute: typeof LpOnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   TermoConsentimentoRoute: TermoConsentimentoRoute,
+  LpOnboardingRoute: LpOnboardingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
