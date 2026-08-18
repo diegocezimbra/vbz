@@ -42,7 +42,6 @@ export const VENCIMENTOS = [5, 10, 15, 20, 25] as const;
 export const PAGAMENTOS = [
   { key: "pix", label: "PIX", desc: "A fatura chega no WhatsApp com o QR Code todo mês." },
   { key: "boleto", label: "Boleto", desc: "Boleto por e-mail e WhatsApp, alguns dias antes do vencimento." },
-  { key: "cartao", label: "Cartão de crédito", desc: "Cobrança automática todo mês, sem precisar lembrar." },
 ] as const;
 
 export const TURNOS = [

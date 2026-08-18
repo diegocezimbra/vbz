@@ -19,7 +19,7 @@ export function isSalesStep(step: OnbStep): boolean {
 }
 
 export type Turno = "manha" | "tarde";
-export type FormaPagamento = "pix" | "boleto" | "cartao" | "";
+export type FormaPagamento = "pix" | "boleto" | "";
 
 export interface OnboardingState {
   cep: string; numero: string; complemento: string;

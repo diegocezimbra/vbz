@@ -157,12 +157,6 @@ export function StepPagamento({ state, patch }: { state: OnboardingState; patch:
           </button>
         ))}
       </div>
-      {state.pagamento === "cartao" && (
-        <p className="onb__micro">
-          O cartão é cadastrado por link seguro do banco, depois da instalação — a VBZ nunca digita
-          nem guarda o número do seu cartão neste site.
-        </p>
-      )}
     </>
   );
 }
