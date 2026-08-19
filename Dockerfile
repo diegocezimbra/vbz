@@ -17,6 +17,7 @@ RUN npm ci --only=production
 
 COPY --from=builder /app/dist ./dist
 COPY server-entry.mjs server-static.mjs ./
+COPY static ./static
 
 EXPOSE 3000
 
