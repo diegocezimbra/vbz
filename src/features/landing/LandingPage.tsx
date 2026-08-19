@@ -1,39 +1,38 @@
-import { LandingNav } from "./sections/LandingNav";
-import { HeroSlider } from "./sections/HeroSlider";
-import { Pain } from "./sections/Pain";
-import { Comparison } from "./sections/Comparison";
-import { Features } from "./sections/Features";
-import { Plans } from "./sections/Plans";
-import { HowItWorks } from "./sections/HowItWorks";
-import { Proof } from "./sections/Proof";
-import { Faq } from "./sections/Faq";
-import { FinalCta } from "./sections/FinalCta";
-import { Footer } from "./sections/Footer";
-import { ChatBubble } from "./sections/ChatBubble";
+import { Nav } from "./sections/Nav";
+import { Hero } from "./sections/Hero";
+import { Dor } from "./sections/Dor";
+import { Passos } from "./sections/Passos";
+import { Recursos } from "./sections/Recursos";
+import { Comparativo } from "./sections/Comparativo";
+import { FormSec } from "./sections/FormSec";
+import { Planos } from "./sections/Planos";
+import { Confianca } from "./sections/Confianca";
+import { ChatEExit, Final, Footer } from "./sections/Fechamento";
 import "./landing.css";
 
 /**
- * Ordem das seções: dor → prova → oferta → objeção → fechamento. O formulário de
- * viabilidade aparece cedo (logo depois do hero) porque é a conversão principal, e o
- * mesmo CTA volta no fim pra quem leu a página inteira antes de decidir.
+ * Ordem: promessa → prova de que a dor é conhecida → como funciona → o que vem junto
+ * → comparação → captura → oferta → prova social → objeção → fechamento.
+ * O formulário aparece no meio, depois da dor, e o mesmo CTA volta no fim pra quem
+ * leu a página inteira antes de decidir.
  */
 export function LandingPage() {
   return (
     <div className="lp">
-      <LandingNav />
+      <Nav />
       <main>
-        <HeroSlider />
-        <Pain />
-        <Comparison />
-        <Features />
-        <Plans />
-        <HowItWorks />
-        <Proof />
-        <Faq />
-        <FinalCta />
+        <Hero />
+        <Dor />
+        <Passos />
+        <Recursos />
+        <Comparativo />
+        <FormSec />
+        <Planos />
+        <Confianca />
+        <Final />
       </main>
       <Footer />
-      <ChatBubble />
+      <ChatEExit />
     </div>
   );
 }
