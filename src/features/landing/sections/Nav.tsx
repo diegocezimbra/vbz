@@ -19,18 +19,18 @@ function Dropdown({ menu }: { menu: Menu }) {
   }, [open]);
 
   return (
-    <div ref={ref} className="dropdown" style={{ position: "relative" }}
+    <div ref={ref} className="vbz-dd-wrap" style={{ position: "relative" }}
       onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-      <button type="button" className="menu-btn" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
+      <button type="button" className="vbz-menu-btn" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
         {menu.label} <ChevronDown size={14} />
       </button>
       {open && (
-        <div className="menu">
+        <div className="vbz-dd">
           {menu.items.map((i) => (
-            <a key={i.label} className="menu-item" href={i.href} onClick={() => setOpen(false)}
+            <a key={i.label} className="vbz-dd-item" href={i.href} onClick={() => setOpen(false)}
               {...(i.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
-              <span className="dd-tt">{i.label}</span>
-              <span className="dd-ds">{i.desc}</span>
+              <span className="vbz-dd-tt">{i.label}</span>
+              <span className="vbz-dd-ds">{i.desc}</span>
             </a>
           ))}
         </div>
@@ -43,18 +43,18 @@ export function Nav() {
   const [sheet, setSheet] = useState(false);
   return (
     <header>
-      <div className="wrap nav">
-        <a className="brand" href="#topo" aria-label="VBZ"><img src={vbzLogo} alt="VBZ" height={32} /></a>
-        <nav className="menu-link" aria-label="Principal" style={{ display: "flex", gap: 4 }}>
+      <div className="wrap vbz-nav">
+        <a className="vbz-brand" href="#topo" aria-label="VBZ"><img src={vbzLogo} alt="VBZ" height={32} /></a>
+        <nav className="vbz-menu" aria-label="Principal">
           {MENUS.map((m) => <Dropdown key={m.label} menu={m} />)}
         </nav>
-        <div className="nav-right">
-          <a className="phone" href={CONTACT_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+        <div className="vbz-nav-right">
+          <a className="vbz-phone" href={CONTACT_WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
             <MessageCircle size={17} /> {CONTACT_PHONE_LABEL}
           </a>
           {CLIENT_AREA_URL && <a className="btn btn-ghost btn-sm" href={CLIENT_AREA_URL}>Entrar</a>}
           <a className="btn btn-cta btn-sm" href="#viabilidade">Consultar viabilidade</a>
-          <button type="button" className="burger" aria-label="Menu" aria-expanded={sheet}
+          <button type="button" className="vbz-burger" aria-label="Menu" aria-expanded={sheet}
             onClick={() => setSheet((v) => !v)}>{sheet ? <X size={20} /> : <MenuIcon size={20} />}</button>
         </div>
       </div>

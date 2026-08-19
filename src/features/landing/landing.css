@@ -463,28 +463,35 @@ footer{background:hsl(0 0% 5%);color:hsl(0 0% 68%);padding:60px 0 30px;font-size
 .brand img{height:32px;width:auto;display:block}
 footer .f-brand img{height:30px;width:auto}
 
-/* ── Ajustes da VBZ sobre o CSS herdado ──
-   O header do CRM é uma barra colorida com SVG de marca e menu montado em outro
-   arranjo de classes. Aqui a marca é <img> e o menu é um <nav> com dropdowns, então
-   estas regras existem pra que ele apareça — sem elas o topo vira uma faixa verde
-   vazia, que foi como ficou na primeira tentativa. */
-header .brand{flex:none;display:flex;align-items:center}
-header .brand img{height:32px;width:auto;flex:none;display:block}
-header .nav > nav{display:none}
-header .menu-btn{display:inline-flex;align-items:center;gap:6px;background:transparent;border:none;
-  cursor:pointer;font-family:inherit;font-size:14px;font-weight:600;padding:8px 12px;border-radius:999px;
-  color:hsl(0 0% 100% / .92)}
-header .menu-btn:hover{background:hsl(0 0% 100% / .14);color:#fff}
-header .phone{color:#fff;display:none;align-items:center;gap:6px;font-weight:700;font-size:14px}
-header .menu{position:absolute;top:calc(100% + 8px);left:0;min-width:288px;background:#fff;
-  border:1px solid hsl(var(--border));border-radius:14px;box-shadow:var(--shadow-lg);padding:10px;
-  display:grid;gap:2px;z-index:70}
-header .menu-item{display:block;padding:10px 12px;border-radius:10px;color:var(--ink)}
-header .menu-item:hover{background:hsl(var(--muted))}
-header .dd-tt{display:block;font-size:14px;font-weight:700}
-header .dd-ds{display:block;font-size:12.5px;color:hsl(var(--muted-fg));margin-top:2px;line-height:1.45}
+
+/* ── Header da VBZ ──
+   Classes próprias (vbz-*) em vez das do CSS herdado. O topo do Qualificou foi feito
+   pra um <svg> de marca e outro arranjo de elementos; reaproveitar os nomes de lá
+   deixava o logo colapsado e o menu invisível, e cada override novo brigava com uma
+   regra que eu não controlo. Nome próprio = nenhuma regra herdada alcança. */
+.vbz-nav{display:flex;align-items:center;gap:16px;height:72px}
+.vbz-brand{flex:none;display:flex;align-items:center}
+.vbz-brand img{height:34px;width:auto;max-width:none;display:block;object-fit:contain}
+.vbz-menu{display:none;align-items:center;gap:4px}
+.vbz-nav-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.vbz-menu-btn{display:inline-flex;align-items:center;gap:6px;background:transparent;border:none;
+  cursor:pointer;font-family:inherit;font-size:14.5px;font-weight:600;padding:9px 13px;
+  border-radius:999px;color:hsl(0 0% 100% / .92);white-space:nowrap}
+.vbz-menu-btn:hover{background:hsl(0 0% 100% / .16);color:#fff}
+.vbz-dd-wrap{position:relative}
+.vbz-dd{position:absolute;top:calc(100% + 8px);left:0;min-width:300px;background:#fff;
+  border:1px solid hsl(var(--border));border-radius:14px;box-shadow:var(--shadow-lg);
+  padding:10px;display:grid;gap:2px;z-index:80}
+.vbz-dd-item{display:block;padding:10px 12px;border-radius:10px;color:var(--ink);text-decoration:none}
+.vbz-dd-item:hover{background:hsl(var(--muted))}
+.vbz-dd-tt{display:block;font-size:14px;font-weight:700}
+.vbz-dd-ds{display:block;font-size:12.5px;color:hsl(var(--muted-fg));margin-top:2px;line-height:1.45}
+.vbz-phone{display:none;align-items:center;gap:7px;color:#fff;font-weight:800;font-size:14.5px;text-decoration:none}
+.vbz-phone:hover{opacity:.9}
+.vbz-burger{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;
+  border:1px solid hsl(0 0% 100% / .35);background:transparent;color:#fff;cursor:pointer}
 @media (min-width:940px){
-  header .nav > nav{display:flex;gap:4px}
-  header .phone{display:inline-flex}
-  header .burger{display:none}
+  .vbz-menu{display:flex}
+  .vbz-phone{display:inline-flex}
+  .vbz-burger{display:none}
 }
