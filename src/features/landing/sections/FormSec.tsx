@@ -19,7 +19,7 @@ export function FormSec() {
       <div className="wrap form-grid">
         <div>
           <span className="eyebrow">{FORMULARIO.eyebrow}</span>
-          <h2 style={{ marginTop: 18 }}>{FORMULARIO.title}</h2>
+          <h2 style={{ marginTop: 18 }}>{FORMULARIO.title} <span className="hl">{FORMULARIO.highlight}</span></h2>
           <p className="lead" style={{ marginTop: 16 }}>{FORMULARIO.lead}</p>
           <ul className="check-list">
             {FORMULARIO.checks.map((c) => (

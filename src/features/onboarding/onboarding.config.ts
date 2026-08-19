@@ -35,7 +35,7 @@ export const OFERTA = {
   cta: "Consultar meu endereço",
 } as const;
 
-export const PLANOS_CASA = PLANS.filter((p) => p.kind === "casa");
+export const PLANOS_CASA = PLANS;
 
 export const VENCIMENTOS = [5, 10, 15, 20, 25] as const;
 

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { MessageCircle, X } from "lucide-react";
+import { Instagram, MessageCircle, X } from "lucide-react";
 
 import vbzLogo from "@/assets/vbz-logo.png";
 import { CONTACT_PHONE_LABEL, CONTACT_WHATSAPP_URL } from "@/lib/contact";
-import { CHAT } from "../landing.config";
+import { CHAT, INSTAGRAM_URL } from "../landing.config";
 import { EXIT, FINAL, FOOTER_COLS, WHATSAPP_VENDAS } from "../landing.content";
 
 export function Final() {
@@ -122,6 +122,12 @@ export function ChatEExit() {
               <X size={13} />
             </button>
           </div>
+        )}
+        {INSTAGRAM_URL && (
+          <a className="vbz-fab vbz-fab--ig" href={INSTAGRAM_URL} target="_blank"
+            rel="noopener noreferrer" aria-label="Instagram da VBZ">
+            <Instagram size={24} />
+          </a>
         )}
         <a className="chat-btn" href={CHAT.href} target="_blank" rel="noopener noreferrer" aria-label="Falar no WhatsApp">
           <MessageCircle size={26} />

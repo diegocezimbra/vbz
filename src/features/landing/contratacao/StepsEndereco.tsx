@@ -83,7 +83,7 @@ export function StepCep({
 }
 
 export function StepPlano({ state, patch }: { state: ContratacaoState; patch: Patch }) {
-  const planos = PLANS.filter((p) => p.kind === "casa");
+  const planos = PLANS;
   return (
     <>
       <p className="lp-wiz__hint">Escolha a velocidade. Equipamento e instalação já estão inclusos.</p>
@@ -97,10 +97,10 @@ export function StepPlano({ state, patch }: { state: ContratacaoState; patch: Pa
             onClick={() => patch({ plano: plan.name })}
           >
             <span>
-              <b>{plan.name} · {plan.speed}</b>
-              <span>{plan.features.slice(0, 2).join(" · ")}</span>
+              <b>{plan.name} · {plan.mega} Mega</b>
+              <span>{plan.wifi}{plan.watchTv ? " · Watch TV" : ""}</span>
             </span>
-            <em>{plan.price}</em>
+            <em>R$ {plan.priceInt},{plan.priceCents}</em>
           </button>
         ))}
       </div>

@@ -20,6 +20,10 @@ export const WHATSAPP_SUPPORT = whatsappUrl("Olá! Preciso de suporte técnico d
 /** PENDENTE: URL real da área do cliente. Enquanto for null, o botão "Entrar" some. */
 export const CLIENT_AREA_URL: string | null = null;
 
+/** PENDENTE: @ real da VBZ. Enquanto for null o botao do Instagram nao aparece —
+ *  mandar cliente pro perfil errado e pior que nao ter o botao. */
+export const INSTAGRAM_URL: string | null = null;
+
 export interface MenuItem { label: string; desc: string; href: string; external?: boolean }
 export interface Menu { label: string; items: MenuItem[] }
 

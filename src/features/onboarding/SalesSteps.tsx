@@ -74,10 +74,10 @@ export function StepOferta({ state, patch }: { state: OnboardingState; patch: (p
             onClick={() => patch({ plano: plan.name })}
           >
             <span>
-              <b>{plan.name} · {plan.speed}</b>
-              <span>{plan.features.slice(0, 2).join(" · ")}</span>
+              <b>{plan.name} · {plan.mega} Mega</b>
+              <span>{plan.wifi}{plan.watchTv ? " · Watch TV" : ""}</span>
             </span>
-            <em>{plan.price}</em>
+            <em>R$ {plan.priceInt},{plan.priceCents}</em>
           </button>
         ))}
       </div>

@@ -97,37 +97,59 @@ export const COMPARATIVO = {
 } as const;
 
 export const FORMULARIO = {
-  eyebrow: "Viabilidade",
-  title: "Cansou de ter problemas com a Internet da sua casa?",
-  lead: "Quem troca pra VBZ quase sempre chega pelo mesmo motivo: cansou. E é justamente por isso que a gente não vende promessa — vende o que está escrito no contrato.",
+  eyebrow: "Disponibilidade",
+  title: "Já chegamos",
+  highlight: "até você?",
+  lead: "Deixe seu contato e a gente confirma a cobertura no seu endereço. Um consultor fala com você pelo WhatsApp.",
   checks: [
-    "Consulta sem compromisso: não pedimos documento nem cartão",
-    "Se ainda não chegamos no seu endereço, a gente diz na hora",
-    "Quem responde é o time local, no WhatsApp",
+    "Leva menos de 1 minuto",
+    "A gente confirma a cobertura no seu endereço",
+    "Sem compromisso",
   ],
 } as const;
 
-export type PlanKind = "casa" | "empresa";
 export interface Plan {
-  kind: PlanKind; name: string; speed: string; price: string; priceNote: string;
-  features: string[]; featured?: boolean; cta: string;
+  name: string;
+  mega: string;
+  wifi: string;
+  watchTv?: boolean;
+  priceInt: string;
+  priceCents: string;
+  asterisco?: boolean;
+  nota: string;
+  features: string[];
+  badge?: string;
 }
 
-/** PENDENTE: preços herdados da página anterior — validar antes de virar anúncio pago. */
+/**
+ * Planos definidos pelo Diego (19/08/2026). Preco e condicao de promocao sao dado
+ * comercial: mudou a tabela, muda AQUI e em nenhum outro lugar.
+ */
 export const PLANS: Plan[] = [
-  { kind: "casa", name: "Essencial", speed: "500 Mega", price: "R$ 100", priceNote: "/mês · R$ 90 no cartão",
-    features: ["500 Mega de download", "Upload na mesma velocidade", "Roteador Wi-Fi 5 incluso", "Instalação grátis", "Sem fidelidade", "Suporte no WhatsApp"], cta: "Quero o Essencial" },
-  { kind: "casa", name: "Super", speed: "700 Mega", price: "R$ 130", priceNote: "/mês · R$ 120 no cartão", featured: true,
-    features: ["700 Mega de download", "Upload na mesma velocidade", "Roteador Wi-Fi 6 incluso", "Streaming Plus por 12 meses", "Instalação grátis", "Sem fidelidade"], cta: "Quero o Super" },
-  { kind: "casa", name: "Ultra", speed: "1 Giga", price: "R$ 160", priceNote: "/mês · R$ 150 no cartão",
-    features: ["1 Giga de download", "Upload na mesma velocidade", "Wi-Fi 6 + ponto mesh", "Streaming Plus por 12 meses", "Instalação grátis", "Prioridade no atendimento"], cta: "Quero o Ultra" },
-  { kind: "empresa", name: "Dedicado 50", speed: "50 Mbps", price: "Sob consulta", priceNote: "orçado por endereço",
-    features: ["Banda 100% dedicada e simétrica", "SLA 99,9% em contrato", "Suporte NOC 24/7", "IP fixo"], cta: "Pedir proposta" },
-  { kind: "empresa", name: "Dedicado 150", speed: "150 Mbps", price: "Sob consulta", priceNote: "orçado por endereço", featured: true,
-    features: ["Banda 100% dedicada e simétrica", "SLA 99,9% em contrato", "Suporte prioritário", "Redundância ativa"], cta: "Pedir proposta" },
-  { kind: "empresa", name: "Enterprise", speed: "Sob medida", price: "Sob consulta", priceNote: "projeto dedicado",
-    features: ["Capacidade sob medida", "SLA 99,99%", "Multi-rota redundante", "Gerente de conta"], cta: "Falar com engenharia" },
+  { name: "Plano Starter", mega: "100", wifi: "WiFi Confiável", priceInt: "89", priceCents: "90",
+    nota: "Aqui é preço fixo de verdade!",
+    features: ["100% Download e Upload", "Internet 100% em fibra ótica", "Instalação Grátis"] },
+  { name: "Plano Turbo", mega: "500", wifi: "WiFi Dual Band", priceInt: "99", priceCents: "90",
+    nota: "Aqui é preço fixo de verdade!",
+    features: ["100% Download e Upload", "Internet 100% em fibra ótica", "Instalação Grátis"] },
+  { name: "Plano Home Office", mega: "750", wifi: "WiFi Dual Band PRO", watchTv: true,
+    priceInt: "89", priceCents: "90", asterisco: true, badge: "Popular",
+    nota: "R$ 89,90 nos 3 primeiros meses com Watch TV. A partir do 4º mês, R$ 109,90.",
+    features: ["100% Download e Upload", "Internet 100% em fibra ótica", "Instalação Grátis"] },
+  { name: "Plano Home Plus", mega: "850", wifi: "WiFi Dual Band PRO", watchTv: true,
+    priceInt: "124", priceCents: "90", nota: "Aqui é preço fixo de verdade!",
+    features: ["100% Download e Upload", "Internet 100% em fibra ótica", "Instalação Grátis"] },
+  { name: "Plano Infinit", mega: "1000", wifi: "WiFi Ultra", watchTv: true,
+    priceInt: "149", priceCents: "90", badge: "Mais rápido", nota: "Aqui é preço fixo de verdade!",
+    features: ["100% Download e Upload", "Internet 100% em fibra ótica", "Instalação Grátis"] },
 ];
+
+export const PLANOS_HEAD = {
+  eyebrow: "Nossos planos",
+  title: "Escolha seu",
+  highlight: "plano ideal",
+  lead: "Todos os planos são 100% em fibra ótica, com instalação grátis.",
+} as const;
 
 export const GARANTIA = {
   eyebrow: "Sem risco",

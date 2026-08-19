@@ -21,7 +21,7 @@ async function chegarNoPassoDeDados(user: ReturnType<typeof userEvent.setup>) {
   await user.type(screen.getByLabelText("Número"), "450");
   await user.click(screen.getByRole("button", { name: /consultar disponibilidade/i }));
   await user.click(await screen.findByRole("button", { name: /^continuar$/i }));
-  await user.click(screen.getByRole("button", { name: /super/i }));
+  await user.click(screen.getByRole("button", { name: /turbo/i }));
   await user.click(screen.getByRole("button", { name: /^continuar$/i }));
   await user.type(screen.getByLabelText(/nome completo/i), "Maria de Souza");
   await user.type(screen.getByLabelText("CPF"), "52998224725");
