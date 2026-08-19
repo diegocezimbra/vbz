@@ -111,7 +111,7 @@ export function ChatEExit() {
         </div>
       )}
 
-      <div className="chat">
+      <div className="chat" data-show={bubble && !dismissed}>
         {bubble && !dismissed && (
           <div className="chat-panel" style={{ position: "relative" }}>
             <a className="chat-link" href={CHAT.href} target="_blank" rel="noopener noreferrer">

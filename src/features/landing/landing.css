@@ -495,3 +495,8 @@ footer .f-brand img{height:30px;width:auto}
   .vbz-phone{display:inline-flex}
   .vbz-burger{display:none}
 }
+
+/* O anel de pulso do botao de chat e um ::after com inset:0. Sem position:relative no
+   proprio botao ele se ancora no container do chat (que tem a largura do balao, 320px)
+   e vira uma elipse verde gigante em cima da pagina. */
+.chat-btn{position:relative}
