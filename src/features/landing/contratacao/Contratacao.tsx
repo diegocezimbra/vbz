@@ -33,9 +33,9 @@ function fullAddress(s: ContratacaoState): string {
  * ao assinar. Esperar o fim do funil pra registrar significa perder todo mundo que
  * desistiu no meio — que é justamente quem o time de vendas precisa ligar de volta.
  */
-export function Contratacao() {
+export function Contratacao({ inicial }: { inicial?: Partial<ContratacaoState> } = {}) {
   const [step, setStep] = useState<Step>("cep");
-  const [state, setState] = useState<ContratacaoState>(emptyState());
+  const [state, setState] = useState<ContratacaoState>({ ...emptyState(), ...inicial });
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   const [notFound, setNotFound] = useState(false);

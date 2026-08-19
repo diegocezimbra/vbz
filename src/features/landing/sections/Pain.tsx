@@ -1,10 +1,18 @@
+import { useState } from "react";
+
 import { Contratacao } from "../contratacao/Contratacao";
+import type { ViabilityForm } from "../lead/payload";
+import { ViabilidadeCurta } from "./ViabilidadeCurta";
 
 /**
  * Seção de DOR + formulário lado a lado. É o par que converte: o texto nomeia o
  * problema que a pessoa já vive e o formulário fica na mesma dobra, sem novo clique.
  */
 export function Pain() {
+  // O formulário curto registra o lead com o que a pessoa sabe de cabeça; o fluxo
+  // completo só aparece depois, já preenchido. Quem desistir no meio já virou lead.
+  const [dados, setDados] = useState<ViabilityForm | null>(null);
+
   return (
     <section className="lp-sec lp-sec--alt" id="viabilidade">
       <div className="lp__wrap lp-split">
@@ -24,7 +32,11 @@ export function Pain() {
             <li>Se ainda não chegamos aí, a gente fala isso na cara — e avisa quando chegar.</li>
           </ul>
         </div>
-        <Contratacao />
+        {dados ? (
+          <Contratacao inicial={{ nome: dados.nome, telefone: dados.telefone, cidade: dados.cidade }} />
+        ) : (
+          <ViabilidadeCurta onContinuar={setDados} />
+        )}
       </div>
     </section>
   );
