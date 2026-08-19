@@ -45,6 +45,10 @@
    margin auto deixando o monitor vazio dos lados. O respiro vem de padding que cresce
    com a viewport. Medida de texto — a exceção da regra — é resolvida por bloco, em `ch`
    (ver .lp-hero h1, .lp-hero__lead, .lp-sec__sub, .lp-faq). */
+/* A landing declara o próprio box-sizing em vez de herdar o reset do app: sem isto o
+   padding do container é somado POR FORA da largura e a página inteira ganha rolagem
+   horizontal — foi o que apareceu no primeiro deploy, com o CTA do header cortado. */
+.lp, .lp *, .lp *::before, .lp *::after { box-sizing: border-box }
 .lp__wrap { width: 100%; padding: 0 clamp(20px, 4.5vw, 88px); position: relative; z-index: 1 }
 .lp h1, .lp h2, .lp h3, .lp h4 { text-wrap: balance; color: var(--t); letter-spacing: -0.02em }
 .lp a { color: inherit; text-decoration: none }
