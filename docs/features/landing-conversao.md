@@ -106,3 +106,37 @@ O padrão do setor é cobrar após instalar, pro-rata.
 
 Quando houver gateway: **cartão nunca é digitado neste site** (tokenização por iframe/SDK do
 gateway), sob pena de puxar todo o escopo PCI-DSS pra dentro da VBZ.
+
+## 9. Deploy automático (2026-08-20)
+
+Push na `main` deploya sozinho. Antes disso todo deploy era disparado na mão pela
+API do Coolify — testei e confirmei: um push sem webhook não movia a fila.
+
+**Como está montado**
+- Secret em `manual_webhook_secret_github` do app `vbz-landing-nova`
+  (uuid `z14oa5ig778e5ol4ige1h0dv`), gravado por `PATCH /api/v1/applications/{uuid}`.
+- Webhook no repo `diegocezimbra/vbz` (id `668249544`), evento **push** apenas,
+  apontando para `https://server.ohanax.com/webhooks/source/github/events/manual`,
+  `content_type: json`, com **o mesmo secret**. Todos os apps usam essa mesma URL —
+  quem identifica o app é o secret.
+- `watch_paths` preenchido: `static/**`, `src/**`, `server-entry.mjs`,
+  `server-static.mjs`, `Dockerfile`, `package.json`, `package-lock.json`,
+  `vite.config.ts`, `tsconfig.json`.
+
+**Por que o `watch_paths` não é opcional.** Vazio significa "deploya em QUALQUER
+push". Numa instância compartilhada isso já gerou 403 deploys em 24h — 92% do
+volume da instância inteira. Mudança em `docs/` não precisa rebuildar imagem.
+
+**Sintomas quando quebra**
+| Erro | Sintoma |
+|---|---|
+| Secret divergente entre Coolify e GitHub | entrega falha na assinatura; deploy nunca acontece, em silêncio |
+| `watch_paths` vazio | deploya em todo push, inclusive doc |
+| URL errada | pode até voltar 200 se o host existir, mas o Coolify não vê nada |
+| Push em rajada | 429 numa entrega = aquele push não deploya; conferir depois de vários commits seguidos |
+
+**HTTP 200 na entrega só diz que o Coolify recebeu** — confirme que o container
+subiu antes de dar por feito.
+
+> O token `~/.claude/secrets/ohanax-infra/coolify-token-rw.env` (`COOLIFY_RW_TOKEN`)
+> está **inválido** (401). O que funciona é o de `coolify-api-token.env`.
