@@ -520,8 +520,10 @@ footer{background:hsl(0 0% 5%);color:hsl(0 0% 68%);padding:60px 0 30px;font-size
 
 /* ── Planos da VBZ ── */
 .vbz-planos{display:grid;grid-template-columns:1fr;gap:18px}
-@media (min-width:700px){.vbz-planos{grid-template-columns:repeat(2,1fr)}}
-@media (min-width:1150px){.vbz-planos{grid-template-columns:repeat(5,1fr);gap:14px}}
+@media (min-width:700px){.vbz-planos{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* minmax(0,1fr) e nao 1fr: `1fr` respeita o min-content do item, e o texto do
+   botao ("Contratar 1000 Mega") empurrava a grade pra fora do container. */
+@media (min-width:1150px){.vbz-planos{grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}}
 .vbz-plano{position:relative;background:hsl(var(--card));border:1px solid hsl(var(--border));
   border-radius:18px;padding:24px 20px;display:flex;flex-direction:column;box-shadow:var(--shadow-sm)}
 .vbz-plano--destaque{border-color:hsl(var(--primary));box-shadow:0 0 0 2px hsl(var(--primary) / .3),var(--shadow-md)}
@@ -578,6 +580,33 @@ footer{background:hsl(0 0% 5%);color:hsl(0 0% 68%);padding:60px 0 30px;font-size
 .vbz-plano__mega{background:linear-gradient(120deg,hsl(265 85% 52%),hsl(187 92% 40%));
   -webkit-background-clip:text;background-clip:text;color:transparent}
 .trustbar svg{color:hsl(187 92% 38%)}
+
+/* ── Faixa de promocao + declaracao ──
+   A promo entra logo depois da faixa de confianca: é a oferta que tira o risco da
+   decisao, e risco e o que trava quem ja se queimou com provedor. */
+.promo{background:linear-gradient(135deg,hsl(265 85% 54%) 0%,hsl(225 85% 52%) 50%,hsl(187 92% 44%) 100%);
+  color:#fff;padding:56px 0}
+.promo-grid{display:grid;grid-template-columns:1fr;gap:28px;align-items:center}
+@media (min-width:900px){.promo-grid{grid-template-columns:1.25fr .75fr;gap:48px}}
+.promo h2{font-family:'Plus Jakarta Sans',sans-serif;color:#fff;font-size:clamp(28px,3.6vw,42px);
+  font-weight:800;letter-spacing:-1.2px;line-height:1.12;margin-bottom:14px}
+.promo-hl{position:relative;white-space:nowrap}
+.promo-hl::after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.3em;
+  background:hsl(0 0% 100% / .28);border-radius:3px;z-index:-1}
+.promo p{color:hsl(200 40% 95%);font-size:16.5px;line-height:1.6;max-width:60ch}
+.promo-selo{display:inline-block;padding:5px 14px;border-radius:999px;background:hsl(0 0% 100% / .18);
+  border:1px solid hsl(0 0% 100% / .3);font-size:11.5px;font-weight:800;letter-spacing:1px;
+  text-transform:uppercase;margin-bottom:16px}
+.promo .btn-cta{background:#fff;color:hsl(265 85% 50%);box-shadow:0 6px 20px hsl(0 0% 4% / .28)}
+.promo .btn-cta:hover{background:hsl(265 40% 97%)}
+.promo-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.promo-list li{background:hsl(0 0% 100% / .12);border:1px solid hsl(0 0% 100% / .22);
+  border-radius:14px;padding:14px 16px;font-size:14.5px;line-height:1.5}
+.promo-list b{font-weight:800}
+.statement{text-align:center}
+.statement h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(28px,4vw,46px);font-weight:800;
+  letter-spacing:-1.6px;line-height:1.12;max-width:22ch;margin:0 auto 18px;color:var(--ink)}
+.statement .lead{max-width:66ch;margin:0 auto}
 </style>
 </head>
 <body>
@@ -690,6 +719,35 @@ footer{background:hsl(0 0% 5%);color:hsl(0 0% 68%);padding:60px 0 30px;font-size
       <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z"/></svg> Sem fidelidade</li>
       <li><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 6v6l4 2"/><path d="M12 22a10 10 0 100-20 10 10 0 000 20z"/></svg> Suporte humano no WhatsApp</li>
     </ul>
+  </div>
+</section>
+
+
+<section class="promo" aria-label="Teste por 30 dias">
+  <div class="wrap promo-grid">
+    <div>
+      <span class="promo-selo">Sem risco</span>
+      <h2>Na VBZ você pode <span class="promo-hl">testar a internet por 30 dias</span></h2>
+      <p>Sem custo de instalação. Sem fidelidade. Se não for o que a gente prometeu, você cancela e não paga multa nenhuma.</p>
+      <div class="cta-row" style="margin-top:22px">
+        <a class="btn btn-cta btn-lg" href="#viabilidade">Quero testar 30 dias</a>
+      </div>
+    </div>
+    <ul class="promo-list">
+      <li><b>Sem custo</b> pra instalar e pra levar o equipamento</li>
+      <li><b>Sem fidelidade</b> — sair é só avisar, sem multa</li>
+      <li><b>Velocidade medida</b> na sua frente no dia da instalação</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section statement">
+  <div class="wrap">
+    <h2 class="reveal">Esta vai ser a <span class="hl">última vez</span> que você vai procurar por um serviço de Internet.</h2>
+    <p class="lead reveal">Quem troca pra VBZ quase sempre chega pelo mesmo motivo: cansou. Cansou do "até 300 Mega", da queda toda noite, do suporte que é um menu sem fim. A gente resolve isso de um jeito simples — entrega o que está no contrato e atende quando você chama.</p>
+    <div class="cta-row reveal" style="justify-content:center;margin-top:26px">
+      <a class="btn btn-cta btn-lg" href="#viabilidade">Consultar cobertura</a>
+    </div>
   </div>
 </section>
 
