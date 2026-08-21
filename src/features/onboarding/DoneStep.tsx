@@ -54,7 +54,7 @@ export function StepPronto({ state, whatsapp }: { state: OnboardingState; whatsa
       </div>
       <p className="onb__micro">
         O acesso à área do cliente chega por WhatsApp e e-mail depois da instalação, num link de
-        primeiro acesso — é lá que você cria sua senha.
+        primeiro acesso - é lá que você cria sua senha.
       </p>
     </>
   );

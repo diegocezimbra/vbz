@@ -24,7 +24,7 @@ export interface BuildContext {
 
 /**
  * Corpo do `POST /api/v1/inbound/leads` do Qualificou. O contrato lá é `.strict()`:
- * chave desconhecida derruba o lead inteiro com 400 — por isso este tipo é fechado
+ * chave desconhecida derruba o lead inteiro com 400 - por isso este tipo é fechado
  * e endereço/cidade viajam em `tags`, não em campo próprio.
  */
 export interface QualificouLead {
@@ -38,7 +38,7 @@ export interface QualificouLead {
 }
 
 export const LEAD_SOURCE = "landing-vbz";
-export const LEAD_CAMPAIGN = "Viabilidade — landing";
+export const LEAD_CAMPAIGN = "Viabilidade - landing";
 /** Limite por tag no contrato do CRM. Estourar derruba o lead, então trunca. */
 const TAG_MAX = 60;
 
@@ -58,7 +58,7 @@ function compactUtm(utm?: Utm): Utm | undefined {
 
 /**
  * `externalId` é `(telefone, dia)`: o inbound é idempotente por `(source, externalId)`,
- * então o mesmo visitante mandando o formulário duas vezes no mesmo dia vira UM lead —
+ * então o mesmo visitante mandando o formulário duas vezes no mesmo dia vira UM lead -
  * e volta a abrir lead novo no dia seguinte, que é quando a repetição vira sinal real.
  */
 export function buildQualificouLead(form: ViabilityForm, ctx: BuildContext): QualificouLead {

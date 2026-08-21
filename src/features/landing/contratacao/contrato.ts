@@ -1,6 +1,6 @@
 /**
  * Compromissos comerciais que a VBZ assume na contratação (Diego, 18/08/2026).
- * Ficam aqui porque aparecem em DOIS lugares — na venda e no texto do contrato — e
+ * Ficam aqui porque aparecem em DOIS lugares - na venda e no texto do contrato - e
  * promessa que diverge entre a página e o contrato é a origem clássica de reclamação.
  */
 export const COMPROMISSOS = [

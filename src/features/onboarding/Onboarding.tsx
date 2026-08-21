@@ -25,7 +25,7 @@ const CTA_LABEL: Partial<Record<OnbStep, string>> = {
   contrato: "Assinar contrato", wifi: "Concluir contratação",
 };
 
-/** Instalação só a partir do dia seguinte — agenda pra hoje não existe na prática. */
+/** Instalação só a partir do dia seguinte - agenda pra hoje não existe na prática. */
 function amanha(): string {
   const d = new Date();
   d.setDate(d.getDate() + 1);
@@ -66,7 +66,7 @@ function Aside({ state }: { state: OnboardingState }) {
 /**
  * Onboarding completo: vende, cadastra, contrata e configura na mesma rota.
  *
- * A ordem é deliberada — os quatro primeiros passos não pedem nada. Quem chega de
+ * A ordem é deliberada - os quatro primeiros passos não pedem nada. Quem chega de
  * anúncio ainda não sabe o que a VBZ entrega; pedir CEP na primeira tela troca a
  * conversa por um formulário e perde quem ainda estava decidindo.
  */
@@ -130,10 +130,10 @@ export function Onboarding() {
 
   const advance = () => {
     if (!canAdvance(step, state)) return;
-    if (step === "conta") void mirrorLead(`onboarding — plano ${state.plano}`);
+    if (step === "conta") void mirrorLead(`onboarding - plano ${state.plano}`);
     if (step === "wifi") {
       void mirrorLead(
-        `CONTRATADO — ${state.plano} — ${state.pagamento} venc. ${state.vencimento} — instalar ${state.instalacaoData} ${state.instalacaoTurno}`,
+        `CONTRATADO - ${state.plano} - ${state.pagamento} venc. ${state.vencimento} - instalar ${state.instalacaoData} ${state.instalacaoTurno}`,
       );
     }
     setMessage("");

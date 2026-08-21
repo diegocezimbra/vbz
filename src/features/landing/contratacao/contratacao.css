@@ -1,4 +1,4 @@
-/* Fluxo de contratação — herda os tokens de .lp (landing.css). */
+/* Fluxo de contratação - herda os tokens de .lp (landing.css). */
 .lp-wiz { background: #fff; border: 1px solid var(--b); border-radius: 20px; padding: var(--s6); box-shadow: var(--shadow-card) }
 .lp-wiz__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s3); margin-bottom: var(--s3) }
 .lp-wiz__head h3 { font-size: 20px; font-weight: 800 }

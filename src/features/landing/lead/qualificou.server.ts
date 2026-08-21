@@ -4,7 +4,7 @@ import type { QualificouLead } from "./payload";
 
 /**
  * Cliente do inbound do CRM (Qualificou). Vive num `.server.ts` porque carrega a
- * API KEY — que define o tenant e por isso NUNCA pode chegar ao browser.
+ * API KEY - que define o tenant e por isso NUNCA pode chegar ao browser.
  *
  * Envs (ambas obrigatórias; sem elas o envio fica desligado e apenas loga):
  *   QUALIFICOU_INBOUND_URL  → https://api.qualificou.com.br/api/v1/inbound/leads
@@ -23,7 +23,7 @@ export async function sendLeadToCrm(lead: QualificouLead): Promise<LeadDelivery>
   const key = process.env.QUALIFICOU_INBOUND_KEY;
 
   if (!url || !key) {
-    console.warn("[lead] Qualificou não configurado — lead não espelhado no CRM.");
+    console.warn("[lead] Qualificou não configurado - lead não espelhado no CRM.");
     return { delivered: false, reason: "not_configured" };
   }
 
@@ -36,7 +36,7 @@ export async function sendLeadToCrm(lead: QualificouLead): Promise<LeadDelivery>
     });
 
     if (!response.ok) {
-      // Corpo do erro entra no log porque `.strict()` recusa por FORMA — sem o
+      // Corpo do erro entra no log porque `.strict()` recusa por FORMA - sem o
       // motivo, um campo novo quebrando a integração vira mistério.
       console.error(`[lead] Qualificou recusou (${response.status}): ${await response.text()}`);
       return { delivered: false, reason: "rejected" };

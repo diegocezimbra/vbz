@@ -16,7 +16,7 @@ const TIMEOUT_MS = 12_000;
 const SCORE_APROVACAO = 500;
 
 /**
- * Análise de crédito via Radar do Crédito (produto irmão — `POST /api/radar/v1/consulta-pf`).
+ * Análise de crédito via Radar do Crédito (produto irmão - `POST /api/radar/v1/consulta-pf`).
  *
  * Envs: `RADAR_API_URL` + `RADAR_API_KEY`. Sem elas, o retorno é `analise_manual`:
  * o fluxo NUNCA trava e ninguém é recusado por falta de configuração nossa. Recusa
@@ -32,7 +32,7 @@ export const checkCredit = createServerFn({ method: "POST" })
     const url = process.env.RADAR_API_URL;
     const key = process.env.RADAR_API_KEY;
     if (!url || !key) {
-      console.warn("[credito] Radar do Crédito não configurado — proposta segue pra análise manual.");
+      console.warn("[credito] Radar do Crédito não configurado - proposta segue pra análise manual.");
       return { decision: "analise_manual", message: "Sua proposta vai passar por uma conferência rápida do nosso time." };
     }
 
@@ -59,7 +59,7 @@ export const checkCredit = createServerFn({ method: "POST" })
       if (score >= SCORE_APROVACAO) {
         return { decision: "aprovado", message: "Análise aprovada. Vamos ao contrato." };
       }
-      return { decision: "analise_manual", message: "Precisamos de uma conferência do time antes de seguir — já vamos te chamar." };
+      return { decision: "analise_manual", message: "Precisamos de uma conferência do time antes de seguir - já vamos te chamar." };
     } catch (error) {
       console.error("[credito] Radar inalcançável:", error);
       return { decision: "analise_manual", message: "Sua proposta vai passar por uma conferência rápida do nosso time." };

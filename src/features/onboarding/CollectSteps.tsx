@@ -13,7 +13,7 @@ export function StepCep({ state, patch, busy, message, onCheck }: {
   return (
     <>
       <h1>Tem VBZ no seu endereço?</h1>
-      <p className="onb__lead">Começa pelo CEP — a disponibilidade é consultada na hora.</p>
+      <p className="onb__lead">Começa pelo CEP - a disponibilidade é consultada na hora.</p>
       <div className="onb__grid2">
         <Field id="onb-cep" label="CEP" value={state.cep} inputMode="numeric" autoComplete="postal-code"
           placeholder="00000-000" onChange={(v) => patch({ cep: maskCEP(v), disponivel: null })} />
@@ -27,7 +27,7 @@ export function StepCep({ state, patch, busy, message, onCheck }: {
           {message}
           {state.logradouro && (
             <div style={{ marginTop: 6 }}>
-              <strong>{state.logradouro}, {state.numero} — {state.bairro}, {state.cidade}/{state.uf}</strong>
+              <strong>{state.logradouro}, {state.numero} - {state.bairro}, {state.cidade}/{state.uf}</strong>
             </div>
           )}
         </div>
@@ -56,7 +56,7 @@ export function StepConta({ state, patch }: { state: OnboardingState; patch: Pat
       </div>
       <p className="onb__micro">
         A gente não pede senha aqui. Depois da instalação você recebe um link de primeiro acesso
-        no WhatsApp e cria a sua — senha digitada em formulário de site é senha que vaza.
+        no WhatsApp e cria a sua - senha digitada em formulário de site é senha que vaza.
       </p>
     </>
   );
@@ -100,7 +100,7 @@ export function StepCredito({ state, busy, message, onRun }: {
 }
 
 export function StepContrato({ state, patch }: { state: OnboardingState; patch: Patch }) {
-  const endereco = `${state.logradouro}, ${state.numero}${state.complemento ? ` — ${state.complemento}` : ""}, ${state.bairro}, ${state.cidade}/${state.uf}, CEP ${state.cep}`;
+  const endereco = `${state.logradouro}, ${state.numero}${state.complemento ? ` - ${state.complemento}` : ""}, ${state.bairro}, ${state.cidade}/${state.uf}, CEP ${state.cep}`;
   return (
     <>
       <h1>Contrato</h1>
@@ -122,7 +122,7 @@ export function StepContrato({ state, patch }: { state: OnboardingState; patch: 
           onChange={(e) => patch({ aceite: e.target.checked })} />
         <span>Li e aceito as condições acima e o Termo de Consentimento.</span>
       </label>
-      <Field id="onb-assin" label="Assinatura — digite seu nome completo" value={state.assinatura}
+      <Field id="onb-assin" label="Assinatura - digite seu nome completo" value={state.assinatura}
         autoComplete="off" placeholder={state.nome} onChange={(v) => patch({ assinatura: v })}
         error={state.assinatura && state.assinatura.trim().toLowerCase() !== state.nome.trim().toLowerCase()
           ? "A assinatura precisa ser igual ao nome do titular." : undefined} />
@@ -186,7 +186,7 @@ export function StepInstalacao({ state, patch, minDate }: {
       <Field id="onb-recebe" label="Quem recebe o técnico" value={state.recebePor}
         placeholder="Nome de quem estará no local" onChange={(v) => patch({ recebePor: v })} />
       <p className="onb__micro">
-        Precisa ser maior de idade. A data é uma preferência — confirmamos por WhatsApp antes,
+        Precisa ser maior de idade. A data é uma preferência - confirmamos por WhatsApp antes,
         e você pode remarcar. Agenda a partir de {minDate.split("-").reverse().join("/")}.
       </p>
     </>
@@ -206,7 +206,7 @@ export function StepWifi({ state, patch }: { state: OnboardingState; patch: Patc
         placeholder="Mínimo de 8 caracteres" onChange={(v) => patch({ wifiSenha: v })}
         error={state.wifiSenha && state.wifiSenha.length < 8 ? "A senha precisa ter pelo menos 8 caracteres." : undefined} />
       <p className="onb__micro">
-        Evite dados pessoais no nome da rede — o nome fica visível pra quem estiver por perto.
+        Evite dados pessoais no nome da rede - o nome fica visível pra quem estiver por perto.
       </p>
     </>
   );

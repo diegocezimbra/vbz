@@ -8,7 +8,7 @@ function onlyDigits(value: string): string {
 
 /**
  * Máscara progressiva `(DD) 9NNNN-NNNN`. Formata o que já foi digitado sem
- * exigir o número completo — campo com máscara só no blur trava a digitação.
+ * exigir o número completo - campo com máscara só no blur trava a digitação.
  */
 export function maskPhoneBR(value: string): string {
   const d = onlyDigits(value).slice(0, MAX_DIGITS);
@@ -31,7 +31,7 @@ export function phoneToE164(value: string): string {
   return `+55${national}`;
 }
 
-/** Fixo (10) ou celular (11) com DDD válido — DDD brasileiro começa em 11. */
+/** Fixo (10) ou celular (11) com DDD válido - DDD brasileiro começa em 11. */
 export function isValidPhoneBR(value: string): boolean {
   const d = onlyDigits(value);
   if (d.length !== 10 && d.length !== 11) return false;

@@ -17,7 +17,7 @@ describe("buildQualificouLead", () => {
     expect(lead.contact.phone).toBe("+5535998423386");
   });
 
-  it("usa externalId estável por telefone e dia — reenvio no mesmo dia é idempotente", () => {
+  it("usa externalId estável por telefone e dia - reenvio no mesmo dia é idempotente", () => {
     const a = buildQualificouLead(form, { now: new Date("2026-08-18T09:00:00Z") });
     const b = buildQualificouLead(form, { now: new Date("2026-08-18T22:30:00Z") });
     const outroDia = buildQualificouLead(form, { now: new Date("2026-08-19T09:00:00Z") });
@@ -33,7 +33,7 @@ describe("buildQualificouLead", () => {
     expect(lead.tags).toContain("cidade:Pouso Alegre");
   });
 
-  it("trunca tag em 60 chars — o CRM recusa acima disso e derrubaria o lead inteiro", () => {
+  it("trunca tag em 60 chars - o CRM recusa acima disso e derrubaria o lead inteiro", () => {
     const lead = buildQualificouLead(
       { ...form, endereco: "A".repeat(200) },
       { now: new Date("2026-08-18T12:00:00Z") },
@@ -53,7 +53,7 @@ describe("buildQualificouLead", () => {
     expect(lead.utm).toEqual({ source: "meta", medium: "cpc", campaign: "viabilidade" });
   });
 
-  it("omite utm quando não há nenhum parâmetro — o contrato é .strict()", () => {
+  it("omite utm quando não há nenhum parâmetro - o contrato é .strict()", () => {
     const lead = buildQualificouLead(form, { now: new Date("2026-08-18T12:00:00Z") });
     expect(lead.utm).toBeUndefined();
   });

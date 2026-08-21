@@ -30,7 +30,7 @@ export function contentTypeOf(file) {
  * arquivo (rota de página, que é do SSR) ou tenta escapar da pasta de estáticos.
  *
  * A checagem de escopo é feita DEPOIS de resolver o caminho: comparar a string crua
- * deixa passar `%2e%2e%2f` e symlink. Sem extensão também é null — rota como
+ * deixa passar `%2e%2e%2f` e symlink. Sem extensão também é null - rota como
  * `/lp/onboarding` tem que chegar no SSR, não virar 404 de arquivo.
  */
 export function safeStaticPath(urlPath, root) {

@@ -10,7 +10,7 @@ export interface FieldProps {
   error?: string;
 }
 
-/** Campo de formulário do fluxo — label ligado por id e erro anunciado por role="alert". */
+/** Campo de formulário do fluxo - label ligado por id e erro anunciado por role="alert". */
 export function Field({ id, label, value, onChange, error, type = "text", ...rest }: FieldProps) {
   return (
     <div className="lp-field">

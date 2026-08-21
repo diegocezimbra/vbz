@@ -10,7 +10,7 @@ export type OnbStep = (typeof ONB_STEPS)[number];
 
 /**
  * Passos de venda: sem barra de progresso, porque ainda não começou coleta nenhuma.
- * `oferta` entra aqui pela aparência (é tela de venda) mas é ela que colhe o plano —
+ * `oferta` entra aqui pela aparência (é tela de venda) mas é ela que colhe o plano -
  * ter um passo "plano" depois faria a pessoa escolher a mesma coisa duas vezes.
  */
 const SALES_STEPS: OnbStep[] = ["hook", "como", "garantias", "oferta"];
@@ -55,7 +55,7 @@ function normalize(v: string): string {
   return v.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
 }
 
-/** Senha de Wi-Fi tem mínimo de 8 caracteres no WPA2 — abaixo disso o roteador recusa. */
+/** Senha de Wi-Fi tem mínimo de 8 caracteres no WPA2 - abaixo disso o roteador recusa. */
 const WIFI_MIN = 8;
 
 export function canAdvance(step: OnbStep, s: OnboardingState): boolean {

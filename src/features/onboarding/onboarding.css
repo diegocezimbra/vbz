@@ -1,4 +1,4 @@
-/* Onboarding — split-screen: coleta à esquerda, painel de venda à direita.
+/* Onboarding - split-screen: coleta à esquerda, painel de venda à direita.
    Herda os tokens de .lp (landing.css), então a marca é a mesma da landing. */
 .onb { min-height: 100dvh; background: var(--bg); display: grid; grid-template-columns: 1fr }
 .onb__main { display: flex; flex-direction: column; padding: var(--s5) clamp(20px, 4.5vw, 72px) var(--s10) }

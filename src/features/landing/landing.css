@@ -1,4 +1,4 @@
-/* Landing VBZ — CSS da landing do Qualificou (09-crm/landing), TODOS os blocos
+/* Landing VBZ - CSS da landing do Qualificou (09-crm/landing), TODOS os blocos
    <style> do arquivo, com a paleta trocada pro verde da marca.
 
    Duas armadilhas já pagas aqui: (1) prefixar cada seletor com `.lp` por script
@@ -502,7 +502,7 @@ footer .f-brand img{height:30px;width:auto}
 .chat-btn{position:relative}
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   Camada de compatibilidade — NAO REMOVER.
+   Camada de compatibilidade - NAO REMOVER.
 
    O fluxo de contratacao (contratacao.css) e o onboarding (onboarding.css) foram
    escritos sobre estes tokens (--s*, --b, --t*, --r, --ground...) e sobre as classes

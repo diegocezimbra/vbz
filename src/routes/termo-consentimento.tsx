@@ -6,7 +6,7 @@ import { CONTACT_PHONE_LABEL, CONTACT_PHONE_TEL, CONTACT_WHATSAPP_URL } from "@/
 export const Route = createFileRoute("/termo-consentimento")({
   head: () => ({
     meta: [
-      { title: "Termo de Consentimento LGPD — VBZ" },
+      { title: "Termo de Consentimento LGPD - VBZ" },
       { name: "description", content: "Termo de Consentimento para Tratamento de Dados Pessoais conforme LGPD." },
     ],
   }),
@@ -202,7 +202,7 @@ function Footer() {
             <div className="flex items-center gap-2 bg-white/95 rounded-lg p-2 w-fit">
               <img src={vbzLogo} alt="VBZ" width={140} height={40} className="h-9 w-auto" />
             </div>
-            <p className="text-sm text-background/60 mt-4">Internet fibra dedicada que sua empresa precisa — e a confiabilidade que sua casa merece.</p>
+            <p className="text-sm text-background/60 mt-4">Internet fibra dedicada que sua empresa precisa - e a confiabilidade que sua casa merece.</p>
           </div>
           {cols.map((c) => (
             <div key={c.t}>

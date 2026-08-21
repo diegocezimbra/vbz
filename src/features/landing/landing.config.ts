@@ -1,15 +1,15 @@
 import { CONTACT_PHONE_LABEL, whatsappUrl } from "@/lib/contact";
 
 /**
- * Conteúdo da landing — fonte ÚNICA. Seção nova pega o texto daqui, nunca hardcoda no JSX.
+ * Conteúdo da landing - fonte ÚNICA. Seção nova pega o texto daqui, nunca hardcoda no JSX.
  *
  * ⚠️ REGRA HERDADA DO CENVIA: só entra número que a VBZ consegue PROVAR se um cliente pedir
  * a fonte. Os marcados `PENDENTE` vieram da versão anterior da página e continuam no ar,
- * mas ninguém validou — trocar pelo real (ou remover) é tarefa do Diego, não invenção nossa.
+ * mas ninguém validou - trocar pelo real (ou remover) é tarefa do Diego, não invenção nossa.
  */
 export const BRAND = "VBZ";
 
-/** Nome próprio inventado é candidato a ser "traduzido" pelo browser — blindar sempre. */
+/** Nome próprio inventado é candidato a ser "traduzido" pelo browser - blindar sempre. */
 export const NO_TRANSLATE = { translate: "no" } as const;
 
 export const PHONE_LABEL = CONTACT_PHONE_LABEL;
@@ -20,14 +20,14 @@ export const WHATSAPP_SUPPORT = whatsappUrl("Olá! Preciso de suporte técnico d
 /** PENDENTE: URL real da área do cliente. Enquanto for null, o botão "Entrar" some. */
 export const CLIENT_AREA_URL: string | null = null;
 
-/** PENDENTE: @ real da VBZ. Enquanto for null o botao do Instagram nao aparece —
+/** PENDENTE: @ real da VBZ. Enquanto for null o botao do Instagram nao aparece -
  *  mandar cliente pro perfil errado e pior que nao ter o botao. */
 export const INSTAGRAM_URL: string | null = null;
 
 export interface MenuItem { label: string; desc: string; href: string; external?: boolean }
 export interface Menu { label: string; items: MenuItem[] }
 
-/** Menus do topo — atalho pra todas as áreas, no padrão do airbroker. */
+/** Menus do topo - atalho pra todas as áreas, no padrão do airbroker. */
 export const MENUS: Menu[] = [
   {
     label: "Planos",
@@ -117,7 +117,7 @@ export const SLIDES: Slide[] = [
 
 export interface Stat { num: string; label: string; note?: string }
 
-/** PENDENTE: números herdados da página anterior — validar com o Diego antes de virar campanha. */
+/** PENDENTE: números herdados da página anterior - validar com o Diego antes de virar campanha. */
 export const STATS: Stat[] = [
   { num: "99,9%", label: "SLA em contrato", note: "com crédito automático se furar" },
   { num: "1 Giga", label: "Plano mais rápido", note: "fibra simétrica" },
@@ -127,6 +127,6 @@ export const STATS: Stat[] = [
 
 export const CHAT = {
   title: "Oi! Como podemos te ajudar?",
-  body: "Responde na hora, no WhatsApp — sem robô, sem menu.",
+  body: "Responde na hora, no WhatsApp - sem robô, sem menu.",
   href: whatsappUrl("Oi! Vim pelo site da VBZ e preciso de ajuda."),
 } as const;

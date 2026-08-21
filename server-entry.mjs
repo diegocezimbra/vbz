@@ -57,7 +57,7 @@ async function handleLead(req, res) {
   const url = process.env.QUALIFICOU_INBOUND_URL
   const key = process.env.QUALIFICOU_INBOUND_KEY
   if (!url || !key) {
-    console.warn('[lead] Qualificou nao configurado — lead nao espelhado no CRM.')
+    console.warn('[lead] Qualificou nao configurado - lead nao espelhado no CRM.')
     res.writeHead(202, { 'content-type': 'application/json' })
     res.end(JSON.stringify({ status: 'not_configured' }))
     return

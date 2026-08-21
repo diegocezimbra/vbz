@@ -5,7 +5,7 @@ import { Onboarding } from "@/features/onboarding/Onboarding";
 export const Route = createFileRoute("/lp/onboarding")({
   head: () => ({
     meta: [
-      { title: "VBZ — Contrate sua fibra em poucos minutos" },
+      { title: "VBZ - Contrate sua fibra em poucos minutos" },
       { name: "description", content: "Consulte a disponibilidade no seu endereço, escolha o plano, assine o contrato e agende a instalação. Sem fidelidade, sem multa e sem custo de instalação." },
       { name: "robots", content: "noindex" },
     ],

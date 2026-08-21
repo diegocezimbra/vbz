@@ -24,13 +24,13 @@ describe("onboarding VBZ", () => {
     expect(ONB_STEPS).toContain("wifi");
   });
 
-  it("passo puramente de venda sempre avança — não há o que validar", () => {
+  it("passo puramente de venda sempre avança - não há o que validar", () => {
     for (const step of ["hook", "como", "garantias"] as const) {
       expect(canAdvance(step, emptyOnboarding())).toBe(true);
     }
   });
 
-  it("a oferta é onde o plano é escolhido — e não avança sem escolha", () => {
+  it("a oferta é onde o plano é escolhido - e não avança sem escolha", () => {
     expect(canAdvance("oferta", emptyOnboarding())).toBe(false);
     expect(canAdvance("oferta", { ...emptyOnboarding(), plano: "Super" })).toBe(true);
   });
@@ -46,7 +46,7 @@ describe("onboarding VBZ", () => {
     expect(canAdvance("cep", { ...s, cep: "37550-340", numero: "450", disponivel: true })).toBe(true);
   });
 
-  it("conta exige nome, email e celular válidos — e nunca senha", () => {
+  it("conta exige nome, email e celular válidos - e nunca senha", () => {
     const s = emptyOnboarding();
     expect(canAdvance("conta", s)).toBe(false);
     expect(canAdvance("conta", { ...s, nome: "Maria de Souza", email: "maria@exemplo.com", telefone: "(35) 99842-3386" })).toBe(true);

@@ -21,7 +21,7 @@ const VIACEP_TIMEOUT_MS = 6000;
  *
  * Sem a env, NENHUM endereço é declarado "disponível": o retorno vira `verificar` e a
  * página promete conferência, não cobertura. Inventar cobertura é a pior mentira que
- * uma landing de provedor pode contar — o cliente assina e descobre na instalação.
+ * uma landing de provedor pode contar - o cliente assina e descobre na instalação.
  */
 function servedCities(): string[] {
   return (process.env.VBZ_COVERAGE_CITIES ?? "")
@@ -44,7 +44,7 @@ function decide(cidade: string, uf: string): { status: CoverageStatus; message: 
   }
   return {
     status: "fora",
-    message: "Ainda não chegamos nesse endereço — mas queremos avisar quando chegar.",
+    message: "Ainda não chegamos nesse endereço - mas queremos avisar quando chegar.",
   };
 }
 
@@ -61,12 +61,12 @@ export const checkCoverage = createServerFn({ method: "POST" })
       const body = (await response.json()) as Record<string, string | boolean>;
       if (body.erro) {
         // CEP inexistente/genérico NÃO é "fora da área": tratar como fora manda embora
-        // quem só errou um dígito — ou quem digitou o CEP geral da cidade, que a base
+        // quem só errou um dígito - ou quem digitou o CEP geral da cidade, que a base
         // dos Correios não resolve.
         return {
           ...empty,
           status: "nao_encontrado",
-          message: "Não encontrei esse CEP. Confere os números — ou siga assim mesmo que a gente confirma o endereço com você.",
+          message: "Não encontrei esse CEP. Confere os números - ou siga assim mesmo que a gente confirma o endereço com você.",
         };
       }
       const cidade = String(body.localidade ?? "");

@@ -23,7 +23,7 @@ export function maskCPF(value: string): string {
 /**
  * Validação real do CPF pelos dois dígitos verificadores (módulo 11). Checar só o
  * tamanho deixa passar "000.000.000-00" e joga o erro pra consulta de crédito, que
- * é cara — e devolve uma mensagem que ninguém entende.
+ * é cara - e devolve uma mensagem que ninguém entende.
  */
 export function isValidCPF(value: string): boolean {
   const d = onlyDigits(value);
