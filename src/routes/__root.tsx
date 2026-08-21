@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { initBrowserErrorTracking, captureBrowserError } from "../lib/error-tracking";
 
 function NotFoundComponent() {
   return (
@@ -39,6 +40,9 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   const router = useRouter();
   useEffect(() => {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    // O reportLovableError só existe no preview do Lovable; em produção quem
+    // recebe o erro é o GlitchTip. Inerte sem VITE_SENTRY_DSN.
+    captureBrowserError(error);
   }, [error]);
 
   return (
@@ -115,6 +119,13 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  // Rastreamento de erro do navegador (inerte sem VITE_SENTRY_DSN). No efeito
+  // porque o SDK só pode ser carregado no browser - este componente também
+  // renderiza no SSR.
+  useEffect(() => {
+    void initBrowserErrorTracking();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

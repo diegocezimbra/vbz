@@ -5,6 +5,14 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 
+# O Vite assa a env do navegador no bundle: sem ARG, VITE_SENTRY_DSN nao chega
+# ao build e o rastreamento do lado cliente nasce morto. (Do lado servidor a
+# DSN e lida de process.env em runtime, por isso nao entra aqui.)
+ARG VITE_SENTRY_DSN
+ARG VITE_SENTRY_RELEASE
+ENV VITE_SENTRY_DSN=$VITE_SENTRY_DSN \
+    VITE_SENTRY_RELEASE=$VITE_SENTRY_RELEASE
+
 COPY . .
 RUN npm run build
 
