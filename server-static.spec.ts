@@ -26,6 +26,11 @@ describe("safeStaticPath", () => {
 });
 
 describe("contentTypeOf", () => {
+  it("serve .html como pagina, nao como download", () => {
+    // sem isto o navegador baixa o arquivo em vez de exibir: application/octet-stream
+    expect(contentTypeOf("plano.html")).toBe("text/html; charset=utf-8");
+  });
+
   it("cobre os tipos que a build gera", () => {
     expect(contentTypeOf("a.css")).toBe("text/css; charset=utf-8");
     expect(contentTypeOf("a.js")).toBe("text/javascript; charset=utf-8");
