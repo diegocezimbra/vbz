@@ -22,7 +22,95 @@ Estes dados mudam números e segmentação. Preencha antes de subir campanha:
 
 ---
 
-## 1. Sumário executivo
+## 1. Mapa de canais de anúncio (todos os possíveis)
+
+Antes de escolher onde gastar, o inventário do que existe. Nem todo canal serve pra provedor: o filtro é sempre o mesmo - **dá pra segmentar por geografia fina?** Canal que não deixa travar bairro/CEP desperdiça a maior parte do investimento num negócio preso a endereço.
+
+A coluna "vale pra ISP local" é opinião fundamentada, não regra: **Alta** = começa por aqui, **Média** = entra quando houver folga ou dado, **Baixa** = provavelmente é queimar dinheiro no seu caso.
+
+### 1.1 Busca e intenção (quem já está procurando)
+
+| Canal | O que faz | Geo fina? | Vale pra ISP local |
+|---|---|---|---|
+| **Google Pesquisa** | Anúncio de texto para quem busca contratar | Sim, por raio/bairro | **Alta** - carro-chefe |
+| **Google Performance Max** | IA distribui em toda a rede Google | Sim, mas menos controle | **Média** - só com dados de conversão |
+| **Google Display** | Banners na rede de sites | Sim | Baixa - muito clique sem intenção |
+| **Microsoft/Bing Ads** | Busca no Bing e parceiros | Sim | Baixa/Média - pouco volume no BR, mas CPC barato |
+| **Google Business Profile** | Ficha no Maps e busca local | Nativo | **Alta** - e é grátis |
+| **Comparadores de plano** | Sites que comparam provedores | Depende do site | Média - lead pronto, mas comissionado |
+
+### 1.2 Social e descoberta (quem ainda não procura)
+
+| Canal | O que faz | Geo fina? | Vale pra ISP local |
+|---|---|---|---|
+| **Meta (Instagram/Facebook)** | Feed, Reels, Stories | Sim, pin + raio | **Alta** - volume e marca no bairro |
+| **Click-to-WhatsApp (Meta)** | Anúncio que abre conversa direta | Sim | **Alta** - encurta o caminho até a venda |
+| **TikTok Ads** | Vídeo curto | Sim, por cidade | Média - alcance barato, público mais jovem |
+| **Kwai Ads** | Vídeo curto, público C/D | Sim, por cidade | Média - CPM baixo, casa com o perfil de muitos ISPs |
+| **LinkedIn Ads** | B2B | Fraca (cidade) | Baixa - só se vender link dedicado pra empresa |
+| **X, Pinterest, Snapchat** | Social diverso | Fraca | Baixa - público e geo não compensam |
+
+### 1.3 Vídeo e áudio
+
+| Canal | O que faz | Geo fina? | Vale pra ISP local |
+|---|---|---|---|
+| **YouTube (via Google Ads)** | Vídeo pré-roll e in-feed | Sim | Média - bom pra marca, caro pra conversão |
+| **Spotify / podcast** | Áudio segmentado | Cidade | Baixa/Média - marca, difícil medir venda |
+| **Rádio local** | Spot em emissora da cidade | Cidade/região | **Média/Alta** - em cidade do interior ainda converte |
+| **TV regional / afiliada** | Comercial em bloco local | Região | Média - caro, mas dá autoridade a provedor novo |
+
+### 1.4 Geolocalizado e programático
+
+| Canal | O que faz | Geo fina? | Vale pra ISP local |
+|---|---|---|---|
+| **Waze Ads** | Pin patrocinado no trajeto | Excelente, por raio | **Alta** - geo é o forte dele |
+| **Programática (DSP)** | Compra automatizada de mídia | Sim, por polígono | Média - só com volume e alguém operando |
+| **Portais e jornais locais** | Banner no site da cidade | Nativa | Média - audiência certa, inventário pequeno |
+| **Retargeting (Meta + Google)** | Reimpacta quem já visitou | Herda do site | **Alta** - o lead mais barato que existe |
+
+### 1.5 Offline e presença física (subestimado em ISP)
+
+| Canal | O que faz | Geo fina? | Vale pra ISP local |
+|---|---|---|---|
+| **Porta a porta / panfletagem** | Time na rua onde a fibra passa | Máxima, rua a rua | **Alta** - historicamente o de melhor CAC em ISP regional |
+| **Outdoor, painel LED, busdoor** | Mídia externa | Boa, por ponto | Média - marca, não mede venda |
+| **Carro de som** | Anúncio itinerante | Máxima | Média - barato, funciona em cidade pequena |
+| **Patrocínio local** | Time, festa, evento de bairro | Máxima | Média - marca e simpatia, difícil atribuir |
+| **Feira, quiosque em mercado** | Ponto de venda temporário | Máxima | **Média/Alta** - venda assistida, tira dúvida na hora |
+
+### 1.6 Parcerias e indicação (o melhor CAC, quase sempre)
+
+| Canal | O que faz | Geo fina? | Vale pra ISP local |
+|---|---|---|---|
+| **Indicação de cliente (member-get-member)** | Cliente traz vizinho por bônus | Natural | **Alta** - costuma bater qualquer mídia paga |
+| **Imobiliárias e corretores** | Indicam a quem acabou de alugar/comprar | Máxima | **Alta** - pega o gatilho de mudança na origem |
+| **Síndicos e administradoras** | Acesso ao condomínio inteiro | Máxima | **Alta** - um contrato destrava dezenas de casas |
+| **Comércio local** | Padaria, mercado, loja de informática | Máxima | Média - baixo custo, exige gestão |
+| **Assistência técnica / instalador** | Indica quem já tem problema de rede | Máxima | Média - lead qualificadíssimo, volume baixo |
+
+### 1.7 Canais próprios (custo zero de mídia)
+
+| Canal | O que faz | Vale pra ISP local |
+|---|---|---|
+| **SEO local** | Ranquear "internet fibra [cidade]" | **Alta** - tráfego composto, sem CPC |
+| **Google Business Profile** | Ficha, avaliações, fotos | **Alta** - decide quem aparece no Maps |
+| **Grupos de bairro (Facebook/WhatsApp)** | Presença orgânica na comunidade | **Alta** - é onde a reclamação de provedor acontece |
+| **Reclame Aqui** | Reputação pública | **Alta** - não é mídia, mas define conversão |
+| **Base própria (e-mail, SMS, WhatsApp)** | Upgrade, reativação, indicação | **Alta** - vender pra quem já é cliente é o mais barato |
+
+### 1.8 O que isso muda na prática
+
+Três leituras que saem do mapa acima:
+
+1. **Os canais de maior retorno em ISP regional raramente são os mais caros.** Indicação, imobiliária e síndico costumam entregar CAC menor que qualquer campanha - e escalam devagar, por isso mídia paga continua necessária.
+2. **Reputação não é canal de mídia, mas decide a conversão de todos eles.** Reclame Aqui e grupo de bairro são consultados antes de assinar. Investir em anúncio com reputação ruim é pagar para levar gente até a objeção.
+3. **Canal sem geografia fina é desperdício estrutural aqui**, não questão de otimização. Por isso Waze e porta a porta aparecem alto, e LinkedIn e Pinterest aparecem baixo.
+
+O restante deste documento aprofunda os dois canais que sustentam o volume previsível - **Google Ads e Meta Ads** - porque são os que escalam com orçamento e se medem com precisão. Os demais entram como complemento, na ordem de prioridade da coluna acima.
+
+---
+
+## 2. Sumário executivo
 
 O objetivo é montar uma máquina de aquisição de assinantes previsível, com dois motores complementares:
 
@@ -35,7 +123,7 @@ A regra de ouro que rege todo o plano: **otimizar por venda e CAC, não por cust
 
 ---
 
-## 2. Particularidades do mercado de ISP (por que internet não é e-commerce)
+## 3. Particularidades do mercado de ISP (por que internet não é e-commerce)
 
 Quem trata anúncio de provedor como anúncio de loja online quebra a cara. As diferenças que moldam todo o plano:
 
@@ -47,7 +135,7 @@ Quem trata anúncio de provedor como anúncio de loja online quebra a cara. As d
 
 ---
 
-## 3. Estrutura de funil e divisão de canais
+## 4. Estrutura de funil e divisão de canais
 
 Pense em três temperaturas. Cada canal atua mais forte em uma etapa:
 
@@ -67,7 +155,7 @@ Regra de alocação inicial sugerida: comece com peso maior em **Google Pesquisa
 
 ---
 
-## 4. GOOGLE ADS - plano detalhado
+## 5. GOOGLE ADS - plano detalhado
 
 ### 4.1 Campanhas a criar (em ordem de prioridade)
 
@@ -137,7 +225,7 @@ Adicione **em modo observação** na Pesquisa (não restrinja - só observe e aj
 
 ---
 
-## 5. META ADS - plano detalhado
+## 6. META ADS - plano detalhado
 
 ### 5.1 O contexto 2026 (mudou muito)
 
@@ -171,7 +259,7 @@ Quando tiver base de assinantes: suba a lista (respeitando LGPD) e crie semelhan
 
 ---
 
-## 6. Criativos e copy (o que mais pesa em 2026)
+## 7. Criativos e copy (o que mais pesa em 2026)
 
 Com a segmentação automatizada, **o criativo é a principal alavanca de performance.** Entregue variedade de ângulos e formatos para a IA testar.
 
@@ -200,7 +288,7 @@ No frio, em vez de pedir contratação direta, capture com baixa fricção:
 
 ---
 
-## 7. Estrutura de conversão e tecnologia
+## 8. Estrutura de conversão e tecnologia
 
 Antes de gastar o primeiro real, monte a base de mensuração - sem isso você anuncia no escuro:
 
@@ -212,7 +300,7 @@ Antes de gastar o primeiro real, monte a base de mensuração - sem isso você a
 
 ---
 
-## 8. Orçamento e alocação (modelo para preencher)
+## 9. Orçamento e alocação (modelo para preencher)
 
 Sem o orçamento real fica genérico, então segue o **modelo de cálculo** - preencha com seus números:
 
@@ -236,7 +324,7 @@ Exemplo ilustrativo (troque pelos seus dados): ticket R$ 100, permanência 24 me
 
 ---
 
-## 9. Métricas e KPIs
+## 10. Métricas e KPIs
 
 Acompanhe na ordem de importância (a última é a que importa de verdade):
 
@@ -251,7 +339,7 @@ Acompanhe na ordem de importância (a última é a que importa de verdade):
 
 ---
 
-## 10. Cronograma de implementação - primeiros 90 dias
+## 11. Cronograma de implementação - primeiros 90 dias
 
 **Semana 0 - Fundação (antes de gastar)**
 Instalar Pixel, Tags, API de Conversões. Montar landing/WhatsApp + verificador de CEP. Desenhar mapa de cobertura. Definir oferta. Subir base no Customer Match (LGPD ok).
@@ -267,7 +355,7 @@ Ligar Performance Max e Lookalike com base nos dados. Escalar orçamento em incr
 
 ---
 
-## 11. Cuidados de LGPD e marca
+## 12. Cuidados de LGPD e marca
 
 - **Customer Match / listas:** só suba dados de quem **consentiu** receber comunicação. Envio de base não consentida gera risco de multa.
 - **Concorrentes em palavra-chave:** usar nome do concorrente como palavra-chave de pesquisa é prática comum e permitida, MAS **não use a marca do concorrente no texto do anúncio** (risco jurídico de marca). Mire na dor, não no nome, dentro do criativo.
@@ -275,7 +363,7 @@ Ligar Performance Max e Lookalike com base nos dados. Escalar orçamento em incr
 
 ---
 
-## 12. Resumo de uma página (o essencial)
+## 13. Resumo de uma página (o essencial)
 
 - **Google = capturar quem procura. Meta = criar demanda em quem tem perfil.**
 - **Geografia travada na cobertura é o filtro nº 1** nos dois canais.
