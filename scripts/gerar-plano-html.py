@@ -141,7 +141,7 @@ PAGINA = """<!DOCTYPE html>
 <title>Plano de Anuncios - VBZ</title>
 <!-- Documento interno: fora do indice de busca. -->
 <meta name="robots" content="noindex, nofollow">
-<link rel="icon" type="image/png" href="/assets/vbz-logo.png">
+<link rel="icon" type="image/png" href="/assets/vbz-logo-rosa.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -195,7 +195,7 @@ tr:last-child td{border-bottom:0}
 </head>
 <body>
 <header class="topo">
-  <img src="/assets/vbz-logo.png" alt="VBZ">
+  <img src="/assets/vbz-logo-rosa.png" alt="VBZ">
   <span>DOCUMENTO INTERNO</span>
 </header>
 <div class="wrap">
