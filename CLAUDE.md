@@ -78,3 +78,125 @@ embaralhava porque `.cmp` exige 3 colunas (dor | VS | resposta) com `.cmp-pair` 
 - **Cobertura:** `VBZ_COVERAGE_CITIES` casa por CIDADE. Incluir "São Paulo" faria a zona
   oeste receber "temos fibra aí" também - por isso a zona leste está fora até haver
   correspondência por bairro.
+
+
+## 🔭 Observabilidade — como investigar este projeto
+
+> Credenciais em `~/.claude/secrets/ohanax-infra/observability-acessos-equipe.txt`.
+> **NUNCA** cole senha em código, commit ou doc. Exporte na sessão antes de usar:
+> `export OBS_AUTH="usuario:senha"`
+
+**Deste projeto** — apps no Loki: `vbz-landing`, `vbz-landing-nova`, `vbz-blog`
+
+Endpoints sondados a cada 30s:
+- `https://vbz.com.br`
+
+### 1. Logs — primeira parada quando algo quebra (Loki)
+
+Cobre **todo** container automaticamente, sem instrumentar nada no código.
+
+```bash
+# ultimas linhas deste projeto (janela de 1h)
+curl -s -u "$OBS_AUTH" -G 'https://loki.ohanax.com/loki/api/v1/query_range' \
+  --data-urlencode 'query={app="vbz-landing"}' \
+  --data-urlencode 'limit=100' \
+  --data-urlencode "start=$(date -u -d '1 hour ago' +%s)000000000" \
+  | jq -r '.data.result[].values[][1]'
+
+# so os erros, em todos os componentes do projeto
+curl -s -u "$OBS_AUTH" -G 'https://loki.ohanax.com/loki/api/v1/query_range' \
+  --data-urlencode 'query={app=~"vbz-landing|vbz-landing-nova|vbz-blog"} |~ "(?i)error|exception|fatal"' \
+  --data-urlencode 'limit=50' \
+  --data-urlencode "start=$(date -u -d '6 hours ago' +%s)000000000" \
+  | jq -r '.data.result[].values[][1]'
+```
+
+O label `app` vem de `coolify.resourceName`; `servico` traz o serviço do compose.
+`https://loki.ohanax.com` **não tem interface** — abrir no navegador devolve 404, e está certo.
+Para navegar visualmente use o Grafana → **Explore** → datasource Loki.
+
+### 2. Está no ar? (Prometheus + blackbox)
+
+```bash
+# 1 = no ar, 0 = fora
+curl -s -u "$OBS_AUTH" -G 'https://prometheus.ohanax.com/api/v1/query' \
+  --data-urlencode 'query=probe_success{instance="https://vbz.com.br"}' | jq -r '.data.result[].value[1]'
+
+# uptime dos ultimos 7 dias de todos os endpoints deste projeto
+curl -s -u "$OBS_AUTH" -G 'https://prometheus.ohanax.com/api/v1/query' \
+  --data-urlencode 'query=avg_over_time(probe_success{instance=~"https://vbz.com.br"}[7d])' \
+  | jq -r '.data.result[] | "\(.metric.instance) \(.value[1])"'
+```
+
+### 3. Métricas da aplicação (Prometheus)
+
+Só aparece aqui o que a aplicação expõe em `/metrics`. Para descobrir o que existe:
+
+```bash
+curl -s -u "$OBS_AUTH" 'https://prometheus.ohanax.com/api/v1/label/__name__/values' | jq -r '.data[]' | grep -i <termo>
+```
+
+⚠️ **Armadilha:** o Prometheus reserva o label `job` para o nome do scrape. Se a aplicação
+expõe uma métrica com label `job` próprio, ele é renomeado para **`exported_job`** — filtrar
+por `job="..."` devolve vazio silenciosamente. Use `exported_job`.
+
+### 4. Erro de aplicação com stack trace (GlitchTip)
+
+`https://glitchtip.ohanax.com` — org **Ohanax**. É onde cai a exceção com stack trace, contagem
+de ocorrências e usuário afetado. Se este projeto ainda não tem DSN configurada, os erros só
+existem como texto no Loki (item 1).
+
+### 5. Dashboards (Grafana)
+
+`https://grafana.ohanax.com` — 4 pastas:
+- **Aplicações** — disponibilidade, tráfego HTTP, logs, consumo por app
+- **Infraestrutura** — servidores, PostgreSQL, containers
+- **Operação** — backups, deploys e imagens
+- **SellPipe** — dashboards específicos daquele produto
+
+Comece por **Aplicações · Disponibilidade dos sites e APIs**.
+
+### 6. Alertas
+
+Regras no Prometheus → Alertmanager → **Telegram**. `EndpointDown` dispara após 3 min fora do ar;
+também há alerta de certificado TLS vencendo. `https://alertmanager.ohanax.com` **vazio é o estado
+saudável** — ele só lista o que está disparando agora, não histórico.
+
+### 7. Dashboard deste produto no Grafana
+
+**https://grafana.ohanax.com/d/prod-vbz** — pasta **11-VBZ**
+
+Uma tela com tudo deste produto: resumo (fora do ar, uptime, erros, CPU, RAM, reinícios),
+disponibilidade dos endpoints, tráfego e latência, consumo por container, erros por minuto,
+logs crus e banco/backup. O seletor de tempo no topo vale para todos os painéis, e o campo
+*Filtrar texto* filtra as linhas de log.
+
+#### O que está sendo medido
+
+- **Disponibilidade** — 1 endpoint(s) sondado(s) pelo blackbox a cada 30s (no ar/fora, latência, validade do certificado TLS). Alerta `EndpointDown` dispara após 3 min fora.
+- **Recursos** — CPU, memória, rede, disco e reinícios de 3 container(es), via docker-exporter (lê a API do Docker a cada 30s).
+- **Logs** — todas as linhas de stdout de todos os containers, via promtail → Loki. Não exige instrumentação.
+
+#### O que NÃO está sendo medido (lacunas conhecidas)
+
+- ⚠️ **Tráfego HTTP não medido** — a aplicação não expõe `http_requests_total` no `/metrics`. Os painéis *Requisições por segundo*, *Erros 5xx* e *Latência p95* ficam vazios. Para preencher, instrumentar o backend (ver `05-sellpipe`, que já faz).
+- ⚠️ **3 container(es) sem `mem_limit`** — sem teto de memória definido, o alerta `ContainerHighMemory` nunca dispara para eles (não há contra o que comparar). Definir limite no Coolify.
+
+#### Como ajustar
+
+Tudo é provisionado por arquivo — editar pela interface do Grafana funciona, mas o
+provisionador sobrescreve quando o arquivo muda. Mexa no arquivo:
+
+| Quero... | Onde mexer (servidor `95.111.253.42`) |
+|---|---|
+| mudar painel deste dashboard | `/opt/observability/grafana/dashboards/11-VBZ/visao-geral.json` |
+| monitorar mais um endereço | `/opt/observability/prometheus/prometheus.yml`, job `blackbox-http` |
+| criar/alterar alerta | `/opt/observability/prometheus/rules/alerts.yml` (validar com `promtool check rules`) |
+| mudar para onde vai o alerta | `/opt/observability/alertmanager/alertmanager.yml` (hoje: Telegram) |
+| coletar métrica nova da app | expor em `/metrics` e adicionar um job no `prometheus.yml` |
+
+Depois de editar: dashboard recarrega sozinho em 30s; Prometheus e Alertmanager precisam de
+`curl -X POST http://localhost:9090/-/reload` (ou `:9093`).
+
+⚠️ O label `app` vem de `coolify.resourceName` e **só muda no próximo deploy** do recurso.
+Renomear no Coolify não basta para a métrica/log mudar de nome.
