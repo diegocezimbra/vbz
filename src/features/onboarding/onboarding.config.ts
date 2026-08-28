@@ -2,7 +2,9 @@ import { whatsappUrl } from "@/lib/contact";
 import { PLANS } from "../landing/landing.content";
 
 /** Conteúdo do onboarding - fonte única. Nada de texto solto no JSX. */
-export const ONB_WHATSAPP = whatsappUrl("Olá! Estou fazendo a contratação no site da VBZ e queria falar com um consultor.");
+export const ONB_WHATSAPP = whatsappUrl(
+  "Olá! Estou fazendo a contratação no site da VBZ e queria falar com um consultor.",
+);
 
 export const HOOK = {
   kicker: "Fibra óptica no sul de Minas",
@@ -15,9 +17,18 @@ export const COMO = {
   title: "O que você contrata, na prática",
   body: "Três coisas, e nenhuma delas depende de sorte.",
   pilares: [
-    { t: "A velocidade contratada", d: "Fibra simétrica, medida na sua frente no dia da instalação. O número fica registrado." },
-    { t: "Wi-Fi que cobre a casa", d: "Roteador Wi-Fi 6 incluso e ponto mesh no plano maior. O sinal é conferido cômodo a cômodo." },
-    { t: "Suporte com gente de verdade", d: "WhatsApp com time local. A conversa continua de onde parou, sem repetir o problema." },
+    {
+      t: "A velocidade contratada",
+      d: "Fibra simétrica, medida na sua frente no dia da instalação. O número fica registrado.",
+    },
+    {
+      t: "Wi-Fi que cobre a casa",
+      d: "Roteador Wi-Fi 6 incluso e ponto mesh no plano maior. O sinal é conferido cômodo a cômodo.",
+    },
+    {
+      t: "Suporte com gente de verdade",
+      d: "WhatsApp com time local. A conversa continua de onde parou, sem repetir o problema.",
+    },
   ],
   cta: "Faz sentido, continuar",
 } as const;
@@ -41,7 +52,11 @@ export const VENCIMENTOS = [5, 10, 15, 20, 25] as const;
 
 export const PAGAMENTOS = [
   { key: "pix", label: "PIX", desc: "A fatura chega no WhatsApp com o QR Code todo mês." },
-  { key: "boleto", label: "Boleto", desc: "Boleto por e-mail e WhatsApp, alguns dias antes do vencimento." },
+  {
+    key: "boleto",
+    label: "Boleto",
+    desc: "Boleto por e-mail e WhatsApp, alguns dias antes do vencimento.",
+  },
 ] as const;
 
 export const TURNOS = [

@@ -7,22 +7,39 @@ import { checkCredit } from "../landing/contratacao/credito.functions";
 import { submitViability } from "../landing/lead/lead.functions";
 import { ASIDE, COMO, GARANTIAS, HOOK, OFERTA, ONB_WHATSAPP } from "./onboarding.config";
 import {
-  StepCep, StepConta, StepContrato, StepCredito, StepInstalacao,
-  StepPagamento, StepTitular, StepWifi,
+  StepCep,
+  StepConta,
+  StepContrato,
+  StepCredito,
+  StepInstalacao,
+  StepPagamento,
+  StepTitular,
+  StepWifi,
 } from "./CollectSteps";
 import { StepComo, StepGarantias, StepHook, StepOferta } from "./SalesSteps";
 import { StepPronto } from "./DoneStep";
 import {
-  ONB_STEPS, canAdvance, emptyOnboarding, isSalesStep, nextOnb, onbProgress, prevOnb,
-  type OnbStep, type OnboardingState,
+  ONB_STEPS,
+  canAdvance,
+  emptyOnboarding,
+  isSalesStep,
+  nextOnb,
+  onbProgress,
+  prevOnb,
+  type OnbStep,
+  type OnboardingState,
 } from "./steps";
 import "../landing/landing.css";
 import "../landing/contratacao/contratacao.css";
 import "./onboarding.css";
 
 const CTA_LABEL: Partial<Record<OnbStep, string>> = {
-  hook: HOOK.cta, como: COMO.cta, garantias: GARANTIAS.cta, oferta: OFERTA.cta,
-  contrato: "Assinar contrato", wifi: "Concluir contratação",
+  hook: HOOK.cta,
+  como: COMO.cta,
+  garantias: GARANTIAS.cta,
+  oferta: OFERTA.cta,
+  contrato: "Assinar contrato",
+  wifi: "Concluir contratação",
 };
 
 /** Instalação só a partir do dia seguinte - agenda pra hoje não existe na prática. */
@@ -37,14 +54,19 @@ function Aside({ state }: { state: OnboardingState }) {
     state.plano && { t: "Plano", v: state.plano },
     state.cidade && { t: "Endereço", v: `${state.cidade}/${state.uf}` },
     state.vencimento && { t: "Vencimento", v: `dia ${state.vencimento}` },
-    state.instalacaoData && { t: "Instalação", v: state.instalacaoData.split("-").reverse().join("/") },
+    state.instalacaoData && {
+      t: "Instalação",
+      v: state.instalacaoData.split("-").reverse().join("/"),
+    },
   ].filter(Boolean) as { t: string; v: string }[];
 
   return (
     <aside className="onb__aside">
       <h3>{ASIDE.title}</h3>
       <ul>
-        {ASIDE.bullets.map((b) => <li key={b}>{b}</li>)}
+        {ASIDE.bullets.map((b) => (
+          <li key={b}>{b}</li>
+        ))}
       </ul>
       {linhas.length > 0 && (
         <div className="onb__resumo">
@@ -100,7 +122,10 @@ export function Onboarding() {
     try {
       const r = await checkCoverage({ data: { cep: state.cep } });
       patch({
-        logradouro: r.logradouro, bairro: r.bairro, cidade: r.cidade, uf: r.uf,
+        logradouro: r.logradouro,
+        bairro: r.bairro,
+        cidade: r.cidade,
+        uf: r.uf,
         disponivel: r.status === "nao_encontrado" ? null : r.status !== "fora",
       });
       setMessage(r.message);
@@ -147,7 +172,9 @@ export function Onboarding() {
       <div className="onb__main">
         <div className="onb__top">
           {step === "hook" ? (
-            <a href="/"><img src={vbzLogo} alt="VBZ" /></a>
+            <a href="/">
+              <img src={vbzLogo} alt="VBZ" />
+            </a>
           ) : (
             <button type="button" className="onb__back" onClick={() => setStep(prevOnb(step))}>
               <ArrowLeft size={16} /> voltar
@@ -159,7 +186,13 @@ export function Onboarding() {
         </div>
 
         {!isSalesStep(step) && (
-          <div className="onb__bar" role="progressbar" aria-valuenow={onbProgress(step)} aria-valuemin={0} aria-valuemax={100}>
+          <div
+            className="onb__bar"
+            role="progressbar"
+            aria-valuenow={onbProgress(step)}
+            aria-valuemin={0}
+            aria-valuemax={100}
+          >
             <div className="onb__fill" style={{ width: `${onbProgress(step)}%` }} />
           </div>
         )}
@@ -169,19 +202,36 @@ export function Onboarding() {
           {step === "como" && <StepComo />}
           {step === "garantias" && <StepGarantias />}
           {step === "oferta" && <StepOferta state={state} patch={patch} />}
-          {step === "cep" && <StepCep state={state} patch={patch} busy={busy} message={message} onCheck={onCheckCoverage} />}
+          {step === "cep" && (
+            <StepCep
+              state={state}
+              patch={patch}
+              busy={busy}
+              message={message}
+              onCheck={onCheckCoverage}
+            />
+          )}
           {step === "conta" && <StepConta state={state} patch={patch} />}
           {step === "titular" && <StepTitular state={state} patch={patch} />}
-          {step === "credito" && <StepCredito state={state} busy={busy} message={message} onRun={onRunCredit} />}
+          {step === "credito" && (
+            <StepCredito state={state} busy={busy} message={message} onRun={onRunCredit} />
+          )}
           {step === "contrato" && <StepContrato state={state} patch={patch} />}
           {step === "pagamento" && <StepPagamento state={state} patch={patch} />}
-          {step === "instalacao" && <StepInstalacao state={state} patch={patch} minDate={minDate} />}
+          {step === "instalacao" && (
+            <StepInstalacao state={state} patch={patch} minDate={minDate} />
+          )}
           {step === "wifi" && <StepWifi state={state} patch={patch} />}
           {step === "pronto" && <StepPronto state={state} whatsapp={ONB_WHATSAPP} />}
 
           {step !== "pronto" && (
             <div className="onb__nav">
-              <button type="button" className="lp-btn lp-btn--cta lp-btn--lg" onClick={advance} disabled={!podeAvancar || busy}>
+              <button
+                type="button"
+                className="lp-btn lp-btn--cta lp-btn--lg"
+                onClick={advance}
+                disabled={!podeAvancar || busy}
+              >
                 {CTA_LABEL[step] ?? "Continuar"}
               </button>
             </div>

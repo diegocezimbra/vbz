@@ -10,7 +10,6 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 import { initBrowserErrorTracking, captureBrowserError } from "../lib/error-tracking";
 
 function NotFoundComponent() {
@@ -39,9 +38,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-    // O reportLovableError só existe no preview do Lovable; em produção quem
-    // recebe o erro é o GlitchTip. Inerte sem VITE_SENTRY_DSN.
+    // Quem recebe o erro é o GlitchTip. Inerte sem VITE_SENTRY_DSN.
     captureBrowserError(error);
   }, [error]);
 
@@ -81,20 +78,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "VBZ Internet - fibra sem multa e sem custo de instalação" },
+      {
+        name: "description",
+        content:
+          "Contrate a fibra da VBZ em minutos: sem multa de cancelamento, sem custo de instalação e com suporte de gente de verdade.",
+      },
+      { name: "author", content: "VBZ Internet" },
+      { property: "og:title", content: "VBZ Internet" },
+      {
+        property: "og:description",
+        content: "Fibra sem multa, sem custo de instalação e com suporte de verdade.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/assets/favicon.ico", sizes: "any" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/assets/favicon-32.png" },
+      { rel: "apple-touch-icon", href: "/assets/apple-touch-icon.png" },
     ],
   }),
   shellComponent: RootShell,
@@ -105,7 +108,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <HeadContent />
       </head>

@@ -2,9 +2,19 @@ import { isValidCEP, isValidCPF } from "../landing/lead/documents";
 import { isValidPhoneBR } from "../landing/lead/phone";
 
 export const ONB_STEPS = [
-  "hook", "como", "garantias", "oferta",
-  "cep", "conta", "titular", "credito", "contrato",
-  "pagamento", "instalacao", "wifi", "pronto",
+  "hook",
+  "como",
+  "garantias",
+  "oferta",
+  "cep",
+  "conta",
+  "titular",
+  "credito",
+  "contrato",
+  "pagamento",
+  "instalacao",
+  "wifi",
+  "pronto",
 ] as const;
 export type OnbStep = (typeof ONB_STEPS)[number];
 
@@ -22,17 +32,30 @@ export type Turno = "manha" | "tarde";
 export type FormaPagamento = "pix" | "boleto" | "";
 
 export interface OnboardingState {
-  cep: string; numero: string; complemento: string;
-  logradouro: string; bairro: string; cidade: string; uf: string;
+  cep: string;
+  numero: string;
+  complemento: string;
+  logradouro: string;
+  bairro: string;
+  cidade: string;
+  uf: string;
   disponivel: boolean | null;
   plano: string;
-  nome: string; email: string; telefone: string;
-  cpf: string; nascimento: string;
+  nome: string;
+  email: string;
+  telefone: string;
+  cpf: string;
+  nascimento: string;
   credito: "aprovado" | "analise_manual" | "recusado" | null;
-  aceite: boolean; assinatura: string;
-  pagamento: FormaPagamento; vencimento: number | null;
-  instalacaoData: string; instalacaoTurno: Turno | ""; recebePor: string;
-  wifiNome: string; wifiSenha: string;
+  aceite: boolean;
+  assinatura: string;
+  pagamento: FormaPagamento;
+  vencimento: number | null;
+  instalacaoData: string;
+  instalacaoTurno: Turno | "";
+  recebePor: string;
+  wifiNome: string;
+  wifiSenha: string;
 }
 
 /**
@@ -42,12 +65,30 @@ export interface OnboardingState {
  */
 export function emptyOnboarding(): OnboardingState {
   return {
-    cep: "", numero: "", complemento: "", logradouro: "", bairro: "", cidade: "", uf: "",
-    disponivel: null, plano: "", nome: "", email: "", telefone: "", cpf: "", nascimento: "",
-    credito: null, aceite: false, assinatura: "",
-    pagamento: "", vencimento: null,
-    instalacaoData: "", instalacaoTurno: "", recebePor: "",
-    wifiNome: "", wifiSenha: "",
+    cep: "",
+    numero: "",
+    complemento: "",
+    logradouro: "",
+    bairro: "",
+    cidade: "",
+    uf: "",
+    disponivel: null,
+    plano: "",
+    nome: "",
+    email: "",
+    telefone: "",
+    cpf: "",
+    nascimento: "",
+    credito: null,
+    aceite: false,
+    assinatura: "",
+    pagamento: "",
+    vencimento: null,
+    instalacaoData: "",
+    instalacaoTurno: "",
+    recebePor: "",
+    wifiNome: "",
+    wifiSenha: "",
   };
 }
 
@@ -60,7 +101,9 @@ const WIFI_MIN = 8;
 
 export function canAdvance(step: OnbStep, s: OnboardingState): boolean {
   switch (step) {
-    case "hook": case "como": case "garantias":
+    case "hook":
+    case "como":
+    case "garantias":
       return true;
     case "oferta":
       return s.plano.length > 0;

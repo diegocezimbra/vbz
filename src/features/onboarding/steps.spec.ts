@@ -1,13 +1,30 @@
 import { describe, expect, it } from "vitest";
 
-import { ONB_STEPS, canAdvance, emptyOnboarding, isSalesStep, nextOnb, prevOnb, onbProgress } from "./steps";
+import {
+  ONB_STEPS,
+  canAdvance,
+  emptyOnboarding,
+  isSalesStep,
+  nextOnb,
+  prevOnb,
+  onbProgress,
+} from "./steps";
 
 const base = () => ({
   ...emptyOnboarding(),
-  cep: "37550-340", numero: "450", disponivel: true, cidade: "Pouso Alegre",
-  plano: "Super", nome: "Maria de Souza", email: "maria@exemplo.com", telefone: "(35) 99842-3386",
-  cpf: "529.982.247-25", nascimento: "1990-04-12", credito: "aprovado" as const,
-  aceite: true, assinatura: "Maria de Souza",
+  cep: "37550-340",
+  numero: "450",
+  disponivel: true,
+  cidade: "Pouso Alegre",
+  plano: "Super",
+  nome: "Maria de Souza",
+  email: "maria@exemplo.com",
+  telefone: "(35) 99842-3386",
+  cpf: "529.982.247-25",
+  nascimento: "1990-04-12",
+  credito: "aprovado" as const,
+  aceite: true,
+  assinatura: "Maria de Souza",
 });
 
 describe("onboarding VBZ", () => {
@@ -43,13 +60,22 @@ describe("onboarding VBZ", () => {
   it("exige disponibilidade confirmada pra sair do CEP", () => {
     const s = emptyOnboarding();
     expect(canAdvance("cep", s)).toBe(false);
-    expect(canAdvance("cep", { ...s, cep: "37550-340", numero: "450", disponivel: true })).toBe(true);
+    expect(canAdvance("cep", { ...s, cep: "37550-340", numero: "450", disponivel: true })).toBe(
+      true,
+    );
   });
 
   it("conta exige nome, email e celular válidos - e nunca senha", () => {
     const s = emptyOnboarding();
     expect(canAdvance("conta", s)).toBe(false);
-    expect(canAdvance("conta", { ...s, nome: "Maria de Souza", email: "maria@exemplo.com", telefone: "(35) 99842-3386" })).toBe(true);
+    expect(
+      canAdvance("conta", {
+        ...s,
+        nome: "Maria de Souza",
+        email: "maria@exemplo.com",
+        telefone: "(35) 99842-3386",
+      }),
+    ).toBe(true);
     expect(Object.keys(s)).not.toContain("senha");
   });
 
@@ -79,7 +105,9 @@ describe("onboarding VBZ", () => {
   it("wifi exige nome de rede e senha de no mínimo 8 caracteres (padrão WPA2)", () => {
     const s = base();
     expect(canAdvance("wifi", { ...s, wifiNome: "Casa da Maria", wifiSenha: "1234" })).toBe(false);
-    expect(canAdvance("wifi", { ...s, wifiNome: "Casa da Maria", wifiSenha: "fibra2026" })).toBe(true);
+    expect(canAdvance("wifi", { ...s, wifiNome: "Casa da Maria", wifiSenha: "fibra2026" })).toBe(
+      true,
+    );
   });
 
   it("navega pra frente e pra trás sem sair das pontas", () => {

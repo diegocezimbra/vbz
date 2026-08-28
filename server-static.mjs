@@ -1,30 +1,30 @@
-import { extname, normalize, resolve, sep } from 'node:path'
+import { extname, normalize, resolve, sep } from "node:path";
 
 const TYPES = {
-  '.html': 'text/html; charset=utf-8',
-  '.htm': 'text/html; charset=utf-8',
-  '.css': 'text/css; charset=utf-8',
-  '.js': 'text/javascript; charset=utf-8',
-  '.mjs': 'text/javascript; charset=utf-8',
-  '.json': 'application/json; charset=utf-8',
-  '.svg': 'image/svg+xml',
-  '.png': 'image/png',
-  '.jpg': 'image/jpeg',
-  '.jpeg': 'image/jpeg',
-  '.webp': 'image/webp',
-  '.avif': 'image/avif',
-  '.gif': 'image/gif',
-  '.ico': 'image/x-icon',
-  '.woff': 'font/woff',
-  '.woff2': 'font/woff2',
-  '.ttf': 'font/ttf',
-  '.txt': 'text/plain; charset=utf-8',
-  '.map': 'application/json; charset=utf-8',
-  '.webmanifest': 'application/manifest+json',
-}
+  ".html": "text/html; charset=utf-8",
+  ".htm": "text/html; charset=utf-8",
+  ".css": "text/css; charset=utf-8",
+  ".js": "text/javascript; charset=utf-8",
+  ".mjs": "text/javascript; charset=utf-8",
+  ".json": "application/json; charset=utf-8",
+  ".svg": "image/svg+xml",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".webp": "image/webp",
+  ".avif": "image/avif",
+  ".gif": "image/gif",
+  ".ico": "image/x-icon",
+  ".woff": "font/woff",
+  ".woff2": "font/woff2",
+  ".ttf": "font/ttf",
+  ".txt": "text/plain; charset=utf-8",
+  ".map": "application/json; charset=utf-8",
+  ".webmanifest": "application/manifest+json",
+};
 
 export function contentTypeOf(file) {
-  return TYPES[extname(file).toLowerCase()] ?? 'application/octet-stream'
+  return TYPES[extname(file).toLowerCase()] ?? "application/octet-stream";
 }
 
 /**
@@ -36,16 +36,16 @@ export function contentTypeOf(file) {
  * `/lp/onboarding` tem que chegar no SSR, não virar 404 de arquivo.
  */
 export function safeStaticPath(urlPath, root) {
-  let decoded
+  let decoded;
   try {
-    decoded = decodeURIComponent(urlPath.split('?')[0])
+    decoded = decodeURIComponent(urlPath.split("?")[0]);
   } catch {
-    return null
+    return null;
   }
-  if (!extname(decoded)) return null
+  if (!extname(decoded)) return null;
 
-  const full = resolve(root, `.${normalize(decoded)}`)
-  const base = resolve(root)
-  if (full !== base && !full.startsWith(base + sep)) return null
-  return full
+  const full = resolve(root, `.${normalize(decoded)}`);
+  const base = resolve(root);
+  if (full !== base && !full.startsWith(base + sep)) return null;
+  return full;
 }

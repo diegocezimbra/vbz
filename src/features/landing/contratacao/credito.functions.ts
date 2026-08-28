@@ -26,14 +26,22 @@ export const checkCredit = createServerFn({ method: "POST" })
   .inputValidator(z.object({ cpf: z.string(), nome: z.string().min(3) }))
   .handler(async ({ data }): Promise<CreditResponse> => {
     if (!isValidCPF(data.cpf)) {
-      return { decision: "analise_manual", message: "Não consegui validar o CPF. Um consultor confere com você." };
+      return {
+        decision: "analise_manual",
+        message: "Não consegui validar o CPF. Um consultor confere com você.",
+      };
     }
 
     const url = process.env.RADAR_API_URL;
     const key = process.env.RADAR_API_KEY;
     if (!url || !key) {
-      console.warn("[credito] Radar do Crédito não configurado - proposta segue pra análise manual.");
-      return { decision: "analise_manual", message: "Sua proposta vai passar por uma conferência rápida do nosso time." };
+      console.warn(
+        "[credito] Radar do Crédito não configurado - proposta segue pra análise manual.",
+      );
+      return {
+        decision: "analise_manual",
+        message: "Sua proposta vai passar por uma conferência rápida do nosso time.",
+      };
     }
 
     try {
@@ -46,22 +54,36 @@ export const checkCredit = createServerFn({ method: "POST" })
 
       if (!response.ok) {
         console.error(`[credito] Radar respondeu ${response.status}: ${await response.text()}`);
-        return { decision: "analise_manual", message: "Sua proposta vai passar por uma conferência rápida do nosso time." };
+        return {
+          decision: "analise_manual",
+          message: "Sua proposta vai passar por uma conferência rápida do nosso time.",
+        };
       }
 
-      const body = (await response.json()) as { resultado?: { score?: { valor?: number } | number } };
+      const body = (await response.json()) as {
+        resultado?: { score?: { valor?: number } | number };
+      };
       const raw = body.resultado?.score;
       const score = typeof raw === "number" ? raw : raw?.valor;
 
       if (typeof score !== "number") {
-        return { decision: "analise_manual", message: "Sua proposta vai passar por uma conferência rápida do nosso time." };
+        return {
+          decision: "analise_manual",
+          message: "Sua proposta vai passar por uma conferência rápida do nosso time.",
+        };
       }
       if (score >= SCORE_APROVACAO) {
         return { decision: "aprovado", message: "Análise aprovada. Vamos ao contrato." };
       }
-      return { decision: "analise_manual", message: "Precisamos de uma conferência do time antes de seguir - já vamos te chamar." };
+      return {
+        decision: "analise_manual",
+        message: "Precisamos de uma conferência do time antes de seguir - já vamos te chamar.",
+      };
     } catch (error) {
       console.error("[credito] Radar inalcançável:", error);
-      return { decision: "analise_manual", message: "Sua proposta vai passar por uma conferência rápida do nosso time." };
+      return {
+        decision: "analise_manual",
+        message: "Sua proposta vai passar por uma conferência rápida do nosso time.",
+      };
     }
   });

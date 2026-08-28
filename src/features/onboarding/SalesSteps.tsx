@@ -26,7 +26,9 @@ export function StepComo() {
           const Icon = ICONS[i] ?? Gauge;
           return (
             <div className="onb__pilar" key={p.t}>
-              <span className="onb__ico"><Icon size={20} /></span>
+              <span className="onb__ico">
+                <Icon size={20} />
+              </span>
               <span>
                 <b>{p.t}</b>
                 <span>{p.d}</span>
@@ -47,7 +49,9 @@ export function StepGarantias() {
       <div className="onb__pilares">
         {COMPROMISSOS.map((c) => (
           <div className="onb__pilar" key={c.titulo}>
-            <span className="onb__ico"><ShieldCheck size={20} /></span>
+            <span className="onb__ico">
+              <ShieldCheck size={20} />
+            </span>
             <span>
               <b>{c.titulo}</b>
               <span>{c.desc}</span>
@@ -59,7 +63,13 @@ export function StepGarantias() {
   );
 }
 
-export function StepOferta({ state, patch }: { state: OnboardingState; patch: (p: Partial<OnboardingState>) => void }) {
+export function StepOferta({
+  state,
+  patch,
+}: {
+  state: OnboardingState;
+  patch: (p: Partial<OnboardingState>) => void;
+}) {
   return (
     <>
       <h1>{OFERTA.title}</h1>
@@ -74,10 +84,17 @@ export function StepOferta({ state, patch }: { state: OnboardingState; patch: (p
             onClick={() => patch({ plano: plan.name })}
           >
             <span>
-              <b>{plan.name} · {plan.mega} Mega</b>
-              <span>{plan.wifi}{plan.watchTv ? " · Watch TV" : ""}</span>
+              <b>
+                {plan.name} · {plan.mega} Mega
+              </b>
+              <span>
+                {plan.wifi}
+                {plan.watchTv ? " · Watch TV" : ""}
+              </span>
             </span>
-            <em>R$ {plan.priceInt},{plan.priceCents}</em>
+            <em>
+              R$ {plan.priceInt},{plan.priceCents}
+            </em>
           </button>
         ))}
       </div>

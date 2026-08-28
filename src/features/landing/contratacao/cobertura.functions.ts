@@ -66,7 +66,8 @@ export const checkCoverage = createServerFn({ method: "POST" })
         return {
           ...empty,
           status: "nao_encontrado",
-          message: "Não encontrei esse CEP. Confere os números - ou siga assim mesmo que a gente confirma o endereço com você.",
+          message:
+            "Não encontrei esse CEP. Confere os números - ou siga assim mesmo que a gente confirma o endereço com você.",
         };
       }
       const cidade = String(body.localidade ?? "");
