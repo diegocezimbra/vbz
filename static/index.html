@@ -1431,9 +1431,12 @@ header .burger{border-color:hsl(0 0% 100% / .32);color:#fff}
       // reescreve corpo. Payload não é segredo - a CHAVE é.
       body: JSON.stringify({
         source: "landing-vbz",
-        // Idempotência por telefone + dia: quem clica duas vezes (ou recarrega e
-        // reenvia) não vira dois leads. O CRM responde 200 na repetição.
-        externalId: "landing-vbz-" + soDigitos(form.telefone.value) + "-" + new Date().toISOString().slice(0,10),
+        // externalId ÚNICO por envio: TODO clique no formulário vira lead (Diego,
+        // 27/08). A versão anterior deduplicava por telefone+dia e engolia em
+        // silêncio o 2º envio em diante — o CRM respondia 200, a tela dizia
+        // "recebemos", e não entrava nada. Quem preenche de novo com outro
+        // endereço ou outro plano está mandando informação nova, não repetindo.
+        externalId: "landing-vbz-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10),
         contact: {
           fullName: form.nome.value.trim(),
           phone: soDigitos(form.telefone.value),
