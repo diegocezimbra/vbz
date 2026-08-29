@@ -1429,13 +1429,13 @@ header .burger{border-color:hsl(0 0% 100% / .32);color:#fff}
           email: form.email.value.trim() || null
         },
         campaign: "Cobertura - landing",
-        // Endereço e CEP são CAMPO do lead no CRM desde 29/08 (antes iam em
-        // tag, onde nenhuma tela lia e nenhum filtro alcançava). O plano vai em
-        // description porque o campo de plano do CRM é FK de catálogo, e a
-        // landing só tem o nome que a pessoa clicou.
-        cep: form.cep.value.trim() || null,
-        enderecoCompleto: form.endereco.value.trim() || null,
-        description: form.plano.value ? "Plano de interesse: " + form.plano.value : null,
+        // Endereço, CEP e plano não são campos do inbound hoje; entram como tag
+        // (limite de 60 chars por tag no CRM) pra não se perderem.
+        tags: [
+          ("endereco:" + form.endereco.value.trim()).slice(0,60),
+          ("cep:" + form.cep.value.trim()).slice(0,60),
+          ("plano:" + (form.plano.value || "não informado")).slice(0,60)
+        ],
         landing: location.href,
         utm: {
           source: q.get("utm_source"), medium: q.get("utm_medium"),
