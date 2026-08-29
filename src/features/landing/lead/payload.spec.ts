@@ -17,29 +17,19 @@ describe("buildQualificouLead", () => {
     expect(lead.contact.phone).toBe("+5535998423386");
   });
 
-  it("usa externalId estável por telefone e dia - reenvio no mesmo dia é idempotente", () => {
+  it("cada envio é um lead: externalId nunca se repete", () => {
     const a = buildQualificouLead(form, { now: new Date("2026-08-18T09:00:00Z") });
-    const b = buildQualificouLead(form, { now: new Date("2026-08-18T22:30:00Z") });
-    const outroDia = buildQualificouLead(form, { now: new Date("2026-08-19T09:00:00Z") });
+    const b = buildQualificouLead(form, { now: new Date("2026-08-18T09:00:00Z") });
 
-    expect(a.externalId).toBe(b.externalId);
-    expect(outroDia.externalId).not.toBe(a.externalId);
+    expect(a.externalId).not.toBe(b.externalId);
   });
 
-  it("leva endereço e cidade em tags, porque o contrato .strict() não tem campo próprio", () => {
+  it("endereço e cidade vão em CAMPO do lead, não em tag", () => {
     const lead = buildQualificouLead(form, { now: new Date("2026-08-18T12:00:00Z") });
 
-    expect(lead.tags).toContain("endereco:Rua das Flores, 1234, apto 502");
-    expect(lead.tags).toContain("cidade:Pouso Alegre");
-  });
-
-  it("trunca tag em 60 chars - o CRM recusa acima disso e derrubaria o lead inteiro", () => {
-    const lead = buildQualificouLead(
-      { ...form, endereco: "A".repeat(200) },
-      { now: new Date("2026-08-18T12:00:00Z") },
-    );
-
-    for (const tag of lead.tags) expect(tag.length).toBeLessThanOrEqual(60);
+    expect(lead.enderecoCompleto).toBe("Rua das Flores, 1234, apto 502");
+    expect(lead.cidade).toBe("Pouso Alegre");
+    expect(lead.tags).toBeUndefined();
   });
 
   it("repassa utm e landing quando existirem", () => {

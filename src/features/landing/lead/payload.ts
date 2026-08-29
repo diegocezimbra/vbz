@@ -24,31 +24,24 @@ export interface BuildContext {
 
 /**
  * Corpo do `POST /api/v1/inbound/leads` do Qualificou. O contrato lá é `.strict()`:
- * chave desconhecida derruba o lead inteiro com 400 - por isso este tipo é fechado
- * e endereço/cidade viajam em `tags`, não em campo próprio.
+ * chave desconhecida derruba o lead inteiro com 400 - por isso este tipo é fechado.
+ * Endereço e cidade são campo próprio do lead desde 29/08 (antes iam em `tags`,
+ * onde nenhuma tela do CRM lia e nenhum filtro alcançava).
  */
 export interface QualificouLead {
   source: string;
   externalId: string;
   contact: { fullName: string; phone: string };
   campaign: string;
-  tags: string[];
+  enderecoCompleto?: string;
+  cidade?: string;
+  tags?: string[];
   landing?: string;
   utm?: Utm;
 }
 
 export const LEAD_SOURCE = "landing-vbz";
 export const LEAD_CAMPAIGN = "Viabilidade - landing";
-/** Limite por tag no contrato do CRM. Estourar derruba o lead, então trunca. */
-const TAG_MAX = 60;
-
-function tag(prefix: string, value: string): string {
-  return `${prefix}:${value}`.slice(0, TAG_MAX);
-}
-
-function isoDay(now: Date): string {
-  return now.toISOString().slice(0, 10);
-}
 
 function compactUtm(utm?: Utm): Utm | undefined {
   if (!utm) return undefined;
@@ -57,18 +50,21 @@ function compactUtm(utm?: Utm): Utm | undefined {
 }
 
 /**
- * `externalId` é `(telefone, dia)`: o inbound é idempotente por `(source, externalId)`,
- * então o mesmo visitante mandando o formulário duas vezes no mesmo dia vira UM lead -
- * e volta a abrir lead novo no dia seguinte, que é quando a repetição vira sinal real.
+ * `externalId` ÚNICO por envio (Diego, 27/08: "todo clique no formulário tem que
+ * virar lead"). O inbound é idempotente por `(source, externalId)`, então a versão
+ * anterior - `(telefone, dia)` - fazia o CRM responder `duplicate` do 2º envio do
+ * dia em diante: a tela dizia "recebemos" e não entrava nada. Quem preenche de
+ * novo com outro endereço ou outro plano está mandando informação nova.
  */
 export function buildQualificouLead(form: ViabilityForm, ctx: BuildContext): QualificouLead {
   const phone = phoneToE164(form.telefone);
   const lead: QualificouLead = {
     source: LEAD_SOURCE,
-    externalId: `${phone}-${isoDay(ctx.now)}`,
+    externalId: `${LEAD_SOURCE}-${ctx.now.getTime()}-${Math.random().toString(36).slice(2, 10)}`,
     contact: { fullName: form.nome.trim(), phone },
     campaign: LEAD_CAMPAIGN,
-    tags: [tag("endereco", form.endereco.trim()), tag("cidade", form.cidade.trim())],
+    enderecoCompleto: form.endereco.trim(),
+    cidade: form.cidade.trim(),
   };
   if (ctx.landing) lead.landing = ctx.landing;
   const utm = compactUtm(ctx.utm);
