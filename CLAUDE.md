@@ -75,6 +75,13 @@ embaralhava porque `.cmp` exige 3 colunas (dor | VS | resposta) com `.cmp-pair` 
 - **Lead do formulário:** `POST /api/lead` no próprio domínio; o Node acrescenta a chave
   do CRM (env `QUALIFICOU_INBOUND_*`). A chave NUNCA vai pro browser - numa landing
   pública ela viraria porta de entrada pra injetar lead na base.
+- **O contrato do CRM é `.strict()`: campo que ele não conhece derruba o lead inteiro
+  com 400.** Por isso, mudança de payload sai em DUAS entregas e nesta ordem: primeiro
+  a API do CRM passa a aceitar o campo E VAI PRO AR, só depois a landing começa a
+  mandar. Em 29/08 eu inverti - subi a landing mandando `cep`/`enderecoCompleto` antes
+  de deployar o CRM, e **todo lead da landing passou a tomar 400** até eu reverter.
+  A landing deploya sozinha no push; o CRM **não** (lá o deploy é `scripts/deploy-api.sh`),
+  então o push que parece inofensivo aqui é o que chega primeiro em produção.
 - **Cobertura:** `VBZ_COVERAGE_CITIES` casa por CIDADE. Incluir "São Paulo" faria a zona
   oeste receber "temos fibra aí" também - por isso a zona leste está fora até haver
   correspondência por bairro.
