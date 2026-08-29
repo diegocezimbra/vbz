@@ -703,9 +703,6 @@ header .burger{border-color:hsl(0 0% 100% / .32);color:#fff}
 .eyebrow{background:hsl(var(--rosa) / .12);border-color:hsl(var(--rosa) / .34);color:hsl(var(--rosa-escuro))}
 .slide-tag{color:hsl(var(--rosa-escuro))}
 
-/* `.q` e o cartao do FAQ. O paragrafo do depoimento usava a mesma classe e herdava
-   borda e fundo sem padding - texto colado na linha. Classe propria resolve. */
-.depo-texto{font-size:15px;line-height:1.65;color:hsl(var(--fg));margin:0 0 4px}
 
 /* Numero do passo DENTRO do cartao. O desenho herdado punha em position:absolute
    com top negativo, saltando pra fora da caixa. */
@@ -1090,19 +1087,6 @@ header .burger{border-color:hsl(0 0% 100% / .32);color:#fff}
   </div>
 </section>
 
-<section class="section" id="depoimentos">
-  <div class="wrap">
-    <div class="section-head center reveal">
-      <span class="eyebrow">Depoimentos</span>
-      <h2 style="margin-top:18px">O que quem já trocou fala da gente</h2>
-    </div>
-    <div class="grid g3">
-      <div class="card reveal"><p class="depo-texto">“Trocamos de provedor sem parar a operação. Chegou com a banda que está no contrato e o suporte responde no WhatsApp em minutos.”</p><div style="display:flex;align-items:center;gap:12px;margin-top:16px"><span class="ico ico-ok" style="width:38px;height:38px;font-weight:900">TI</span><span><b style="display:block;font-size:14px">Gerente de TI</b><span class="m" style="font-size:12.5px">Empresa · 80 colaboradores</span></span></div></div>
-      <div class="card reveal"><p class="depo-texto">“O que me pegou foi a instalação: hora marcada, cabo passado com capricho e o técnico só saiu depois de testar o WiFi no quarto dos fundos.”</p><div style="display:flex;align-items:center;gap:12px;margin-top:16px"><span class="ico ico-ok" style="width:38px;height:38px;font-weight:900">CR</span><span><b style="display:block;font-size:14px">Cliente residencial</b><span class="m" style="font-size:12.5px">Plano Infinit · 1000 Mega</span></span></div></div>
-      <div class="card reveal"><p class="depo-texto">“Antes eu reiniciava o roteador toda noite. Faz meses que não penso na internet - que é exatamente o que eu queria.”</p><div style="display:flex;align-items:center;gap:12px;margin-top:16px"><span class="ico ico-ok" style="width:38px;height:38px;font-weight:900">CS</span><span><b style="display:block;font-size:14px">Cliente residencial</b><span class="m" style="font-size:12.5px">Plano Home Office · 750 Mega</span></span></div></div>
-    </div>
-  </div>
-</section>
 
 <section class="section" id="faq" style="background:hsl(var(--muted) / .3)">
   <div class="wrap">

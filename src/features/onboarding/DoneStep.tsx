@@ -6,18 +6,13 @@ const TURNO_LABEL: Record<string, string> = { manha: "de manhã", tarde: "à tar
 
 /** Fecha o onboarding dizendo o que JÁ está feito e o que acontece a seguir. */
 export function StepPronto({ state, whatsapp }: { state: OnboardingState; whatsapp: string }) {
-  const emAnalise = state.credito === "analise_manual";
   const dia = state.instalacaoData ? state.instalacaoData.split("-").reverse().join("/") : "";
 
   return (
     <>
       <span className="onb__kicker">Contratação concluída</span>
       <h1>Pronto, {state.nome.split(" ")[0]}. Está tudo configurado.</h1>
-      <p className="onb__lead">
-        {emAnalise
-          ? "Seu contrato está assinado e a proposta passa por uma conferência rápida do nosso time antes da instalação."
-          : "Seu contrato está assinado e a instalação está agendada."}
-      </p>
+      <p className="onb__lead">Seu contrato está assinado e a instalação está agendada.</p>
 
       <div className="onb__pilares">
         <div className="onb__pilar">

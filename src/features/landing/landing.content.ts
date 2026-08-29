@@ -298,31 +298,6 @@ export const GARANTIA = {
   cta: "Receber a viabilidade do meu endereço",
 } as const;
 
-/** PENDENTE: depoimento real, com nome e cidade de cliente que autorizou o uso. */
-export const DEPOIMENTOS = [
-  {
-    texto:
-      "Trocamos de provedor sem parar a operação. O link chegou com a banda que está no contrato e o suporte responde no WhatsApp em minutos.",
-    quem: "Gerente de TI",
-    meta: "Empresa · 80 colaboradores",
-    iniciais: "TI",
-  },
-  {
-    texto:
-      "O que me pegou foi a instalação: hora marcada, cabo passado com capricho e o técnico só saiu depois de testar o Wi-Fi no quarto dos fundos.",
-    quem: "Cliente residencial",
-    meta: "Plano Ultra · 1 Giga",
-    iniciais: "CR",
-  },
-  {
-    texto:
-      "Antes eu reiniciava o roteador toda noite. Faz meses que não penso na internet - que é exatamente o que eu queria.",
-    quem: "Cliente residencial",
-    meta: "Plano Super · 700 Mega",
-    iniciais: "CS",
-  },
-] as const;
-
 export const FAQS = [
   {
     q: "A VBZ tem fidelidade ou multa contratual?",

@@ -146,38 +146,6 @@ export function StepTitular({ state, patch }: { state: OnboardingState; patch: P
   );
 }
 
-export function StepCredito({
-  state,
-  busy,
-  message,
-  onRun,
-}: {
-  state: OnboardingState;
-  busy: boolean;
-  message: string;
-  onRun: () => void;
-}) {
-  const tone = state.credito === "aprovado" ? "ok" : state.credito === "recusado" ? "bad" : "warn";
-  return (
-    <>
-      <h1>Análise de crédito</h1>
-      <p className="onb__lead">Consulta simples da contratação. Não tem custo pra você.</p>
-      {state.credito ? (
-        <div className={`lp-wiz__msg lp-wiz__msg--${tone}`}>{message}</div>
-      ) : (
-        <button
-          type="button"
-          className="lp-btn lp-btn--cta lp-btn--lg"
-          onClick={onRun}
-          disabled={busy}
-        >
-          {busy ? "Analisando…" : "Fazer análise"}
-        </button>
-      )}
-    </>
-  );
-}
-
 export function StepContrato({ state, patch }: { state: OnboardingState; patch: Patch }) {
   const endereco = `${state.logradouro}, ${state.numero}${state.complemento ? ` - ${state.complemento}` : ""}, ${state.bairro}, ${state.cidade}/${state.uf}, CEP ${state.cep}`;
   return (

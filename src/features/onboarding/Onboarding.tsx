@@ -3,14 +3,12 @@ import { ArrowLeft, MessageCircle } from "lucide-react";
 
 import vbzLogo from "@/assets/vbz-logo.png";
 import { checkCoverage } from "../landing/contratacao/cobertura.functions";
-import { checkCredit } from "../landing/contratacao/credito.functions";
 import { submitViability } from "../landing/lead/lead.functions";
 import { ASIDE, COMO, GARANTIAS, HOOK, OFERTA, ONB_WHATSAPP } from "./onboarding.config";
 import {
   StepCep,
   StepConta,
   StepContrato,
-  StepCredito,
   StepInstalacao,
   StepPagamento,
   StepTitular,
@@ -138,21 +136,6 @@ export function Onboarding() {
     }
   };
 
-  const onRunCredit = async () => {
-    setBusy(true);
-    try {
-      const r = await checkCredit({ data: { cpf: state.cpf, nome: state.nome } });
-      patch({ credito: r.decision });
-      setMessage(r.message);
-    } catch (error) {
-      console.error("[onboarding] análise de crédito falhou:", error);
-      patch({ credito: "analise_manual" });
-      setMessage("Sua proposta vai passar por uma conferência rápida do nosso time.");
-    } finally {
-      setBusy(false);
-    }
-  };
-
   const advance = () => {
     if (!canAdvance(step, state)) return;
     if (step === "conta") void mirrorLead(`onboarding - plano ${state.plano}`);
@@ -213,9 +196,6 @@ export function Onboarding() {
           )}
           {step === "conta" && <StepConta state={state} patch={patch} />}
           {step === "titular" && <StepTitular state={state} patch={patch} />}
-          {step === "credito" && (
-            <StepCredito state={state} busy={busy} message={message} onRun={onRunCredit} />
-          )}
           {step === "contrato" && <StepContrato state={state} patch={patch} />}
           {step === "pagamento" && <StepPagamento state={state} patch={patch} />}
           {step === "instalacao" && (

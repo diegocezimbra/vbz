@@ -22,7 +22,6 @@ const base = () => ({
   telefone: "(35) 99842-3386",
   cpf: "529.982.247-25",
   nascimento: "1990-04-12",
-  credito: "aprovado" as const,
   aceite: true,
   assinatura: "Maria de Souza",
 });
@@ -32,6 +31,12 @@ describe("onboarding VBZ", () => {
     expect(ONB_STEPS.slice(0, 4)).toEqual(["hook", "como", "garantias", "oferta"]);
     expect(isSalesStep("como")).toBe(true);
     expect(isSalesStep("conta")).toBe(false);
+  });
+
+  it("não consulta crédito: do titular vai direto pro contrato", () => {
+    expect(ONB_STEPS).not.toContain("credito");
+    expect(nextOnb("titular")).toBe("contrato");
+    expect(prevOnb("contrato")).toBe("titular");
   });
 
   it("termina configurado, não no contrato", () => {

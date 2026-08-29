@@ -9,7 +9,6 @@ export const ONB_STEPS = [
   "cep",
   "conta",
   "titular",
-  "credito",
   "contrato",
   "pagamento",
   "instalacao",
@@ -46,7 +45,6 @@ export interface OnboardingState {
   telefone: string;
   cpf: string;
   nascimento: string;
-  credito: "aprovado" | "analise_manual" | "recusado" | null;
   aceite: boolean;
   assinatura: string;
   pagamento: FormaPagamento;
@@ -79,7 +77,6 @@ export function emptyOnboarding(): OnboardingState {
     telefone: "",
     cpf: "",
     nascimento: "",
-    credito: null,
     aceite: false,
     assinatura: "",
     pagamento: "",
@@ -117,8 +114,6 @@ export function canAdvance(step: OnbStep, s: OnboardingState): boolean {
       );
     case "titular":
       return isValidCPF(s.cpf) && /^\d{4}-\d{2}-\d{2}$/.test(s.nascimento);
-    case "credito":
-      return s.credito === "aprovado" || s.credito === "analise_manual";
     case "contrato":
       return s.aceite && s.assinatura.length > 0 && normalize(s.assinatura) === normalize(s.nome);
     case "pagamento":
