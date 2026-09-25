@@ -1,0 +1,154 @@
+# vbz-landing-nova — gerado a partir de ohanax-ci/templates/node.yml (plugin v3). Plano: tzo-company/cenvia
+#   docs/refactors/ci-cd-build-fora-de-producao.md (fluxo "subidas independentes por branch").
+#
+#   push na main  → árvore de ./ já aprovada? promove o MESMO digest para PROD;
+#                        senão portões → imagem → scan → publica → PROD
+#   Deploy na UI     → redeploy do digest daquele commit (rollback)
+#   Toda promoção: trilha no Loki antes de mudar (fail-closed); em PROD, backup do banco antes.
+#
+# Segredos GLOBAIS do Woodpecker: ghcr_user, ghcr_token, coolify_dev_token, coolify_prod_token
+# (visíveis só para a imagem do plugin ohanax-ci).
+
+when:
+  - event: [push, manual]
+    branch: [main]
+    # PATHS: o que entra na imagem. Pasta única: 'backend/**'. Monorepo: a pasta do app + os pacotes
+    # compartilhados + lockfile/Dockerfile da raiz — senão mudança num pacote não reconstrói o app.
+    path: { include: ['static/**', 'src/**', 'server-entry.mjs', 'server-static.mjs', 'Dockerfile', '.dockerignore', 'package.json', 'package-lock.json', 'vite.config.ts', 'tsconfig.json', '.woodpecker/vbz-landing-nova.yml'] }
+  - event: deployment
+    branch: main
+
+# Clone sem submódulos: nenhum app do parque usa, e um gitlink órfão no repositório (o ispipe tem
+# um de worktree antigo, sem .gitmodules) derruba o clone padrão, que inicializa submódulos.
+clone:
+  - name: clone
+    image: woodpeckerci/plugin-git:2.10.0
+    settings:
+      recursive: false
+
+variables:
+  - &ci ghcr.io/diegocezimbra/ohanax-ci:3
+  # Mesma imagem node do estágio de build do Dockerfile: portão em outra versão prova outro runtime.
+  - &node node:22-alpine
+  - &build_events [{ event: [push, manual] }]
+  - &sock /run/user/1000/docker.sock:/var/run/docker.sock
+  - &skip_on_reuse 'if [ -f .ci/reuse ]; then echo "árvore já aprovada — reaproveitada"; exit 0; fi'
+  - &registry
+    image: ghcr.io/diegocezimbra/vbz-landing-nova
+    registry_user: { from_secret: ghcr_user }
+    registry_token: { from_secret: ghcr_token }
+
+steps:
+  - name: identity
+    image: *ci
+    when: *build_events
+    volumes: [*sock]
+    settings: { action: identity, context: ., <<: *registry }
+
+  # Segredos (C7). BLOQUEIA no que vira imagem — a pasta do app, com o .gitleaks.toml e o
+  # .gitleaksignore da RAIZ. O repositório inteiro é varrido também, SEM bloquear: dívida antiga
+  # fora do app não segura a migração, mas aparece em todo pipeline até ser tratada.
+  - name: gitleaks
+    image: zricethezav/gitleaks:v8.21.2
+    when: *build_events
+    # SECRETS: pastas que entram na imagem, separadas por espaço (`$$p` chega ao shell como `$p`).
+    commands:
+      - |-
+        for p in .; do gitleaks detect --no-git --source "$$p" --redact --no-banner --gitleaks-ignore-path . $([ -f .gitleaks.toml ] && echo --config .gitleaks.toml) || exit 1; done
+
+  - name: gitleaks-repo
+    image: zricethezav/gitleaks:v8.21.2
+    when: *build_events
+    failure: ignore
+    commands:
+      - gitleaks detect --no-git --source . --redact --no-banner
+
+  - name: deps
+    image: *node
+    when: *build_events
+    volumes: ['/home/ciagent/.npm:/root/.npm']
+    commands:
+      - *skip_on_reuse
+      - |-
+        cd . && npm ci --no-audit --no-fund
+
+  - name: lint
+    image: *node
+    when: *build_events
+    commands:
+      - *skip_on_reuse
+      - |-
+        cd . && npm run lint
+
+  # Workers do runner = teto de CPU do CI (8) − 2: o pai, o GC e o daemon dividem o mesmo teto, e
+  # com workers = teto o kernel congela o grupo (medido: teste de 16 ms estourando 5 s). O cache do
+  # transpilador persiste entre execuções — a compilação dos testes é o grosso do tempo.
+  - name: tests
+    image: *node
+    when: *build_events
+    volumes: ['/home/ciagent/.cache/jest:/cache/jest']
+    commands:
+      - *skip_on_reuse
+      - |-
+        cd . && npm test
+
+  - name: sca
+    image: *node
+    when: *build_events
+    commands:
+      - *skip_on_reuse
+      - |-
+        cd . && npm audit --omit=dev --audit-level=high
+
+  - name: image
+    image: docker:27-cli
+    when: *build_events
+    volumes: [*sock]
+    commands:
+      - *skip_on_reuse
+      - docker build --build-arg VITE_SENTRY_DSN=https://65e0a24e01f64c0499b2695b61bc7e7b@glitchtip.ohanax.com/22 --label org.opencontainers.image.revision=$CI_COMMIT_SHA
+          --label ohanax.tree=$(cat .ci/tree) -f Dockerfile -t ghcr.io/diegocezimbra/vbz-landing-nova:$CI_COMMIT_SHA .
+
+  - name: scan
+    image: aquasec/trivy:0.65.0
+    when: *build_events
+    volumes: [*sock, '/home/ciagent/.cache/trivy:/root/.cache/trivy']
+    commands:
+      - *skip_on_reuse
+      - trivy image --image-src docker --exit-code 1 --severity CRITICAL,HIGH --ignore-unfixed
+          --scanners vuln ghcr.io/diegocezimbra/vbz-landing-nova:$CI_COMMIT_SHA
+      - trivy image --image-src docker --format cyclonedx --output .ci/sbom.cdx.json
+          ghcr.io/diegocezimbra/vbz-landing-nova:$CI_COMMIT_SHA
+
+  - name: publish
+    image: *ci
+    when: *build_events
+    volumes: [*sock]
+    settings: { action: publish, <<: *registry,
+                cosign_key: { from_secret: cosign_key }, cosign_password: { from_secret: cosign_password } }
+
+  # DEV_ONLY=true: app que só existe no DEV (ex.: storybook) — sem passos de produção.
+  - name: resolve-digest
+    image: *ci
+    when: [{ event: deployment, branch: main }]
+    volumes: [*sock]
+    settings: { action: resolve, <<: *registry }
+
+  # backup_*: banco do app no Coolify e a configuração de backup (desligada) que só este passo
+  # dispara. App sem banco escreve 'none' nos dois — esquecer não é opção, o plugin recusa.
+  # COMPOSE=true (app `dockercompose` do Coolify): o digest entra na variável DIGEST_<SERVIÇO>,
+  # que o compose do repositório interpola na imagem — ver README, "App compose".
+  - name: promote-prod
+    image: *ci
+    when: [{ event: [push, manual, deployment], branch: main }]
+    settings:
+      action: promote
+      environment: prod
+      image: ghcr.io/diegocezimbra/vbz-landing-nova
+      app_uuid: z14oa5ig778e5ol4ige1h0dv
+      health_url: https://vbz.com.br/
+      backup_db_uuid: none
+      backup_uuid: none
+      coolify_token: { from_secret: coolify_prod_token }
+      registry_user: { from_secret: ghcr_user }
+      registry_token: { from_secret: ghcr_token }

@@ -1,0 +1,14 @@
+# O estágio builder faz o próprio `npm ci` e `npm run build`: o node_modules/dist que o passo `deps`
+# da CI (ou quem builda local) deixa na pasta não pode sobrescrever o que ele instalou no `COPY . .`.
+node_modules
+dist
+coverage
+.output
+.nitro
+.tanstack
+.git
+.woodpecker
+# Variáveis locais nunca entram na imagem por engano (o .env.example é só documentação).
+.env
+.env.*
+!.env.example
