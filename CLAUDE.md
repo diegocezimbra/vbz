@@ -104,6 +104,33 @@ Cobre **todo** container automaticamente, sem instrumentar nada no código.
 
 ```bash
 # ultimas linhas deste projeto (janela de 1h)
+
+<!-- ci-guard:start -->
+## 🚨 DEPLOY SÓ PELA CI (Woodpecker) — nunca voltar a construir no servidor
+
+Este repositório sobe pela CI própria: `https://ci.ohanax.com`, repo `diegocezimbra/vbz`, workflows em
+`.woodpecker/`. A CI constrói no servidor de DEV, roda os portões (testes, lint, gitleaks, audit,
+Trivy), assina a imagem e promove o **digest** para o app do Coolify, com backup do banco antes e
+trilha no Loki (`{app="ohanax-ci-deploys"}`). Produção só PUXA imagem.
+
+| workflow | ambiente | app no Coolify |
+|---|---|---|
+| `vbz-landing-nova.yml` | prod | `11-vbz-landing-nova-prod` · `z14oa5ig778e5ol4ige1h0dv` |
+
+- **Subir**: push na `main` → PROD; acompanhe o pipeline até o fim. **Forçar**: *Run
+  pipeline* no Woodpecker. **Rollback**: pipeline verde anterior → *Deploy* (redeploy do digest).
+- **CI vermelha → conserte a causa e empurre de novo.** App da tabela em `build_pack=dockerimage`
+  NUNCA volta para `dockerfile`, nunca religa o auto-deploy e nunca é construído pelo Coolify
+  (botão Deploy, webhook, `/api/v1/deploy`). Regra absoluta do `00-projetos/CLAUDE.md`: em 26/09/2026
+  o backend do Cenvia voltou a ser construído no servidor de produção exatamente assim, sem
+  portões nem trilha. O alerta `AppForaDaCI` dispara em até 30 min.
+- App da tabela que o Coolify ainda mostra em `dockerfile` está **no meio do corte**: os portões já
+  rodam, a promoção passa a valer depois do corte. Estado app a app:
+  `01-ohanax/13-chatomnichannel/docs/refactors/ci-cd-build-fora-de-producao-ondas.md`.
+- Instrução mais abaixo neste arquivo que mande fazer deploy pelo Coolify vale **só** para app fora
+  da tabela.
+<!-- ci-guard:end -->
+
 curl -s -u "$OBS_AUTH" -G 'https://loki.ohanax.com/loki/api/v1/query_range' \
   --data-urlencode 'query={app="vbz-landing"}' \
   --data-urlencode 'limit=100' \
