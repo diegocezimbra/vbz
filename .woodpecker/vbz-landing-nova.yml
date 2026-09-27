@@ -25,6 +25,11 @@ clone:
     image: woodpeckerci/plugin-git:2.10.0
     settings:
       recursive: false
+      # Credencial PRÓPRIA do clone, que não vence. A que o Woodpecker injeta é o token do
+      # forge (GitHub App, 8 h), gravado no pipeline quando ele ENTRA NA FILA: com a fila
+      # serial e longa, quem atravessa a renovação morre em "could not read Username".
+      username: { from_secret: clone_user }
+      password: { from_secret: clone_token }
 
 variables:
   - &ci ghcr.io/diegocezimbra/ohanax-ci:3
