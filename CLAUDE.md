@@ -105,6 +105,15 @@ Cobre **todo** container automaticamente, sem instrumentar nada no código.
 ```bash
 # ultimas linhas deste projeto (janela de 1h)
 
+## 🚨 REGRA ABSOLUTA — TUDO entra na `develop` por PULL REQUEST (Diego, 28/09/2026)
+
+Nenhum commit chega à `develop` (ou à branch padrão, onde não existe `develop`) por push direto: branch `task/<CARD-ID>-<slug>`
+em worktree própria → **Pull Request** → revisão → `gh pr merge` com GO do DEUS. `develop` → `main` também é PR; hotfix não
+é exceção. O hook global `deus-guard` barra `git push origin develop` em toda sessão desta máquina, sem exceção. Regra
+completa e o porquê: `~/Documents/00-projetos/CLAUDE.md` (seção "TUDO entra na develop por PULL REQUEST") e
+`~/Documents/00-projetos/00-DEUS/PROTOCOLO.md` §3.
+
+
 <!-- ci-guard:start -->
 ## 🚨 DEPLOY SÓ PELA CI (Woodpecker) — nunca voltar a construir no servidor
 
