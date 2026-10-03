@@ -288,7 +288,7 @@ function Footer() {
                 {c.l.map((i) => {
                   let href = "#";
                   if (i.includes("WhatsApp")) href = CONTACT_WHATSAPP_URL;
-                  else if (i.includes("0800")) href = CONTACT_PHONE_TEL;
+                  else if (i.includes(CONTACT_PHONE_LABEL)) href = CONTACT_PHONE_TEL;
                   else if (i.includes("Termo")) href = "/termo-consentimento";
                   return (
                     <li key={i}>
