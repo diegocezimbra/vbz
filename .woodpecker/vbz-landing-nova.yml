@@ -150,7 +150,10 @@ steps:
       action: promote
       environment: prod
       image: ghcr.io/diegocezimbra/vbz-landing-nova
-      app_uuid: z14oa5ig778e5ol4ige1h0dv
+      # 11-vbz-landing-nova-prod-dev95 (servidor localhost, 95.111): é ele que serve vbz.com.br. O antigo
+      # 11-vbz-landing-nova-prod (z14oa5i…) mora no prod-tzo, que o Coolify marca como não funcional:
+      # promover ali falha, o rollback também, e a imagem corrigida não chega ao que está no ar (CARD-1193).
+      app_uuid: ngzfcyw44ndsbl6ebacjxtda
       health_url: https://vbz.com.br/
       backup_db_uuid: none
       backup_uuid: none
